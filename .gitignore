@@ -1,0 +1,13 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+logs/
+target/
+
+# FXGL #
+/saves
+profiles/
+system/
