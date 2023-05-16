@@ -32,6 +32,10 @@ public class LudoGameApp extends GameApplication {
     @Override
     protected void initUI() {
 
+        setBackground();
+    }
+
+    private void setBackground(){
         var clouds = FXGL.getAssetLoader().loadTexture("Clouds V2.png");
 
         clouds.setFitHeight(600);
