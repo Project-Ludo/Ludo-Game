@@ -5,6 +5,7 @@ import com.almasb.fxgl.entity.Spawns;
 import javafx.scene.shape.Rectangle;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.sun.marlin.MarlinConst.BLOCK_SIZE;
 
 public class LudoFactory implements EntityFactory {
 
