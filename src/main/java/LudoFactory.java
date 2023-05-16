@@ -17,4 +17,38 @@ public class LudoFactory implements EntityFactory {
                 .build();
     }
 
+    @Spawns("_")
+    public Entity spawnBG(SpawnData data){
+        return entityBuilder()
+                .type(EntityType.BACKGROUND)
+                .view(new Rectangle(0,0,BLOCK_SIZE, BLOCK_SIZE))
+                .build();
+    }
+
+    @Spawns("|")
+    public Entity spawnFinishPlatform(SpawnData data){
+        return entityBuilder()
+                .type(EntityType.FINISH_CELL)
+                .view(new Rectangle(0,0,BLOCK_SIZE, BLOCK_SIZE))
+                .build();
+    }
+
+    @Spawns("S")
+    public Entity spawnSpawnPoint(SpawnData data){
+        return entityBuilder()
+                .type(EntityType.SPAWN_POINT)
+                .view(new Rectangle(0,0,BLOCK_SIZE, BLOCK_SIZE))
+                .build();
+    }
+
+    @Spawns("Player")
+    public Entity spawnPlayer(SpawnData data){
+        return entityBuilder()
+                .type(EntityType.PLAYER)
+                .view(new Rectangle(0,0,BLOCK_SIZE, BLOCK_SIZE))
+                .build();
+    }
+
+
+
 }
