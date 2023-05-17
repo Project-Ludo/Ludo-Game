@@ -4,9 +4,9 @@ _PP___P|S___PP_
 ______P|P______
 ______P|P______
 ______P|P______
-_PSPPPP|PPPPPP_
+_PSPPPP_PPPPPP_
 _P||||___||||P_
-_PPPPPP|PPPPSP_
+_PPPPPP_PPPPSP_
 ______P|P______
 ______P|P______
 ______P|P______
