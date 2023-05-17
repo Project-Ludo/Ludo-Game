@@ -40,7 +40,7 @@ public class LudoGameApp extends GameApplication {
         for (int i = 0; i < getGameWorld().getEntities().size(); i++) {
             Point2D point2D = getGameWorld().getEntities().get(i).getAnchoredPosition();
             getGameWorld().getEntities().get(i).setPosition(point2D.getX() + 160, point2D.getY() + 60);
-            System.out.println(getGameWorld().getEntities().get(i));
+            //System.out.println(getGameWorld().getEntities().get(i));
         }
 
         grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> {
@@ -66,7 +66,6 @@ public class LudoGameApp extends GameApplication {
         clouds.setFitWidth(800);
 
         getGameScene().setBackgroundColor(Color.LIGHTBLUE);
-//        getGameScene().setBackgroundRepeat(clouds);
         GameView gameView = new GameView(clouds, -1);
         getGameScene().addGameView(gameView);
     }
