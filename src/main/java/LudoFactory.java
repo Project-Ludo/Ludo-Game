@@ -1,8 +1,12 @@
+import Components.AnimationComponent;
 import EntityTypePackage.EntityType;
+import EntityTypePackage.PlayerType;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
+import com.almasb.fxgl.physics.BoundingShape;
+import com.almasb.fxgl.physics.HitBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -43,10 +47,11 @@ public class LudoFactory implements EntityFactory {
     }
 
     @Spawns("Player")
-    public Entity spawnPlayer(SpawnData data){
+    public Entity spawnPlayer(SpawnData data, PlayerType playerType){
         return entityBuilder(data)
                 .type(EntityType.PLAYER)
-                .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.LIGHTCORAL))
+                .with(new AnimationComponent(playerType))
+                .bbox(new HitBox(BoundingShape.box(32,32)))
                 .build();
     }
 
