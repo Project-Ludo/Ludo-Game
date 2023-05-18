@@ -63,6 +63,11 @@ public class LudoGameApp extends GameApplication {
             e.setVisible(false);
         });
 
+        spawnPlayersPawn(ludoFactory);
+
+    }
+
+    private void spawnPlayersPawn(LudoFactory ludoFactory) {
         List<Entity> bluePlayers = new ArrayList<>();
         bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_RED_V1), PlayerType.RED_PLAYER));
         bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_RED_V2), PlayerType.RED_PLAYER));
@@ -92,7 +97,6 @@ public class LudoGameApp extends GameApplication {
             animationComponent.setAnimatedTexture();
             getGameWorld().addEntity(player);
         }
-
     }
 
     @Override
