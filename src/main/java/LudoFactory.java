@@ -10,6 +10,8 @@ import com.almasb.fxgl.physics.HitBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.function.Consumer;
+
 import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class LudoFactory implements EntityFactory {
@@ -51,6 +53,10 @@ public class LudoFactory implements EntityFactory {
         return entityBuilder(data)
                 .type(EntityType.PLAYER)
                 .with(new AnimationComponent(playerType))
+                .onClick(entity -> {
+                    AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
+                    animationComponent.changeAnimation();
+                })
                 .bbox(new HitBox(BoundingShape.box(32,32)))
                 .build();
     }
