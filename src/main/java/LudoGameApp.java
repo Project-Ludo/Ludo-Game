@@ -17,6 +17,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 public class LudoGameApp extends GameApplication {
 
     private AStarGrid grid;
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(Config.MAP_WIDTH);
@@ -26,11 +27,9 @@ public class LudoGameApp extends GameApplication {
 
     @Override
     protected void initGame() {
-
-        getGameWorld().addEntityFactory(new LudoFactory());
-
         Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
         getGameWorld().setLevel(level);
+        getGameWorld().addEntityFactory(new LudoFactory());
 
         //TODO To fixed looking like shit
         for (int i = 0; i < getGameWorld().getEntities().size(); i++) {
@@ -38,15 +37,10 @@ public class LudoGameApp extends GameApplication {
             getGameWorld().getEntities().get(i).setPosition(point2D.getX() + 160, point2D.getY() + 60);
         }
 
-        grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> {
-            return CellState.NOT_WALKABLE;
-        });
+        this.grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> CellState.NOT_WALKABLE);
 
         List<Entity> entityList = getGameWorld().getEntitiesByType(EntityType.BACKGROUND);
-        entityList.forEach(e -> {
-            e.setVisible(false);
-        });
-
+        entityList.forEach(e -> e.setVisible(false));
     }
 
     @Override
@@ -54,9 +48,8 @@ public class LudoGameApp extends GameApplication {
         setBackground();
     }
 
-    private void setBackground(){
+    private void setBackground() {
         var clouds = FXGL.getAssetLoader().loadTexture("/background/Clouds V2/Clouds V2.png");
-
         clouds.setFitHeight(600);
         clouds.setFitWidth(800);
 
@@ -64,7 +57,6 @@ public class LudoGameApp extends GameApplication {
         GameView gameView = new GameView(clouds, -1);
         getGameScene().addGameView(gameView);
     }
-
 
     public static void main(String[] args) {
         launch(args);
