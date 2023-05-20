@@ -5,7 +5,7 @@ import com.almasb.fxgl.entity.Spawns;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 
 public class LudoFactory implements EntityFactory {
 

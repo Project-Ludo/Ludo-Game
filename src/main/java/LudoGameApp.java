@@ -12,7 +12,9 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class LudoGameApp extends GameApplication {
 
