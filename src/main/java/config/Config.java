@@ -34,7 +34,7 @@ public final class Config {
     public static final Point2D SPAWN_POINT_RED_V3 = new Point2D(START_SPAWN_POINT_X_V1 + BLOCK_SIZE, START_SPAWN_POINT_Y_V1 + BLOCK_SIZE);
     public static final Point2D SPAWN_POINT_RED_V4 = new Point2D(START_SPAWN_POINT_X_V1 + BLOCK_SIZE, START_SPAWN_POINT_Y_V1);
     public static final List<Point2D> SPAWN_POINTS_RED = List.of(SPAWN_POINT_RED_V1, SPAWN_POINT_RED_V2, SPAWN_POINT_RED_V3, SPAWN_POINT_RED_V4);
-    public static final Image RED_STAY_IMG = FXGL.getAssetLoader().loadImage("player/1 Pink_Monster/Pink_Monster_Attack2_6.png");
+    public static final Image RED_IDLE_IMG = FXGL.getAssetLoader().loadImage("player/1 Pink_Monster/Pink_Monster_Idle_7.png");
     public static final Image RED_RUN_IMG = FXGL.getAssetLoader().loadImage("player/1 Pink_Monster/Pink_Monster_Run_6.png");
 
     //Blue Player
@@ -43,7 +43,7 @@ public final class Config {
     public static final Point2D SPAWN_POINT_BLUE_V3 = new Point2D(START_SPAWN_POINT_X_V2, START_SPAWN_POINT_Y_V1 + BLOCK_SIZE);
     public static final Point2D SPAWN_POINT_BLUE_V4 = new Point2D(START_SPAWN_POINT_X_V2, START_SPAWN_POINT_Y_V1);
     public static final List<Point2D> SPAWN_POINTS_BLUE = List.of(SPAWN_POINT_BLUE_V1, SPAWN_POINT_BLUE_V2, SPAWN_POINT_BLUE_V3, SPAWN_POINT_BLUE_V4);
-    public static final Image BLUE_STAY_IMG = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Attack2_6.png");
+    public static final Image BLUE_IDLE_IMG = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Idle_7.png");
     public static final Image BLUE_RUN_IMG = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
 
     //Yellow Player
@@ -52,7 +52,7 @@ public final class Config {
     public static final Point2D SPAWN_POINT_YELLOW_V3 = new Point2D(START_SPAWN_POINT_X_V2, START_SPAWN_POINT_Y_V2 + BLOCK_SIZE);
     public static final Point2D SPAWN_POINT_YELLOW_V4 = new Point2D(START_SPAWN_POINT_X_V2, START_SPAWN_POINT_Y_V2);
     public static final List<Point2D> SPAWN_POINTS_YELLOW = List.of(SPAWN_POINT_YELLOW_V1, SPAWN_POINT_YELLOW_V2, SPAWN_POINT_YELLOW_V3, SPAWN_POINT_YELLOW_V4);
-    public static final Image YELLOW_STAY_IMG = FXGL.getAssetLoader().loadImage("player/2 Owlet_Monster/Owlet_Monster_Attack2_6.png");
+    public static final Image YELLOW_IDLE_IMG = FXGL.getAssetLoader().loadImage("player/2 Owlet_Monster/Owlet_Monster_Idle_7.png");
     public static final Image YELLOW_RUN_IMG = FXGL.getAssetLoader().loadImage("player/2 Owlet_Monster/Owlet_Monster_Run_6.png");
 
     //Green Player
@@ -61,7 +61,7 @@ public final class Config {
     public static final Point2D SPAWN_POINT_GREEN_V3 = new Point2D(START_SPAWN_POINT_X_V1 + BLOCK_SIZE, START_SPAWN_POINT_Y_V2 + BLOCK_SIZE);
     public static final Point2D SPAWN_POINT_GREEN_V4 = new Point2D(START_SPAWN_POINT_X_V1 + BLOCK_SIZE, START_SPAWN_POINT_Y_V2);
     public static final List<Point2D> SPAWN_POINTS_GREEN = List.of(SPAWN_POINT_GREEN_V1, SPAWN_POINT_GREEN_V2, SPAWN_POINT_GREEN_V3, SPAWN_POINT_GREEN_V4);
-    public static final Image GREEN_STAY_IMG = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster.png");
+    public static final Image GREEN_IDLE_IMG = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Idle_7.png");
     public static final Image GREEN_RUN_IMG = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
 
 }

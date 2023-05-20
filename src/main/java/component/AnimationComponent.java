@@ -9,12 +9,12 @@ import javafx.util.Duration;
 public class AnimationComponent extends Component {
 
     private final AnimatedTexture animatedTexture;
-    private final AnimationChannel animChannelRun, animChannelStay;
+    private final AnimationChannel animChannelRun, animChannelIdle;
 
     public AnimationComponent(PlayerType playerType) {
-        this.animChannelStay = new AnimationChannel(playerType.stayImage, 6, 32, 32, Duration.seconds(1), 1, 1);
+        this.animChannelIdle = new AnimationChannel(playerType.idleImage, 7, 32, 32, Duration.seconds(2), 1, 6);
         this.animChannelRun = new AnimationChannel(playerType.runImage, 6, 32, 32, Duration.seconds(1), 1, 5);
-        this.animatedTexture = new AnimatedTexture(animChannelStay);
+        this.animatedTexture = new AnimatedTexture(animChannelIdle);
         animatedTexture.loop();
     }
 
@@ -26,16 +26,16 @@ public class AnimationComponent extends Component {
         animatedTexture.loopAnimationChannel(animChannelRun);
     }
 
-    public void setAnimatedTextureStay() {
+    public void setAnimatedTextureIdle() {
         if (entity == null) {
             return;
         }
 
-        animatedTexture.loopAnimationChannel(animChannelStay);
+        animatedTexture.loopAnimationChannel(animChannelIdle);
     }
 
     public void switchAnimation() {
-        animatedTexture.loopAnimationChannel(animatedTexture.getAnimationChannel() == animChannelRun ? animChannelStay : animChannelRun);
+        animatedTexture.loopAnimationChannel(animatedTexture.getAnimationChannel() == animChannelRun ? animChannelIdle : animChannelRun);
     }
 
     @Override

@@ -69,7 +69,7 @@ public class LudoGameApp extends GameApplication {
 
         players.forEach(player -> {
             AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
-            animationComponent.setAnimatedTextureRun();
+            animationComponent.setAnimatedTextureIdle();
             getGameWorld().addEntity(player);
         });
     }
