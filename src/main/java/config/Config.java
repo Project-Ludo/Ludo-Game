@@ -6,7 +6,11 @@ import javafx.scene.image.Image;
 
 import java.util.List;
 
-public class Config {
+public final class Config {
+
+    private Config() {
+    }
+
     public static final int BLOCK_SIZE = 35;
     public static final int MAP_SIZE = 15;
     public static final int MAP_WIDTH = 1000;
