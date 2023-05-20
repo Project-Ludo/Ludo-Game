@@ -64,13 +64,13 @@ public class AnimationComponent extends Component {
                 break;
             }
             case GREEN_PLAYER: {
-                imageStay = new Image("player/3 Dude_Monster/Dude_Monster.png");
-                imageRun = new Image("player/3 Dude_Monster/Dude_Monster_Run_6.png");
+                imageStay = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster.png");
+                imageRun = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
                 break;
             }
             default:
-                imageStay = new Image("player/3 Dude_Monster/Dude_Monster.png");
-                imageRun = new Image("player/3 Dude_Monster/Dude_Monster_Run_6.png");
+                imageStay = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster.png");
+                imageRun = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
         }
 
         animChannelStay = new AnimationChannel(

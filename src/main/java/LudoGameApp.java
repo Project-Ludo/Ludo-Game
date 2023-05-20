@@ -59,35 +59,17 @@ public class LudoGameApp extends GameApplication {
     }
 
     private void spawnPlayersPawn(LudoFactory ludoFactory) {
-        List<Entity> bluePlayers = new ArrayList<>();
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_RED_V1), PlayerType.RED_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_RED_V2), PlayerType.RED_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_RED_V3), PlayerType.RED_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_RED_V4), PlayerType.RED_PLAYER));
+        List<Entity> players = new ArrayList<>();
+        Config.SPAWN_POINTS_RED.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.RED_PLAYER)));
+        Config.SPAWN_POINTS_BLUE.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.BLUE_PLAYER)));
+        Config.SPAWN_POINTS_YELLOW.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.YEllOW_PLAYER)));
+        Config.SPAWN_POINTS_GREEN.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.GREEN_PLAYER)));
 
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_BLUE_V1), PlayerType.BLUE_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_BLUE_V2), PlayerType.BLUE_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_BLUE_V3), PlayerType.BLUE_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_BLUE_V4), PlayerType.BLUE_PLAYER));
-
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_YELLOW_V1), PlayerType.YEllOW_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_YELLOW_V2), PlayerType.YEllOW_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_YELLOW_V3), PlayerType.YEllOW_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_YELLOW_V4), PlayerType.YEllOW_PLAYER));
-
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_GREEN_V1), PlayerType.BLUE_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_GREEN_V2), PlayerType.BLUE_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_GREEN_V3), PlayerType.BLUE_PLAYER));
-        bluePlayers.add(ludoFactory.spawnPlayer(new SpawnData(Config.SPAWN_POINT_GREEN_V4), PlayerType.BLUE_PLAYER));
-
-
-        int number = 1;
-        for (Entity player :
-                bluePlayers) {
+        players.forEach(player -> {
             AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
             animationComponent.setAnimatedTextureRun();
             getGameWorld().addEntity(player);
-        }
+        });
     }
 
     public static void main(String[] args) {
