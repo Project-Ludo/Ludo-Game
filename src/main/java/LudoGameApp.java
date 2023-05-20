@@ -29,9 +29,9 @@ public class LudoGameApp extends GameApplication {
 
     @Override
     protected void initGame() {
+        getGameWorld().addEntityFactory(new LudoFactory());
         Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
         getGameWorld().setLevel(level);
-        getGameWorld().addEntityFactory(new LudoFactory());
 
         //TODO To fixed looking like shit
         for (int i = 0; i < getGameWorld().getEntities().size(); i++) {
