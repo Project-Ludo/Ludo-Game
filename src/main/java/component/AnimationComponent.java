@@ -1,21 +1,20 @@
 package component;
 
 import type.PlayerType;
-import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class AnimationComponent extends Component {
 
-    private AnimatedTexture animatedTexture;
-    private AnimationChannel animChannelRun, animChannelStay;
+    private final AnimatedTexture animatedTexture;
+    private final AnimationChannel animChannelRun, animChannelStay;
 
     public AnimationComponent(PlayerType playerType) {
-        initImage(playerType);
-        animatedTexture = new AnimatedTexture(animChannelStay);
+        this.animChannelStay = new AnimationChannel(playerType.stayImage, 6, 32, 32, Duration.seconds(1), 1, 1);
+        this.animChannelRun = new AnimationChannel(playerType.runImage, 6, 32, 32, Duration.seconds(1), 1, 5);
+        this.animatedTexture = new AnimatedTexture(animChannelStay);
         animatedTexture.loop();
     }
 
@@ -43,55 +42,6 @@ public class AnimationComponent extends Component {
         } else {
             animatedTexture.loopAnimationChannel(animChannelRun);
         }
-    }
-
-    private void initImage(PlayerType playerType) {
-        Image imageStay = null, imageRun = null;
-        switch (playerType) {
-            case BLUE: {
-                imageStay = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Attack2_6.png");
-                imageRun = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
-                break;
-            }
-            case RED: {
-                imageStay = FXGL.getAssetLoader().loadImage("player/1 Pink_Monster/Pink_Monster_Attack2_6.png");
-                imageRun = FXGL.getAssetLoader().loadImage("player/1 Pink_Monster/Pink_Monster_Run_6.png");
-                break;
-            }
-            case YEllOW: {
-                imageStay = FXGL.getAssetLoader().loadImage("player/2 Owlet_Monster/Owlet_Monster_Attack2_6.png");
-                imageRun = FXGL.getAssetLoader().loadImage("player/2 Owlet_Monster/Owlet_Monster_Run_6.png");
-                break;
-            }
-            case GREEN: {
-                imageStay = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster.png");
-                imageRun = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
-                break;
-            }
-            default:
-                imageStay = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster.png");
-                imageRun = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
-        }
-
-        animChannelStay = new AnimationChannel(
-                imageStay,
-                6,
-                32,
-                32,
-                Duration.seconds(1),
-                1,
-                1
-        );
-
-        animChannelRun = new AnimationChannel(
-                imageRun,
-                6,
-                32,
-                32,
-                Duration.seconds(1),
-                1,
-                5
-        );
     }
 
     @Override
