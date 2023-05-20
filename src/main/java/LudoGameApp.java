@@ -82,8 +82,8 @@ public class LudoGameApp extends GameApplication {
 
 
         int number = 1;
-        for (Entity player:
-             bluePlayers) {
+        for (Entity player :
+                bluePlayers) {
             AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
             animationComponent.setAnimatedTextureRun();
             getGameWorld().addEntity(player);

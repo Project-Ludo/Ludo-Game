@@ -9,14 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
+
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.util.function.Consumer;
-
-import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class LudoFactory implements EntityFactory {
 
@@ -53,7 +48,7 @@ public class LudoFactory implements EntityFactory {
     }
 
     @Spawns("Player")
-    public Entity spawnPlayer(SpawnData data, PlayerType playerType){
+    public Entity spawnPlayer(SpawnData data, PlayerType playerType) {
         return entityBuilder(data)
                 .type(EntityType.PLAYER)
                 .with(new AnimationComponent(playerType))
@@ -61,10 +56,9 @@ public class LudoFactory implements EntityFactory {
                     AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
                     animationComponent.changeAnimation();
                 })
-                .bbox(new HitBox(BoundingShape.box(32,32)))
+                .bbox(new HitBox(BoundingShape.box(32, 32)))
                 .build();
     }
-
 
 
 }
