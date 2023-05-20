@@ -60,10 +60,10 @@ public class LudoGameApp extends GameApplication {
 
     private void spawnPlayersPawn(LudoFactory ludoFactory) {
         List<Entity> players = new ArrayList<>();
-        Config.SPAWN_POINTS_RED.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.RED_PLAYER)));
-        Config.SPAWN_POINTS_BLUE.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.BLUE_PLAYER)));
-        Config.SPAWN_POINTS_YELLOW.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.YEllOW_PLAYER)));
-        Config.SPAWN_POINTS_GREEN.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.GREEN_PLAYER)));
+        Config.SPAWN_POINTS_RED.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.RED)));
+        Config.SPAWN_POINTS_BLUE.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.BLUE)));
+        Config.SPAWN_POINTS_YELLOW.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.YEllOW)));
+        Config.SPAWN_POINTS_GREEN.forEach(point -> players.add(ludoFactory.spawnPlayer(new SpawnData(point), PlayerType.GREEN)));
 
         players.forEach(player -> {
             AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);

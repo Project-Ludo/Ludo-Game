@@ -48,22 +48,22 @@ public class AnimationComponent extends Component {
     private void initImage(PlayerType playerType) {
         Image imageStay = null, imageRun = null;
         switch (playerType) {
-            case BLUE_PLAYER: {
+            case BLUE: {
                 imageStay = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Attack2_6.png");
                 imageRun = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
                 break;
             }
-            case RED_PLAYER: {
+            case RED: {
                 imageStay = FXGL.getAssetLoader().loadImage("player/1 Pink_Monster/Pink_Monster_Attack2_6.png");
                 imageRun = FXGL.getAssetLoader().loadImage("player/1 Pink_Monster/Pink_Monster_Run_6.png");
                 break;
             }
-            case YEllOW_PLAYER: {
+            case YEllOW: {
                 imageStay = FXGL.getAssetLoader().loadImage("player/2 Owlet_Monster/Owlet_Monster_Attack2_6.png");
                 imageRun = FXGL.getAssetLoader().loadImage("player/2 Owlet_Monster/Owlet_Monster_Run_6.png");
                 break;
             }
-            case GREEN_PLAYER: {
+            case GREEN: {
                 imageStay = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster.png");
                 imageRun = FXGL.getAssetLoader().loadImage("player/3 Dude_Monster/Dude_Monster_Run_6.png");
                 break;
