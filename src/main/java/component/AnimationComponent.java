@@ -36,12 +36,8 @@ public class AnimationComponent extends Component {
         animatedTexture.loopAnimationChannel(animChannelStay);
     }
 
-    public void changeAnimation() {
-        if (animatedTexture.getAnimationChannel() == animChannelRun) {
-            animatedTexture.loopAnimationChannel(animChannelStay);
-        } else {
-            animatedTexture.loopAnimationChannel(animChannelRun);
-        }
+    public void switchAnimation() {
+        animatedTexture.loopAnimationChannel(animatedTexture.getAnimationChannel() == animChannelRun ? animChannelStay : animChannelRun);
     }
 
     @Override

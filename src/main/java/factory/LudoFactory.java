@@ -57,7 +57,7 @@ public class LudoFactory implements EntityFactory {
                 .with(new AnimationComponent(playerType))
                 .onClick(entity -> {
                     AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
-                    animationComponent.changeAnimation();
+                    animationComponent.switchAnimation();
                 })
                 .bbox(new HitBox(BoundingShape.box(32, 32)))
                 .build();
