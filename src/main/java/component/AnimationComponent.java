@@ -20,7 +20,6 @@ public class AnimationComponent extends Component {
 
     public void setAnimatedTextureRun() {
         if (entity == null) {
-            System.out.println("NULL");
             return;
         }
 
@@ -29,7 +28,6 @@ public class AnimationComponent extends Component {
 
     public void setAnimatedTextureStay() {
         if (entity == null) {
-            System.out.println("NULL");
             return;
         }
 
