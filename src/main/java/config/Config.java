@@ -1,3 +1,5 @@
+package config;
+
 import javafx.geometry.Point2D;
 
 import java.util.List;

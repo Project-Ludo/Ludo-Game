@@ -1,4 +1,4 @@
-package EntityTypePackage;
+package type;
 
 public enum EntityType {
     PLATFORM, PLAYER, BACKGROUND, SPAWN_POINT, FINISH_CELL

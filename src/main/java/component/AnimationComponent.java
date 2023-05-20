@@ -1,6 +1,6 @@
-package Components;
+package component;
 
-import EntityTypePackage.PlayerType;
+import type.PlayerType;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;

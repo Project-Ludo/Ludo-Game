@@ -1,6 +1,8 @@
-import Components.AnimationComponent;
-import EntityTypePackage.EntityType;
-import EntityTypePackage.PlayerType;
+import component.AnimationComponent;
+import config.Config;
+import factory.LudoFactory;
+import type.EntityType;
+import type.PlayerType;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.entity.Entity;

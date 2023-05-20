@@ -1,7 +1,10 @@
+package factory;
+
 import com.almasb.fxgl.entity.Entity;
-import Components.AnimationComponent;
-import EntityTypePackage.EntityType;
-import EntityTypePackage.PlayerType;
+import component.AnimationComponent;
+import config.Config;
+import type.EntityType;
+import type.PlayerType;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
