@@ -51,13 +51,7 @@ public class LudoGameApp extends GameApplication {
     }
 
     private void setBackground() {
-        var clouds = FXGL.getAssetLoader().loadTexture("/background/Clouds V2/Clouds V2.png");
-        clouds.setFitHeight(600);
-        clouds.setFitWidth(800);
-
-        getGameScene().setBackgroundColor(Color.LIGHTBLUE);
-        GameView gameView = new GameView(clouds, -1);
-        getGameScene().addGameView(gameView);
+        getGameScene().setBackgroundRepeat("background/background.png");
     }
 
     public static void main(String[] args) {
