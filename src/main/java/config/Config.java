@@ -13,8 +13,8 @@ public final class Config {
 
     public static final int BLOCK_SIZE = 35;
     public static final int MAP_SIZE = 15;
-    public static final int MAP_WIDTH = 1000;
-    public static final int MAP_HEIGHT = 700;
+    public static final int MAP_WIDTH = 1500;
+    public static final int MAP_HEIGHT = 1000;
 
     ///BOARD
     public static final int BOARD_START_X = ((MAP_WIDTH / 2) - (600 / 2));
@@ -23,9 +23,9 @@ public final class Config {
     public static final int BOARD_HEIGHT = 800;
 
     //STARTS POINT
-    private static final int START_SPAWN_POINT_X_V1 = 200;
+    private static final int START_SPAWN_POINT_X_V1 = (MAP_WIDTH / 2) - (BLOCK_SIZE * Config.MAP_SIZE / 2) + BLOCK_SIZE;
     private static final int START_SPAWN_POINT_X_V2 = START_SPAWN_POINT_X_V1 + 11 * BLOCK_SIZE;
-    private static final int START_SPAWN_POINT_Y_V1 = 80;
+    private static final int START_SPAWN_POINT_Y_V1 = (MAP_HEIGHT / 2) - (BLOCK_SIZE * Config.MAP_SIZE / 2) + BLOCK_SIZE;
     private static final int START_SPAWN_POINT_Y_V2 = START_SPAWN_POINT_Y_V1 + 11 * BLOCK_SIZE;
 
     //Red Player
