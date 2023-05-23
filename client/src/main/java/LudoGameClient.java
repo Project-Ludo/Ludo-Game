@@ -10,7 +10,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
-public class LudoGameApp extends GameApplication {
+public class LudoGameClient extends GameApplication {
 
     private AStarGrid grid;
 

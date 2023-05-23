@@ -6,7 +6,12 @@
 
     <groupId>io.github.ludogame</groupId>
     <artifactId>Ludo-Game</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+    <modules>
+        <module>client</module>
+        <module>server</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,25 +35,4 @@
             <version>${fxgl.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
-                <configuration>
-                    <release>${source.version}</release>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>${jfx.maven.version}</version>
-                <configuration>
-                    <mainClass>src/main/java/LudoGameApp.java</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
