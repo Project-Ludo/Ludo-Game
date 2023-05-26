@@ -5,6 +5,8 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
 import network.response.Response;
 import network.response.ResponseStatus;
+import player.LudoPlayer;
+import player.Player;
 import player.PlayerColor;
 
 import java.util.UUID;
@@ -31,17 +33,19 @@ public class LudoServer implements IServer {
         Server<Bundle> server = FXGL.getNetService().newTCPServer(port);
         server.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             if (message.getName().equals("ConnectionRequest")) {
-                UUID playerUUID = message.get("playerUUID");
+                LudoPlayer player = message.get("player");
+                UUID playerUUID = player.getUuid();
                 logger.log(Level.INFO, String.format(PLAYER_CONNECT_REQUEST, playerUUID));
 
                 Response response;
                 if (isFull()) {
                     String responseMessage = "Server is full";
-                    response = new Response(ResponseStatus.ERROR, responseMessage, PlayerColor.BLUE, playerUUID);
+                    response = new Response(ResponseStatus.ERROR, responseMessage, player);
                     logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
                 } else {
                     //TODO add player color assignment
-                    response = new Response(ResponseStatus.SUCCESS, "Connected", PlayerColor.BLUE, playerUUID);
+                    player.setColor(PlayerColor.BLUE);
+                    response = new Response(ResponseStatus.SUCCESS, "Connected", player);
                     logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
                 }
 

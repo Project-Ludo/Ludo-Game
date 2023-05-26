@@ -16,11 +16,14 @@ public class ClientConnector implements IClient {
         client.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             if (message.getName().equals("ConnectionResponse")) {
                 Response response = message.get("response");
+                LudoPlayer reponsePlayer = (LudoPlayer) response.getPlayer();
 
-                if (response.getPlayerUUID().equals(player.getUuid())) {
+                if (reponsePlayer.getUuid().equals(player.getUuid())) {
                     if (response.getStatus() == ResponseStatus.SUCCESS) {
+                        System.out.println("Success");
                         //success
                     } else {
+                        System.out.println("Failure");
                         //failure
                         client.disconnect();
                     }
@@ -31,7 +34,7 @@ public class ClientConnector implements IClient {
 
         FXGL.runOnce(() -> {
             Bundle connectionData = new Bundle("ConnectionRequest");
-            connectionData.put("playerUUID", player.getUuid());
+            connectionData.put("player", player);
             client.broadcast(connectionData);
         }, Duration.seconds(0.2));
 

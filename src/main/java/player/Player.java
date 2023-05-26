@@ -1,4 +1,6 @@
 package player;
 
-public interface Player {
+import java.io.Serializable;
+
+public interface Player extends Serializable {
 }

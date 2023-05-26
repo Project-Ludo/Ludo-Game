@@ -1,21 +1,18 @@
 package network.response;
 
-import player.PlayerColor;
+import player.Player;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class Response implements Serializable {
     private final ResponseStatus status;
     private final String message;
-    private final PlayerColor playerColor;
-    private final UUID playerUUID;
+    private final Player player;
 
-    public Response(ResponseStatus status, String message, PlayerColor playerColor, UUID playerUUID) {
+    public Response(ResponseStatus status, String message, Player player) {
         this.status = status;
         this.message = message;
-        this.playerColor = playerColor;
-        this.playerUUID = playerUUID;
+        this.player = player;
     }
 
     public ResponseStatus getStatus() {
@@ -26,11 +23,7 @@ public class Response implements Serializable {
         return message;
     }
 
-    public PlayerColor getPlayerColor() {
-        return playerColor;
-    }
-
-    public UUID getPlayerUUID() {
-        return playerUUID;
+    public Player getPlayer() {
+        return player;
     }
 }

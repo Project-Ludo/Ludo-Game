@@ -5,7 +5,7 @@ import com.almasb.fxgl.net.Client;
 
 import java.util.UUID;
 
-public class LudoPlayer {
+public class LudoPlayer implements Player{
     private final UUID uuid;
     private PlayerColor color;
     private Client<Bundle> dataBundle;
