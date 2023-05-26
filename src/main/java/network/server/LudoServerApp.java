@@ -3,9 +3,9 @@ package network.server;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 
-public class LudoGameServer extends GameApplication {
+public class LudoServerApp extends GameApplication {
 
-    private LudoServer ludoServer;
+    private LudoGame ludoGame;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -14,7 +14,10 @@ public class LudoGameServer extends GameApplication {
 
     @Override
     protected void initGame() {
-        this.ludoServer = new LudoServer(55555);
+        this.ludoGame = new LudoGame();
+        LudoServer ludoServer = new LudoServer();
+        ludoServer.initializeServer(55555, ludoGame);
+        ludoGame.setServer(ludoServer);
     }
 
     public static void main(String[] args) {

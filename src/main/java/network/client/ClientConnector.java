@@ -16,17 +16,17 @@ public class ClientConnector implements IClient {
         client.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             if (message.getName().equals("ConnectionResponse")) {
                 Response response = message.get("response");
-                LudoPlayer reponsePlayer = (LudoPlayer) response.getPlayer();
+                LudoPlayer responsePlayer = (LudoPlayer) response.getPlayer();
 
-                if (reponsePlayer.getUuid().equals(player.getUuid())) {
-                    if (response.getStatus() == ResponseStatus.SUCCESS) {
-                        System.out.println("Success");
-                        //success
-                    } else {
-                        System.out.println("Failure");
-                        //failure
-                        client.disconnect();
-                    }
+                if (!responsePlayer.getUuid().equals(player.getUuid())) {
+                    return;
+                }
+
+                if (response.getStatus() == ResponseStatus.SUCCESS) {
+                    System.out.println("Success, your color: " + responsePlayer.getColor());
+                } else {
+                    System.out.println("Failed to connect to server (" + response.getMessage() + ")");
+                    client.disconnect();
                 }
             }
         }));

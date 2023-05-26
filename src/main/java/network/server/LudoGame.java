@@ -2,20 +2,16 @@ package network.server;
 
 import player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LudoGame {
 
-    private final LudoGameServer ludoGameServer;
+    private LudoServer server;
     private final List<Player> players;
 
-    public LudoGame(LudoGameServer ludoGameServer, List<Player> players) {
-        this.ludoGameServer = ludoGameServer;
-        this.players = players;
-    }
-
-    public LudoGameServer getLudoGameServer() {
-        return ludoGameServer;
+    public LudoGame() {
+        this.players = new ArrayList<>();
     }
 
     public List<Player> getPlayers() {
@@ -28,5 +24,13 @@ public class LudoGame {
 
     public void removePlayer(Player player) {
         this.players.remove(player);
+    }
+
+    public LudoServer getServer() {
+        return server;
+    }
+
+    public void setServer(LudoServer server) {
+        this.server = server;
     }
 }
