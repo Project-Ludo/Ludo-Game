@@ -5,6 +5,10 @@ import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import javafx.geometry.Point2D;
+import network.client.ClientConnector;
+import player.LudoPlayer;
+
+import java.util.UUID;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
@@ -36,6 +40,10 @@ public class LudoGameApp extends GameApplication {
         this.grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> CellState.NOT_WALKABLE);
         getGameWorld().getEntitiesByType(EntityType.BACKGROUND)
                 .forEach(entity -> entity.setVisible(false));
+
+        LudoPlayer ludoPlayer = new LudoPlayer(UUID.randomUUID());
+        ClientConnector clientConnector = new ClientConnector();
+        clientConnector.connect("localhost", 55555, ludoPlayer);
     }
 
     @Override
