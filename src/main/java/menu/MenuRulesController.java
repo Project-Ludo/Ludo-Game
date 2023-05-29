@@ -2,7 +2,6 @@ package menu;
 
 import config.UIConfig;
 import controller.SceneController;
-import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,7 +33,6 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
-        FXGL.getGameScene().removeUINode(sceneController.getMenuRules());
-        FXGL.getGameScene().addUINode(sceneController.getMenuStart());
+        sceneController.changeSceneAfter(sceneController.getMenuStart(), 150);
     }
 }

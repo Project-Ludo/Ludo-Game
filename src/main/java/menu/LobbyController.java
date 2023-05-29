@@ -1,13 +1,11 @@
 package menu;
 
-import com.almasb.fxgl.dsl.FXGL;
 import config.UIConfig;
 import controller.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
 import javafx.scene.text.Font;
 
 import java.net.URL;
@@ -36,14 +34,10 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
 
     public void onStartButtonClick(ActionEvent actionEvent) {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
-        FXGL.runOnce(() -> {
-            changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
-        }, Duration.seconds(0.15));
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
-        FXGL.getGameScene().removeUINode(sceneController.getLobby());
-        FXGL.getGameScene().addUINode(sceneController.getMenuStart());
+        sceneController.changeSceneAfter(sceneController.getMenuStart(), 150);
     }
 
     public void onMusicButtonClick(ActionEvent actionEvent) {

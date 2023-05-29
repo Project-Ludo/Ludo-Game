@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,13 +32,9 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
         changeControlTexture(bajkoweLudoText, "menu/texture/tile.png");
     }
 
-    ///Start Button
-    public void onStartButtonClick(ActionEvent actionEvent) {
+    public void onStartButtonClick() {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
-        FXGL.runOnce(() -> {
-            FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
-            FXGL.getGameScene().addUINode(sceneController.getMenuConnection());
-        }, Duration.seconds(0.15));
+        sceneController.changeSceneAfter(sceneController.getMenuConnection(), 150);
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
@@ -51,7 +46,6 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
     }
 
     public void onRulesButtonClick(ActionEvent actionEvent) {
-        FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
-        FXGL.getGameScene().addUINode(sceneController.getMenuRules());
+        sceneController.changeSceneAfter(sceneController.getMenuRules(), 150);
     }
 }

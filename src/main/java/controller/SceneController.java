@@ -1,7 +1,9 @@
 package controller;
 
+import com.almasb.fxgl.dsl.FXGL;
 import config.Config;
 import javafx.scene.Parent;
+import javafx.util.Duration;
 
 public class SceneController {
 
@@ -83,5 +85,12 @@ public class SceneController {
 
     public void setLobby(Parent lobby) {
         this.lobby = lobby;
+    }
+
+    public void changeSceneAfter(Parent nextScene, double millis){
+        FXGL.runOnce(() -> {
+            FXGL.getGameScene().clearUINodes();
+            FXGL.getGameScene().addUINode(nextScene);
+        }, Duration.millis(millis));
     }
 }

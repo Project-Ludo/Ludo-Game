@@ -2,10 +2,8 @@ package menu;
 
 import config.UIConfig;
 import controller.SceneController;
-import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,15 +25,11 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
 
     public void onStartButtonClick(ActionEvent actionEvent) {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
-        FXGL.runOnce(() -> {
-            FXGL.getGameScene().removeUINode(sceneController.getMenuConnection());
-            FXGL.getGameScene().addUINode(sceneController.getLobby());
-        }, Duration.seconds(0.15));
+        sceneController.changeSceneAfter(sceneController.getLobby(), 150);
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
-        FXGL.getGameScene().removeUINode(sceneController.getMenuConnection());
-        FXGL.getGameScene().addUINode(sceneController.getMenuStart());
+        sceneController.changeSceneAfter(sceneController.getMenuStart(), 150);
     }
 
     public void onMusicButtonClick(ActionEvent actionEvent) {
