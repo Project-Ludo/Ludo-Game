@@ -1,7 +1,6 @@
 package menu;
 
 import config.UIConfig;
-import controller.SceneController;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -9,17 +8,11 @@ import java.util.ResourceBundle;
 
 public class MenuConnectionController extends MenuDefaultButtonAction implements Initializable {
 
-    private SceneController sceneController;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
-    }
-
-    public void setSceneController(SceneController sceneController) {
-        this.sceneController = sceneController;
     }
 
     public void onStartButtonClick() {

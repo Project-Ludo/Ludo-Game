@@ -1,7 +1,6 @@
 package menu;
 
 import config.UIConfig;
-import controller.SceneController;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,12 +14,6 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
 
     @FXML
     public Label bajkoweLudoText;
-
-    private SceneController sceneController;
-
-    public void setSceneController(SceneController sceneController) {
-        this.sceneController = sceneController;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

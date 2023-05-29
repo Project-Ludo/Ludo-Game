@@ -1,7 +1,6 @@
 package menu;
 
 import config.UIConfig;
-import controller.SceneController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -15,8 +14,6 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
     @FXML
     public Label playerInLobby;
 
-    private SceneController sceneController;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
@@ -25,10 +22,6 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
 
         Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/04B_30__.TTF"), 12);
         playerInLobby.setFont(font);
-    }
-
-    public void setSceneController(SceneController sceneController) {
-        this.sceneController = sceneController;
     }
 
     public void onStartButtonClick() {

@@ -65,10 +65,10 @@ public class LudoGameApp extends GameApplication {
         MenuRulesController menuRulesController = fxmlLoaderRulesMenu.getController();
         MenuConnectionController menuConnectionController = fxmlLoaderConnectionMenu.getController();
         LobbyController lobbyController = fxmlLoaderLobby.getController();
-        menuStartController.setSceneController(sceneController);
-        menuRulesController.setSceneController(sceneController);
-        menuConnectionController.setSceneController(sceneController);
-        lobbyController.setSceneController(sceneController);
+        menuStartController.initSceneController(sceneController);
+        menuRulesController.initSceneController(sceneController);
+        menuConnectionController.initSceneController(sceneController);
+        lobbyController.initSceneController(sceneController);
     }
 
     @Override

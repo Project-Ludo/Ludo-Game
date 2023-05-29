@@ -1,6 +1,7 @@
 package menu;
 
 import config.UIConfig;
+import controller.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
@@ -20,6 +21,8 @@ public abstract class MenuDefaultButtonAction {
 
     @FXML
     public Button startButton;
+
+    protected SceneController sceneController;
 
     public void changeControlTexture(Labeled control, String imagePath) {
         ImageView view = new ImageView(new Image(imagePath));
@@ -58,5 +61,9 @@ public abstract class MenuDefaultButtonAction {
 
     public void onExitButtonExit() {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+    }
+
+    public void initSceneController(SceneController sceneController){
+        this.sceneController = sceneController;
     }
 }
