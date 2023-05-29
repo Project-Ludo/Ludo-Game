@@ -2,7 +2,6 @@ package menu;
 
 import config.UIConfig;
 import controller.SceneController;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -23,16 +22,16 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
         this.sceneController = sceneController;
     }
 
-    public void onStartButtonClick(ActionEvent actionEvent) {
+    public void onStartButtonClick() {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getServerLobbyScene(), 150);
     }
 
-    public void onExitButtonClick(ActionEvent actionEvent) {
+    public void onExitButtonClick() {
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 
-    public void onMusicButtonClick(ActionEvent actionEvent) {
+    public void onMusicButtonClick() {
         System.out.println("Music");
     }
 }

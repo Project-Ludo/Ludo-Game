@@ -2,7 +2,6 @@ package menu;
 
 import config.UIConfig;
 import controller.SceneController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -32,7 +31,7 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
         this.sceneController = sceneController;
     }
 
-    public void onExitButtonClick(ActionEvent actionEvent) {
+    public void onExitButtonClick() {
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 }

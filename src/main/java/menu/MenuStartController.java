@@ -3,7 +3,6 @@ package menu;
 import config.UIConfig;
 import controller.SceneController;
 import com.almasb.fxgl.dsl.FXGL;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -37,15 +36,15 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
         sceneController.changeSceneAfter(sceneController.getServerConnectScene(), 150);
     }
 
-    public void onExitButtonClick(ActionEvent actionEvent) {
+    public void onExitButtonClick() {
         FXGL.getGameController().exit();
     }
 
-    public void onMusicButtonClick(ActionEvent actionEvent) {
+    public void onMusicButtonClick() {
         System.out.println("Click");
     }
 
-    public void onRulesButtonClick(ActionEvent actionEvent) {
+    public void onRulesButtonClick() {
         sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);
     }
 }

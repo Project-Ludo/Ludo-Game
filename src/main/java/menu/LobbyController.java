@@ -2,7 +2,6 @@ package menu;
 
 import config.UIConfig;
 import controller.SceneController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -32,15 +31,15 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
         this.sceneController = sceneController;
     }
 
-    public void onStartButtonClick(ActionEvent actionEvent) {
+    public void onStartButtonClick() {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
     }
 
-    public void onExitButtonClick(ActionEvent actionEvent) {
+    public void onExitButtonClick() {
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 
-    public void onMusicButtonClick(ActionEvent actionEvent) {
+    public void onMusicButtonClick() {
         System.out.println("MUSIC <3");
     }
 }
