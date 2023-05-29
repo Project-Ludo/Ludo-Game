@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuRulesController">
     <children>
-        <Button fx:id="exitButton" layoutX="700.0" layoutY="50.0" mnemonicParsing="false" onAction="#onExitButtonClick" onMouseEntered="#onExitButtonHover" onMouseExited="#onExitButtonExited" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
+        <Button fx:id="exitButton" layoutX="700.0" layoutY="50.0" mnemonicParsing="false" onAction="#onExitButtonClick" onMouseEntered="#onExitButtonHover" onMouseExited="#onExitButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
         <Label fx:id="rulesTileText" alignment="CENTER" layoutX="250.0" layoutY="49.0" prefHeight="100.0" prefWidth="300.0" text="ZASADY GRY">
             <font>
                 <Font size="24.0" />

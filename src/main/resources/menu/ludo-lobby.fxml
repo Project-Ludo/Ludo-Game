@@ -9,12 +9,12 @@
         <!--
         style="-fx-background-color: transparent
         -->
-        <Button fx:id="startButton" layoutX="300.0" layoutY="358.0" mnemonicParsing="false" onAction="#onStartButtonClick" onMouseEntered="#onStartButtonHover" onMouseExited="#onStartButtonExited" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent">
+        <Button fx:id="startButton" layoutX="300.0" layoutY="358.0" mnemonicParsing="false" onAction="#onStartButtonClick" onMouseEntered="#onStartButtonHover" onMouseExited="#onStartButtonExit" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font></Button>
-        <Button fx:id="exitButton" layoutX="700.0" layoutY="50.0" mnemonicParsing="false" onAction="#onExitButtonClick" onMouseEntered="#onExitButtonHover" onMouseExited="#onExitButtonExited" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent"/>
-        <Button fx:id="musicButton" layoutX="700.0" layoutY="125.0" mnemonicParsing="false" onAction="#onMusicButtonClick" onMouseEntered="#onMusicButtonHover" onMouseExited="#onMusicButtonExited" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent"/>
+        <Button fx:id="exitButton" layoutX="700.0" layoutY="50.0" mnemonicParsing="false" onAction="#onExitButtonClick" onMouseEntered="#onExitButtonHover" onMouseExited="#onExitButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent"/>
+        <Button fx:id="musicButton" layoutX="700.0" layoutY="125.0" mnemonicParsing="false" onAction="#onMusicButtonClick" onMouseEntered="#onMusicButtonHover" onMouseExited="#onMusicButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent"/>
         <Label fx:id="lobbyTile" alignment="CENTER" layoutX="250.0" layoutY="75.0" prefHeight="100.0" prefWidth="300.0" text="Lobby" />
         <Label fx:id="playerInLobby" alignment="TOP_LEFT" layoutX="250.0" layoutY="219.0" prefHeight="100.0" prefWidth="300.0" text=" - Gracz Pierwszy&#10; - Gracz Drugi&#10; - Gracz Trzeci&#10; - Gracz Czwarty">
          <font>

@@ -32,7 +32,7 @@ public abstract class MenuDefaultButtonAction {
         changeControlTexture(startButton, UIConfig.START_BUTTON_HOVER);
     }
 
-    public void onStartButtonExited() {
+    public void onStartButtonExit() {
         changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
     }
 
@@ -40,7 +40,7 @@ public abstract class MenuDefaultButtonAction {
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_HOVER);
     }
 
-    public void onMusicButtonExited() {
+    public void onMusicButtonExit() {
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
     }
 
@@ -48,7 +48,7 @@ public abstract class MenuDefaultButtonAction {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_HOVER);
     }
 
-    public void onRulesButtonExited() {
+    public void onRulesButtonExit() {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_DEFAULT);
     }
 
@@ -56,7 +56,7 @@ public abstract class MenuDefaultButtonAction {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_HOVER);
     }
 
-    public void onExitButtonExited() {
+    public void onExitButtonExit() {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
     }
 }
