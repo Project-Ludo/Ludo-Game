@@ -26,9 +26,7 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
     }
 
     public void onStartButtonClick(ActionEvent actionEvent) {
-
         imageInit(startButton, UIConfig.START_BUTTON_CLICK);
-
         FXGL.runOnce(() -> {
             FXGL.getGameScene().removeUINode(sceneController.getMenuConnection());
             FXGL.getGameScene().addUINode(sceneController.getLobby());

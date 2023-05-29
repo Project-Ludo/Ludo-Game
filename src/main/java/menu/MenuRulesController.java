@@ -15,8 +15,10 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
 
     @FXML
     public Label rulesText;
+
     @FXML
     public Label rulesTileText;
+
 //    @FXML
 //    public Button exitButton;
 
@@ -26,6 +28,7 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
     public void initialize(URL url, ResourceBundle resourceBundle) {
         imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
     }
+
     public void setSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
     }

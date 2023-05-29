@@ -8,13 +8,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public abstract class MenuDefaultButtonAction{
+public abstract class MenuDefaultButtonAction {
+
     @FXML
     public Button rulesButton;
+
     @FXML
     public Button musicButton;
+
     @FXML
     public Button exitButton;
+
     @FXML
     public Button startButton;
 
@@ -26,31 +30,29 @@ public abstract class MenuDefaultButtonAction{
     }
 
     public void onStartButtonHover(MouseEvent mouseEvent) {
-
         imageInit(startButton, UIConfig.START_BUTTON_HOVER);
     }
 
     public void onStartButtonExited(MouseEvent mouseEvent) {
-
         imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
     }
-    ///Music Button
+
     public void onMusicButtonHover(MouseEvent dragEvent) {
         imageInit(musicButton, UIConfig.MUSIC_BUTTON_HOVER);
     }
+
     public void onMusicButtonExited(MouseEvent mouseEvent) {
         imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
     }
 
-    //Rules button
     public void onRulesButtonHover(MouseEvent dragEvent) {
         imageInit(rulesButton, UIConfig.RULES_BUTTON_HOVER);
     }
+
     public void onRulesButtonExited(MouseEvent mouseEvent) {
         imageInit(rulesButton, UIConfig.RULES_BUTTON_DEFAULT);
     }
 
-    //Exit Button
     public void onExitButtonHover(MouseEvent dragEvent) {
         imageInit(exitButton, UIConfig.EXIT_BUTTON_HOVER);
     }

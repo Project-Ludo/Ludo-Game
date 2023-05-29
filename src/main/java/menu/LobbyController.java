@@ -15,9 +15,9 @@ import java.util.ResourceBundle;
 
 public class LobbyController extends MenuDefaultButtonAction implements Initializable {
 
-
     @FXML
     public Label playerInLobby;
+
     private SceneController sceneController;
 
     @Override
@@ -36,9 +36,7 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
 
     public void onStartButtonClick(ActionEvent actionEvent) {
         imageInit(startButton, UIConfig.START_BUTTON_CLICK);
-
         FXGL.runOnce(() -> {
-            System.out.println("Start Game");
             imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
         }, Duration.seconds(0.15));
     }

@@ -14,14 +14,11 @@ import java.util.ResourceBundle;
 
 
 public class MenuStartController extends MenuDefaultButtonAction implements Initializable {
+
     @FXML
     public Label bajkoweLudoText;
 
     private SceneController sceneController;
-
-    public MenuStartController(){
-        //startButton.setText("START_V1");
-    }
 
     public void setSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
@@ -35,10 +32,10 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
         imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
         imageInit(bajkoweLudoText, "menu/texture/tile.png");
     }
+
     ///Start Button
     public void onStartButtonClick(ActionEvent actionEvent) {
         imageInit(startButton, UIConfig.START_BUTTON_CLICK);
-
         FXGL.runOnce(() -> {
             FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
             FXGL.getGameScene().addUINode(sceneController.getMenuConnection());
