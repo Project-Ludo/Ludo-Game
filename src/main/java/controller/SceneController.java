@@ -2,7 +2,6 @@ package controller;
 
 import config.Config;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 public class SceneController {
 

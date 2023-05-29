@@ -1,25 +1,15 @@
 package menu;
 
-import com.almasb.fxgl.core.serialization.Bundle;
 import config.UIConfig;
 import controller.SceneController;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 

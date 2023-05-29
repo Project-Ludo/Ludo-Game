@@ -1,26 +1,17 @@
 import config.Config;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.entity.level.Level;
-import com.almasb.fxgl.entity.level.text.TextLevelLoader;
-import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import controller.SceneController;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import menu.LobbyController;
 import menu.MenuConnectionController;
 import menu.MenuRulesController;
 import menu.MenuStartController;
-import network.client.ClientConnector;
-import player.LudoPlayer;
 
 import java.io.IOException;
-import java.util.UUID;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class LudoGameApp extends GameApplication {
 

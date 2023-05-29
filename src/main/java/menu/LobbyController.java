@@ -9,9 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
