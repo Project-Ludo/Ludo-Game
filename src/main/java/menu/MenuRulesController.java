@@ -33,6 +33,6 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
-        sceneController.changeSceneAfter(sceneController.getMenuStart(), 150);
+        sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 }

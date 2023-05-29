@@ -25,11 +25,11 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
 
     public void onStartButtonClick(ActionEvent actionEvent) {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
-        sceneController.changeSceneAfter(sceneController.getLobby(), 150);
+        sceneController.changeSceneAfter(sceneController.getServerLobbyScene(), 150);
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
-        sceneController.changeSceneAfter(sceneController.getMenuStart(), 150);
+        sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 
     public void onMusicButtonClick(ActionEvent actionEvent) {

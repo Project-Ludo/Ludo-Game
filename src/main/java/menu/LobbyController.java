@@ -37,7 +37,7 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
-        sceneController.changeSceneAfter(sceneController.getMenuStart(), 150);
+        sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 
     public void onMusicButtonClick(ActionEvent actionEvent) {

@@ -29,7 +29,7 @@ public class LudoGameApp extends GameApplication {
     protected void initGame() {
 
         loadScene();
-        getGameScene().addUINode(sceneController.getMenuStart());
+        getGameScene().addUINode(sceneController.getMainMenuScene());
 
 //        getGameWorld().addEntityFactory(new LudoFactory());
 //        Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));

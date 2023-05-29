@@ -34,7 +34,7 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
 
     public void onStartButtonClick() {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
-        sceneController.changeSceneAfter(sceneController.getMenuConnection(), 150);
+        sceneController.changeSceneAfter(sceneController.getServerConnectScene(), 150);
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
@@ -46,6 +46,6 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
     }
 
     public void onRulesButtonClick(ActionEvent actionEvent) {
-        sceneController.changeSceneAfter(sceneController.getMenuRules(), 150);
+        sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);
     }
 }
