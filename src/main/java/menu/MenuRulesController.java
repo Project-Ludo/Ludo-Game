@@ -1,5 +1,6 @@
 package menu;
 
+import config.UIConfig;
 import controller.SceneController;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
@@ -29,13 +30,13 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageInit(exitButton, "menu/texture/exit-button_default.png");
+        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
     }
     public void setSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
     }
 
-    public void exitButtonAction(ActionEvent actionEvent) {
+    public void onExitButtonClick(ActionEvent actionEvent) {
         FXGL.getGameScene().removeUINode(sceneController.getMenuRules());
         FXGL.getGameScene().addUINode(sceneController.getMenuStart());
     }

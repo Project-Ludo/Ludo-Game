@@ -1,5 +1,7 @@
 package menu;
 
+import com.almasb.fxgl.core.serialization.Bundle;
+import config.UIConfig;
 import controller.SceneController;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
@@ -13,22 +15,15 @@ import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class MenuStartController extends MenuDefaultButtonAction implements Initializable {
 
-    //    @FXML
-//    public Button qmButton;
-//    @FXML
-//    public Button musicButton;
-//    @FXML
-//    public Button exitButton;
-    @FXML
-    private Button toConnectionSceneButton;
+public class MenuStartController extends MenuDefaultButtonAction implements Initializable {
     @FXML
     public Label bajkoweLudoText;
 
@@ -44,36 +39,32 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //startButton.setSkin(new MyButtonSkin(startButton));
-
-        imageInit(toConnectionSceneButton, "menu/texture/start-button.png");
-        imageInit(qmButton, "menu/texture/qm-button_default.png");
-        imageInit(exitButton, "menu/texture/exit-button_default.png");
-        imageInit(musicButton, "menu/texture/music-button_default.png");
+        imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
+        imageInit(rulesButton, UIConfig.RULES_BUTTON_DEFAULT);
+        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+        imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
         imageInit(bajkoweLudoText, "menu/texture/tile.png");
-        //imageInit(returnButton, "menu/texture/return-button_default.png");
     }
     ///Start Button
-    public void toConnectionSceneButtonAction(ActionEvent actionEvent) {
-        if(sceneController == null){
-            System.out.println("NULL Scene controller");
-            return;
-        }
-        FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
-        FXGL.getGameScene().addUINode(sceneController.getMenuConnection());
-    }
-    //QM mutton
-    public void qmButtonAction(ActionEvent actionEvent){
-        if(sceneController == null){
-            System.out.println("NULL Scene controller");
-            return;
-        }
-        FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
-        FXGL.getGameScene().addUINode(sceneController.getMenuRules());
+    public void onStartButtonClick(ActionEvent actionEvent) {
+        imageInit(startButton, UIConfig.START_BUTTON_CLICK);
+
+        FXGL.runOnce(() -> {
+            FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
+            FXGL.getGameScene().addUINode(sceneController.getMenuConnection());
+        }, Duration.seconds(0.15));
     }
 
-    //Exit Button
-    public void exitButtonAction(ActionEvent actionEvent) {
+    public void onExitButtonClick(ActionEvent actionEvent) {
         FXGL.getGameController().exit();
+    }
+
+    public void onMusicButtonClick(ActionEvent actionEvent) {
+        System.out.println("Click");
+    }
+
+    public void onRulesButtonClick(ActionEvent actionEvent) {
+        FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
+        FXGL.getGameScene().addUINode(sceneController.getMenuRules());
     }
 }

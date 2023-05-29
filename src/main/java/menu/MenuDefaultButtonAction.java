@@ -1,5 +1,6 @@
 package menu;
 
+import config.UIConfig;
 import controller.SceneController;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
@@ -16,17 +17,13 @@ import java.util.ResourceBundle;
 
 public abstract class MenuDefaultButtonAction{
     @FXML
-    public Button qmButton;
-    @FXML
-    public Button returnButton;
+    public Button rulesButton;
     @FXML
     public Button musicButton;
     @FXML
     public Button exitButton;
     @FXML
-    public Button toConnectionSceneButton;
-    @FXML
-    public Button toGameSceneButton;
+    public Button startButton;
 
     public void imageInit(Labeled control, String imagePath) {
         ImageView view = new ImageView(new Image(imagePath));
@@ -35,54 +32,37 @@ public abstract class MenuDefaultButtonAction{
         control.setGraphic(view);
     }
 
-    public void toConnectionSceneButtonHover(MouseEvent mouseEvent) {
+    public void onStartButtonHover(MouseEvent mouseEvent) {
 
+        imageInit(startButton, UIConfig.START_BUTTON_HOVER);
     }
 
-    public void toConnectionSceneButtonExited(MouseEvent mouseEvent) {
+    public void onStartButtonExited(MouseEvent mouseEvent) {
 
-    }
-
-    public void toGameSceneButtonHover(MouseEvent mouseEvent) {
-
-    }
-
-    public void toGameSceneButtonExited(MouseEvent mouseEvent) {
-
+        imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
     }
     ///Music Button
-    public void musicButtonAction(ActionEvent actionEvent) {
-        System.out.println("Music");
+    public void onMusicButtonHover(MouseEvent dragEvent) {
+        imageInit(musicButton, UIConfig.MUSIC_BUTTON_HOVER);
     }
-    public void musicButtonHover(MouseEvent dragEvent) {
-        imageInit(musicButton, "menu/texture/music-button_hover.png");
-    }
-    public void musicButtonExited(MouseEvent mouseEvent) {
-        imageInit(musicButton, "menu/texture/music-button_default.png");
+    public void onMusicButtonExited(MouseEvent mouseEvent) {
+        imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
     }
 
-    //QM mutton
-    public void qmButtonHover(MouseEvent dragEvent) {
-        imageInit(qmButton, "menu/texture/qm-button_hover.png");
+    //Rules button
+    public void onRulesButtonHover(MouseEvent dragEvent) {
+        imageInit(rulesButton, UIConfig.RULES_BUTTON_HOVER);
     }
-    public void qmButtonExited(MouseEvent mouseEvent) {
-        imageInit(qmButton, "menu/texture/qm-button_default.png");
-    }
-
-    //Return button
-    public void returnButtonHover(MouseEvent dragEvent) {
-        imageInit(qmButton, "menu/texture/qm-button_hover.png");
-    }
-    public void returnButtonExited(MouseEvent mouseEvent) {
-        imageInit(qmButton, "menu/texture/return-button_default.png");
+    public void onRulesButtonExited(MouseEvent mouseEvent) {
+        imageInit(rulesButton, UIConfig.RULES_BUTTON_DEFAULT);
     }
 
     //Exit Button
-    public void exitButtonHover(MouseEvent dragEvent) {
-        imageInit(exitButton, "menu/texture/exit-button_hover.png");
+    public void onExitButtonHover(MouseEvent dragEvent) {
+        imageInit(exitButton, UIConfig.EXIT_BUTTON_HOVER);
     }
 
-    public void exitButtonExited(MouseEvent dragEvent) {
-        imageInit(exitButton, "menu/texture/exit-button_default.png");
+    public void onExitButtonExited(MouseEvent dragEvent) {
+        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
     }
 }

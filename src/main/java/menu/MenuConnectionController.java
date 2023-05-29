@@ -1,5 +1,6 @@
 package menu;
 
+import config.UIConfig;
 import controller.SceneController;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
@@ -16,34 +17,30 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuConnectionController extends MenuDefaultButtonAction implements Initializable {
-//    @FXML
-//    public Button toGameSceneButton;
-//    @FXML
-//    public Button exitButton;
-//    @FXML
-//    public Button musicButton;
-//    @FXML
-//    public Label LudoConnectionText;
 
     private SceneController sceneController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageInit(toGameSceneButton, "menu/texture/start-button.png");
-        imageInit(exitButton, "menu/texture/exit-button_default.png");
-        imageInit(musicButton, "menu/texture/music-button_default.png");
+        imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
+        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+        imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
     }
 
     public void setSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
     }
 
-    public void toGameSceneButtonAction(ActionEvent actionEvent) {
+    public void onStartButtonClick(ActionEvent actionEvent) {
         System.out.println("start button Click");
     }
 
-    public void exitButtonAction(ActionEvent actionEvent) {
+    public void onExitButtonClick(ActionEvent actionEvent) {
         FXGL.getGameScene().removeUINode(sceneController.getMenuConnection());
         FXGL.getGameScene().addUINode(sceneController.getMenuStart());
+    }
+
+    public void onMusicButtonClick(ActionEvent actionEvent) {
+        System.out.println("Music");
     }
 }

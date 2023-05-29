@@ -68,9 +68,9 @@ public class LudoGameApp extends GameApplication {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        MenuStartController menuStartController = fxmlLoaderStartMenu.<MenuStartController>getController();
-        MenuRulesController menuRulesController = fxmlLoaderRulesMenu.<MenuRulesController>getController();
-        MenuConnectionController menuConnectionController = fxmlLoaderConnectionMenu.<MenuConnectionController>getController();
+        MenuStartController menuStartController = fxmlLoaderStartMenu.getController();
+        MenuRulesController menuRulesController = fxmlLoaderRulesMenu.getController();
+        MenuConnectionController menuConnectionController = fxmlLoaderConnectionMenu.getController();
         menuStartController.setSceneController(sceneController);
         menuRulesController.setSceneController(sceneController);
         menuConnectionController.setSceneController(sceneController);
