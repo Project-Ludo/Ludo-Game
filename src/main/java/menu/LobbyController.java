@@ -1,24 +1,25 @@
 package menu;
 
+import com.almasb.fxgl.dsl.FXGL;
 import config.UIConfig;
 import controller.SceneController;
-import com.almasb.fxgl.dsl.FXGL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuConnectionController extends MenuDefaultButtonAction implements Initializable {
+public class LobbyController extends MenuDefaultButtonAction implements Initializable {
 
+
+    @FXML
+    public Label playerInLobby;
     private SceneController sceneController;
 
     @Override
@@ -26,6 +27,9 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
         imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
         imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
+
+        Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/04B_30__.TTF"), 12);
+        playerInLobby.setFont(font);
     }
 
     public void setSceneController(SceneController sceneController) {
@@ -33,21 +37,20 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
     }
 
     public void onStartButtonClick(ActionEvent actionEvent) {
-
         imageInit(startButton, UIConfig.START_BUTTON_CLICK);
 
         FXGL.runOnce(() -> {
-            FXGL.getGameScene().removeUINode(sceneController.getMenuConnection());
-            FXGL.getGameScene().addUINode(sceneController.getLobby());
+            System.out.println("Start Game");
+            imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
         }, Duration.seconds(0.15));
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
-        FXGL.getGameScene().removeUINode(sceneController.getMenuConnection());
+        FXGL.getGameScene().removeUINode(sceneController.getLobby());
         FXGL.getGameScene().addUINode(sceneController.getMenuStart());
     }
 
     public void onMusicButtonClick(ActionEvent actionEvent) {
-        System.out.println("Music");
+        System.out.println("MUSIC <3");
     }
 }

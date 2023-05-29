@@ -8,6 +8,7 @@ import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import controller.SceneController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import menu.LobbyController;
 import menu.MenuConnectionController;
 import menu.MenuRulesController;
 import menu.MenuStartController;
@@ -62,18 +63,21 @@ public class LudoGameApp extends GameApplication {
         FXMLLoader fxmlLoaderStartMenu = new FXMLLoader(getClass().getResource("Menu/ludo-start-menu.fxml"));
         FXMLLoader fxmlLoaderRulesMenu = new FXMLLoader(getClass().getResource("Menu/ludo-rules-menu.fxml"));
         FXMLLoader fxmlLoaderConnectionMenu = new FXMLLoader(getClass().getResource("Menu/ludo-connection-menu.fxml"));
+        FXMLLoader fxmlLoaderLobby = new FXMLLoader(getClass().getResource("Menu/ludo-lobby.fxml"));
 
         try {
-            sceneController = new SceneController(fxmlLoaderStartMenu.load(), fxmlLoaderRulesMenu.load(), fxmlLoaderConnectionMenu.load());
+            sceneController = new SceneController(fxmlLoaderStartMenu.load(), fxmlLoaderRulesMenu.load(), fxmlLoaderConnectionMenu.load(), fxmlLoaderLobby.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         MenuStartController menuStartController = fxmlLoaderStartMenu.getController();
         MenuRulesController menuRulesController = fxmlLoaderRulesMenu.getController();
         MenuConnectionController menuConnectionController = fxmlLoaderConnectionMenu.getController();
+        LobbyController lobbyController = fxmlLoaderLobby.getController();
         menuStartController.setSceneController(sceneController);
         menuRulesController.setSceneController(sceneController);
         menuConnectionController.setSceneController(sceneController);
+        lobbyController.setSceneController(sceneController);
     }
 
     @Override
