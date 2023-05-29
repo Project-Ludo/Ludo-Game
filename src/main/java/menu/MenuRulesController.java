@@ -26,7 +26,7 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
     }
 
     public void setSceneController(SceneController sceneController) {

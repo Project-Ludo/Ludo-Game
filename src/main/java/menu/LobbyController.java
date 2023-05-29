@@ -22,9 +22,9 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
-        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
-        imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
+        changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+        changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
 
         Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/04B_30__.TTF"), 12);
         playerInLobby.setFont(font);
@@ -35,9 +35,9 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
     }
 
     public void onStartButtonClick(ActionEvent actionEvent) {
-        imageInit(startButton, UIConfig.START_BUTTON_CLICK);
+        changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
         FXGL.runOnce(() -> {
-            imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
+            changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
         }, Duration.seconds(0.15));
     }
 

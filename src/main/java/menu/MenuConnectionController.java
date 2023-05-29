@@ -16,9 +16,9 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
-        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
-        imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
+        changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+        changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
     }
 
     public void setSceneController(SceneController sceneController) {
@@ -26,7 +26,7 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
     }
 
     public void onStartButtonClick(ActionEvent actionEvent) {
-        imageInit(startButton, UIConfig.START_BUTTON_CLICK);
+        changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
         FXGL.runOnce(() -> {
             FXGL.getGameScene().removeUINode(sceneController.getMenuConnection());
             FXGL.getGameScene().addUINode(sceneController.getLobby());

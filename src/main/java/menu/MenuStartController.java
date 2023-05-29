@@ -26,16 +26,16 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageInit(startButton, UIConfig.START_BUTTON_DEFAULT);
-        imageInit(rulesButton, UIConfig.RULES_BUTTON_DEFAULT);
-        imageInit(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
-        imageInit(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
-        imageInit(bajkoweLudoText, "menu/texture/tile.png");
+        changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
+        changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_DEFAULT);
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+        changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
+        changeControlTexture(bajkoweLudoText, "menu/texture/tile.png");
     }
 
     ///Start Button
     public void onStartButtonClick(ActionEvent actionEvent) {
-        imageInit(startButton, UIConfig.START_BUTTON_CLICK);
+        changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
         FXGL.runOnce(() -> {
             FXGL.getGameScene().removeUINode(sceneController.getMenuStart());
             FXGL.getGameScene().addUINode(sceneController.getMenuConnection());
