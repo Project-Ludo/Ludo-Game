@@ -9,7 +9,7 @@
         <!--
         style="-fx-background-color: transparent
         -->
-        <Button fx:id="startButton" layoutX="300.0" layoutY="358.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent">
+        <Button fx:id="startButton" layoutX="300.0" layoutY="358.0" mnemonicParsing="false" onAction="#onStartButtonClick" onMouseEntered="#onStartButtonHover" onMouseExited="#onStartButtonExited" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font></Button>
