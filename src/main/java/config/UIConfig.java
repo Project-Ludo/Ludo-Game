@@ -23,6 +23,7 @@ public final class UIConfig {
     public static final String MUSIC_BUTTON_CLICK = "menu/texture/music-button_click.png";
 
     public static final String TEXT_BOX = "menu/texture/textbox.png";
+    public static final String TEXT_BOX_ERROR = "menu/texture/textbox-error.png";
 
     public static final String PLAYER_NAME_TEXT = "menu/texture/player-name-text.png";
     public static final String SERVER_ADDRESS_TEXT = "menu/texture/server-address-text.png";
