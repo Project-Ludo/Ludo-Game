@@ -11,3 +11,5 @@ target/
 /saves
 profiles/
 system/
+
+.DS_Store
