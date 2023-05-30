@@ -5,9 +5,9 @@ import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import controller.SceneController;
 import javafx.fxml.FXMLLoader;
 import menu.LobbyController;
-import menu.MenuConnectionController;
-import menu.MenuRulesController;
-import menu.MenuStartController;
+import menu.MainMenuController;
+import menu.ConnectionMenuController;
+import menu.RulesMenuController;
 
 import java.io.IOException;
 
@@ -61,9 +61,9 @@ public class LudoGameApp extends GameApplication {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        MenuStartController menuStartController = fxmlLoaderStartMenu.getController();
-        MenuRulesController menuRulesController = fxmlLoaderRulesMenu.getController();
-        MenuConnectionController menuConnectionController = fxmlLoaderConnectionMenu.getController();
+        MainMenuController menuStartController = fxmlLoaderStartMenu.getController();
+        RulesMenuController menuRulesController = fxmlLoaderRulesMenu.getController();
+        ConnectionMenuController menuConnectionController = fxmlLoaderConnectionMenu.getController();
         LobbyController lobbyController = fxmlLoaderLobby.getController();
         menuStartController.initSceneController(sceneController);
         menuRulesController.initSceneController(sceneController);

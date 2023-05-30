@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LobbyController extends MenuDefaultButtonAction implements Initializable {
+public class LobbyController extends DefaultMenuButtonAction implements Initializable {
 
     @FXML
     public Label playerInLobby;

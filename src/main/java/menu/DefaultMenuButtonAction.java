@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public abstract class MenuDefaultButtonAction {
+public abstract class DefaultMenuButtonAction {
 
     @FXML
     public Button rulesButton;
