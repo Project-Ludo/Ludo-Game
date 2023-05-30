@@ -10,6 +10,7 @@ public final class UIConfig {
     // EXIT BUTTON
     public static final String EXIT_BUTTON_DEFAULT = "menu/texture/exit-button_default.png";
     public static final String EXIT_BUTTON_HOVER = "menu/texture/exit-button_hover.png";
+    public static final String EXIT_BUTTON_CLICK = "menu/texture/exit-button_click.png";
 
     // RULES BUTTON
     public static final String RULES_BUTTON_DEFAULT = "menu/texture/qm-button_default.png";

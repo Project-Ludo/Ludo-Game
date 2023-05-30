@@ -29,6 +29,7 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
     }
 
     public void onExitButtonClick() {
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 

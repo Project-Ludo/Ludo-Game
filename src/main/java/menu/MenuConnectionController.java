@@ -21,6 +21,7 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
     }
 
     public void onExitButtonClick() {
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 

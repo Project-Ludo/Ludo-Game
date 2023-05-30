@@ -30,6 +30,7 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
     }
 
     public void onExitButtonClick() {
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         FXGL.getGameController().exit();
     }
 

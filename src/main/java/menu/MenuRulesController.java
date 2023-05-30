@@ -26,6 +26,7 @@ public class MenuRulesController extends MenuDefaultButtonAction implements Init
 
 
     public void onExitButtonClick() {
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 }
