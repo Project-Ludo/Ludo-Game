@@ -1,5 +1,6 @@
 package menu;
 
+import com.almasb.fxgl.dsl.FXGL;
 import config.UIConfig;
 import controller.SceneController;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public abstract class MenuDefaultButtonAction {
 
@@ -29,6 +31,11 @@ public abstract class MenuDefaultButtonAction {
         view.setFitWidth(control.getPrefWidth());
         view.setPreserveRatio(true);
         control.setGraphic(view);
+    }
+
+    public void changeControlTextureFor(Labeled control, String imagePath, int duration, String finalImagePath) {
+        changeControlTexture(control, imagePath);
+        FXGL.runOnce(() -> changeControlTexture(control, finalImagePath), Duration.millis(duration));
     }
 
     public void onStartButtonHover() {
@@ -63,7 +70,7 @@ public abstract class MenuDefaultButtonAction {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
     }
 
-    public void initSceneController(SceneController sceneController){
+    public void initSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
     }
 }

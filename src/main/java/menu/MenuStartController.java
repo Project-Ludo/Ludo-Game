@@ -35,7 +35,7 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
     }
 
     public void onMusicButtonClick() {
-        System.out.println("Click");
+        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
     }
 
     public void onRulesButtonClick() {

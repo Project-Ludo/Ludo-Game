@@ -19,4 +19,5 @@ public final class UIConfig {
     // MUSIC BUTTON
     public static final String MUSIC_BUTTON_DEFAULT = "menu/texture/music-button_default.png";
     public static final String MUSIC_BUTTON_HOVER = "menu/texture/music-button_hover.png";
+    public static final String MUSIC_BUTTON_CLICK = "menu/texture/music-button_click.png";
 }

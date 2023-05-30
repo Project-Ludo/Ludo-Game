@@ -34,6 +34,6 @@ public class LobbyController extends MenuDefaultButtonAction implements Initiali
     }
 
     public void onMusicButtonClick() {
-        System.out.println("MUSIC <3");
+        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
     }
 }

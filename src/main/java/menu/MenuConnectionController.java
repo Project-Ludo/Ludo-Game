@@ -26,6 +26,6 @@ public class MenuConnectionController extends MenuDefaultButtonAction implements
     }
 
     public void onMusicButtonClick() {
-        System.out.println("Music");
+        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
     }
 }
