@@ -1,16 +1,7 @@
 package menu;
 
-import animatefx.animation.Bounce;
-import animatefx.animation.FadeIn;
-import animatefx.animation.Pulse;
 import animatefx.animation.Shake;
-import animatefx.animation.Tada;
-import animatefx.animation.Wobble;
-import com.almasb.fxgl.animation.AnimationBuilder;
-import com.almasb.fxgl.dsl.FXGL;
 import config.UIConfig;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -21,6 +12,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
@@ -39,6 +31,10 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
 
     @FXML
     public Label serverAddressText;
+    @FXML
+    public Label errorNicknameText;
+    @FXML
+    public Label errorIpAddressText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,8 +43,9 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
         changeControlTexture(playerNameText, UIConfig.PLAYER_NAME_TEXT);
         changeControlTexture(serverAddressText, UIConfig.SERVER_ADDRESS_TEXT);
-        initializeTextField(nicknameTextField, 20);
-        initializeTextField(ipTextField, 21);
+
+        initializeTextField(nicknameTextField, errorNicknameText, 20);
+        initializeTextField(ipTextField, errorIpAddressText, 21);
     }
 
     public void onStartButtonClick() {
@@ -65,9 +62,9 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
     }
 
-    private void initializeTextField(TextField textField, int maxLength) {
+    private void initializeTextField(TextField textField, Label errorMessageField, int maxLength) {
         setTextFieldBackground(textField, UIConfig.TEXT_BOX);
-        initializeTextFieldListener(textField, maxLength);
+        initializeTextFieldListener(textField, errorMessageField, maxLength);
         textField.setFont(new Font(textField.getFont().getName(), 40 - maxLength));
     }
 
@@ -81,14 +78,21 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         textField.setBackground(new Background(myBI));
     }
 
-    private void initializeTextFieldListener(TextField textField, int maxLength) {
+    private void initializeTextFieldListener(TextField textField, Label errorMessage, int maxLength) {
         textField.textProperty().addListener(((ov, oldValue, newValue) -> {
             if (textField.getText().length() > maxLength) {
                 String s = textField.getText().substring(0, maxLength);
                 textField.setText(s);
 
+                errorMessage.setText(String.format(UIConfig.ERROR_TO_BIG_TEXT, maxLength));
+                errorMessage.setTextFill(Color.RED);
+
                 new Shake(textField).setSpeed(1.2).play();
                 setTextFieldBackground(textField, UIConfig.TEXT_BOX_ERROR);
+            } else if (textField.getText().length() < 3) {
+                errorMessage.setText("WYMAGANE MIN 3 LITERY");
+            } else {
+                errorMessage.setText("");
             }
         }));
     }

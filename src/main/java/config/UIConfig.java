@@ -1,5 +1,7 @@
 package config;
 
+import java.lang.module.FindException;
+
 public final class UIConfig {
 
     // START BUTTON
@@ -27,4 +29,7 @@ public final class UIConfig {
 
     public static final String PLAYER_NAME_TEXT = "menu/texture/player-name-text.png";
     public static final String SERVER_ADDRESS_TEXT = "menu/texture/server-address-text.png";
+
+    public static final String ERROR_TO_BIG_TEXT = "WYMAGANE MAX %s LITER";
+    public static final String ERROR_TO_SMALL_TEXT = "WYMAGANE MIN %s LITER";
 }
