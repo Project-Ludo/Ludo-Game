@@ -39,6 +39,7 @@ public class MenuStartController extends MenuDefaultButtonAction implements Init
     }
 
     public void onRulesButtonClick() {
+        changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);
     }
 }

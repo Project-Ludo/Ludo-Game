@@ -13,8 +13,9 @@ public final class UIConfig {
     public static final String EXIT_BUTTON_CLICK = "menu/texture/exit-button_click.png";
 
     // RULES BUTTON
-    public static final String RULES_BUTTON_DEFAULT = "menu/texture/qm-button_default.png";
-    public static final String RULES_BUTTON_HOVER = "menu/texture/qm-button_hover.png";
+    public static final String RULES_BUTTON_DEFAULT = "menu/texture/rules-button_default.png";
+    public static final String RULES_BUTTON_HOVER = "menu/texture/rules-button_hover.png";
+    public static final String RULES_BUTTON_CLICK = "menu/texture/rules-button_click.png";
 
     // MUSIC BUTTON
     public static final String MUSIC_BUTTON_DEFAULT = "menu/texture/music-button_default.png";
