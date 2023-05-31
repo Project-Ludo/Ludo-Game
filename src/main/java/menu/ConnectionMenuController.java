@@ -117,24 +117,28 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
 
             if (validationError == ValidationError.NO_ERROR) {
                 errorMessage.setText("");
+                setTextFieldBackground(textField, UIConfig.TEXT_BOX);
                 return;
             }
 
             if (validationError == ValidationError.EMPTY_FIELD) {
                 errorMessage.setText(UIConfig.EMPTY_TEXT_FIELD);
                 errorMessage.setTextFill(Color.RED);
+                setTextFieldBackground(textField, UIConfig.TEXT_BOX_ERROR);
                 return;
             }
 
             if (validationError == ValidationError.PATTERN) {
                 errorMessage.setText(UIConfig.ERROR_NOT_ALLOWED_CHAR);
                 errorMessage.setTextFill(Color.RED);
+                setTextFieldBackground(textField, UIConfig.TEXT_BOX_ERROR);
                 return;
             }
 
             if (validationError == ValidationError.TOO_SHORT) {
                 errorMessage.setText(String.format(UIConfig.WARNING_TEXT_TOO_SHORT, minLength));
                 errorMessage.setTextFill(Color.GOLD);
+                setTextFieldBackground(textField, UIConfig.TEXT_BOX);
             }
         }));
     }
