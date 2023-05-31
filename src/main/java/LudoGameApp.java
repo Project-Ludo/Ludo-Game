@@ -1,30 +1,18 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.app.scene.GameView;
-import com.almasb.fxgl.entity.level.Level;
-import com.almasb.fxgl.entity.level.text.TextLevelLoader;
-import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import config.Config;
-import controller.GameController;
+import game.GameController;
 import controller.SceneController;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import menu.ConnectionMenuController;
 import menu.LobbyController;
 import menu.MainMenuController;
 import menu.RulesMenuController;
-import network.client.ClientConnector;
-import player.LudoPlayer;
 
 import java.io.IOException;
-import java.util.UUID;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class LudoGameApp extends GameApplication {
 
@@ -43,20 +31,6 @@ public class LudoGameApp extends GameApplication {
 
         loadScene();
         getGameScene().addUINode(sceneController.getGameScene());
-
-//        getGameWorld().addEntityFactory(new LudoFactory());
-//        Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
-//        level.getEntities().forEach(entity -> {
-//            Point2D fixedPoint = new Point2D(((double) Config.MAP_WIDTH / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2),
-//                    ((double) Config.MAP_HEIGHT / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2));
-//            entity.translate(fixedPoint);
-//        });
-//
-//        getGameWorld().setLevel(level);
-//
-//        this.grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> CellState.NOT_WALKABLE);
-//        getGameWorld().getEntitiesByType(EntityType.BACKGROUND)
-//                .forEach(entity -> entity.setVisible(false));
 //
 //        LudoPlayer ludoPlayer = new LudoPlayer(UUID.randomUUID());
 //        ClientConnector clientConnector = new ClientConnector();
