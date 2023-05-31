@@ -30,6 +30,8 @@ public final class UIConfig {
     public static final String PLAYER_NAME_TEXT = "menu/texture/player-name-text.png";
     public static final String SERVER_ADDRESS_TEXT = "menu/texture/server-address-text.png";
 
-    public static final String ERROR_TO_BIG_TEXT = "WYMAGANE MAX %s LITER";
-    public static final String ERROR_TO_SMALL_TEXT = "WYMAGANE MIN %s LITER";
+    public static final String ERROR_TEXT_TOO_LONG = "Maksymalna długość to %s znaków";
+    public static final String WARNING_TEXT_TOO_SHORT = "Minimalna długość to %s znaków";
+    public static final String ERROR_NOT_ALLOWED_CHAR = "Tekst zawiera niedozwolone znaki";
+    public static final String EMPTY_TEXT_FIELD = "Pole nie może być puste";
 }
