@@ -1,10 +1,13 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import network.client.ClientConnector;
 import player.LudoPlayer;
 
@@ -44,6 +47,8 @@ public class LudoGameApp extends GameApplication {
         LudoPlayer ludoPlayer = new LudoPlayer(UUID.randomUUID());
         ClientConnector clientConnector = new ClientConnector();
         clientConnector.connect("localhost", 55555, ludoPlayer);
+
+        setBoard();
     }
 
     @Override
@@ -53,6 +58,23 @@ public class LudoGameApp extends GameApplication {
 
     private void setBackground() {
         getGameScene().setBackgroundRepeat("background/background.png");
+    }
+    private void setBoard(){
+        ImageView imageView = new ImageView(new Image("assets/textures/board/ilemozna2.png"));
+        //TODO extract to UIConfig
+        int BOARD_WIDTH = 500;
+        int BOARD_START_LAYOUT_X = ((Config.MAP_WIDTH / 2) - (BOARD_WIDTH / 2));
+        int BOARD_START_LAYOUT_Y = ((Config.MAP_HEIGHT / 2) - (BOARD_WIDTH / 2));
+
+        imageView.setFitWidth(BOARD_WIDTH);
+        imageView.setPreserveRatio(true);
+        imageView.setVisible(true);
+
+        imageView.setLayoutX(BOARD_START_LAYOUT_X);
+        imageView.setLayoutY(BOARD_START_LAYOUT_Y);
+
+        GameView gameView = new GameView(imageView, 100);
+        getGameScene().addGameView(gameView);
     }
 
     public static void main(String[] args) {
