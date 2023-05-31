@@ -4,6 +4,11 @@ import java.lang.module.FindException;
 
 public final class UIConfig {
 
+    public static final int BOARD_WIDTH = 500;
+    public static final int BOARD_START_LAYOUT_X = ((Config.MAP_WIDTH / 2) - (BOARD_WIDTH / 2));
+    public static final int BOARD_START_LAYOUT_Y = ((Config.MAP_HEIGHT / 2) - (BOARD_WIDTH / 2));
+
+
     // START BUTTON
     public static final String START_BUTTON_DEFAULT = "menu/texture/start-button_default.png";
     public static final String START_BUTTON_HOVER = "menu/texture/start-button_hover.png";

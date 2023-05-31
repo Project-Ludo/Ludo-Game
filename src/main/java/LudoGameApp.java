@@ -1,13 +1,25 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
+import config.Config;
+import controller.GameController;
+import controller.SceneController;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import menu.ConnectionMenuController;
+import menu.LobbyController;
+import menu.MainMenuController;
+import menu.RulesMenuController;
 import network.client.ClientConnector;
 import player.LudoPlayer;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
@@ -17,6 +29,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 public class LudoGameApp extends GameApplication {
 
     private AStarGrid grid;
+    private SceneController sceneController;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -29,7 +42,7 @@ public class LudoGameApp extends GameApplication {
     protected void initGame() {
 
         loadScene();
-        getGameScene().addUINode(sceneController.getMainMenuScene());
+        getGameScene().addUINode(sceneController.getGameScene());
 
 //        getGameWorld().addEntityFactory(new LudoFactory());
 //        Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
@@ -57,9 +70,10 @@ public class LudoGameApp extends GameApplication {
         FXMLLoader fxmlLoaderRulesMenu = new FXMLLoader(getClass().getResource("Menu/ludo-rules-menu.fxml"));
         FXMLLoader fxmlLoaderConnectionMenu = new FXMLLoader(getClass().getResource("Menu/ludo-connection-menu.fxml"));
         FXMLLoader fxmlLoaderLobby = new FXMLLoader(getClass().getResource("Menu/ludo-lobby.fxml"));
+        FXMLLoader fxmlLoaderGame = new FXMLLoader(getClass().getResource("game/ludo-game.fxml"));
 
         try {
-            sceneController = new SceneController(fxmlLoaderStartMenu.load(), fxmlLoaderRulesMenu.load(), fxmlLoaderConnectionMenu.load(), fxmlLoaderLobby.load());
+            sceneController = new SceneController(fxmlLoaderStartMenu.load(), fxmlLoaderRulesMenu.load(), fxmlLoaderConnectionMenu.load(), fxmlLoaderLobby.load(), fxmlLoaderGame.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,10 +81,13 @@ public class LudoGameApp extends GameApplication {
         RulesMenuController menuRulesController = fxmlLoaderRulesMenu.getController();
         ConnectionMenuController menuConnectionController = fxmlLoaderConnectionMenu.getController();
         LobbyController lobbyController = fxmlLoaderLobby.getController();
+        GameController gameController = fxmlLoaderGame.getController();
+
         menuStartController.initSceneController(sceneController);
         menuRulesController.initSceneController(sceneController);
         menuConnectionController.initSceneController(sceneController);
         lobbyController.initSceneController(sceneController);
+        gameController.initSceneController(sceneController);
     }
 
     @Override
@@ -81,24 +98,6 @@ public class LudoGameApp extends GameApplication {
     private void setBackground() {
         getGameScene().setBackgroundRepeat("background/background.png");
     }
-    private void setBoard(){
-        ImageView imageView = new ImageView(new Image("assets/textures/board/ilemozna2.png"));
-        //TODO extract to UIConfig
-        int BOARD_WIDTH = 500;
-        int BOARD_START_LAYOUT_X = ((Config.MAP_WIDTH / 2) - (BOARD_WIDTH / 2));
-        int BOARD_START_LAYOUT_Y = ((Config.MAP_HEIGHT / 2) - (BOARD_WIDTH / 2));
-
-        imageView.setFitWidth(BOARD_WIDTH);
-        imageView.setPreserveRatio(true);
-        imageView.setVisible(true);
-
-        imageView.setLayoutX(BOARD_START_LAYOUT_X);
-        imageView.setLayoutY(BOARD_START_LAYOUT_Y);
-
-        GameView gameView = new GameView(imageView, 100);
-        getGameScene().addGameView(gameView);
-    }
-
     public static void main(String[] args) {
         launch(args);
     }
