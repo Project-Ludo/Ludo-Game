@@ -7,6 +7,7 @@ import config.UIConfig;
 import game.BoardCell;
 import game.GameController;
 import controller.SceneController;
+import game.LudoGame;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -59,6 +60,7 @@ public class LudoGameApp extends GameApplication {
         ConnectionMenuController menuConnectionController = fxmlLoaderConnectionMenu.getController();
         LobbyController lobbyController = fxmlLoaderLobby.getController();
         GameController gameController = fxmlLoaderGame.getController();
+        gameController.setGame(new LudoGame());
 
         menuStartController.initSceneController(sceneController);
         menuRulesController.initSceneController(sceneController);
