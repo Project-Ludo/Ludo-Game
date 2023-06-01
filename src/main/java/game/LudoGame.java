@@ -1,5 +1,6 @@
-package network.server;
+package game;
 
+import network.server.LudoServer;
 import player.Player;
 
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package network.server;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
+import game.LudoGame;
 import network.response.Response;
 import network.response.ResponseStatus;
 import player.LudoPlayer;

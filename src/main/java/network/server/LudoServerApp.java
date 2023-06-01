@@ -2,6 +2,7 @@ package network.server;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import game.LudoGame;
 
 public class LudoServerApp extends GameApplication {
 
