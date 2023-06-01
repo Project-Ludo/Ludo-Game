@@ -1,10 +1,16 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import config.Config;
+import config.UIConfig;
+import game.BoardCell;
 import game.GameController;
 import controller.SceneController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 import menu.ConnectionMenuController;
 import menu.LobbyController;
 import menu.MainMenuController;
@@ -25,18 +31,15 @@ public class LudoGameApp extends GameApplication {
         settings.setHeight(Config.MAP_HEIGHT);
         settings.setTitle("Bajkowe Ludo");
     }
-
     @Override
     protected void initGame() {
 
         loadScene();
-        getGameScene().addUINode(sceneController.getGameScene());
-//
+        //getGameScene().addUINode(sceneController.getGameScene());
 //        LudoPlayer ludoPlayer = new LudoPlayer(UUID.randomUUID());
 //        ClientConnector clientConnector = new ClientConnector();
 //        clientConnector.connect("localhost", 55555, ludoPlayer);
 //        setBoard();
-
     }
 
     private void loadScene () {

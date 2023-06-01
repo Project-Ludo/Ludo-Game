@@ -5,9 +5,10 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import game.EntityType;
+import type.EntityType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import type.PlayerType;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 
@@ -46,10 +47,10 @@ public class LudoFactory implements EntityFactory {
     }
 
     @Spawns("Player")
-    public Entity spawnPlayer(SpawnData data) {
+    public Entity spawnPlayer(SpawnData data, PlayerType playerType) {
         return entityBuilder(data)
                 .type(EntityType.PLAYER)
-                .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.LIGHTCORAL))
+                .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.BLACK))
                 .build();
     }
 }
