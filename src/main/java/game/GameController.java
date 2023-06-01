@@ -41,14 +41,12 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     @FXML
     public AnchorPane anchorPane;
     private AStarGrid grid;
-    private AStarMoveComponent moveComponent;
     //LinkedHashMap<BoardCell, CellColor> map;
     LinkedList<BoardCell> map;
 
     //Testts
     Circle circle;
     BoardCell boardCell;
-
     LudoFactory ludoFactory;
 
     @Override
