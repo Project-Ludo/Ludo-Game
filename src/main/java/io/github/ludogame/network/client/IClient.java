@@ -1,8 +1,8 @@
-package network.client;
+package io.github.ludogame.network.client;
 
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.net.Client;
-import player.LudoPlayer;
+import io.github.ludogame.player.LudoPlayer;
 
 public interface IClient {
 

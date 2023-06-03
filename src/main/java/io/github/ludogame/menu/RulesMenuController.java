@@ -1,6 +1,6 @@
-package menu;
+package io.github.ludogame.menu;
 
-import config.UIConfig;
+import io.github.ludogame.config.UIConfig;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

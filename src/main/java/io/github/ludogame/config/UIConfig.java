@@ -1,6 +1,4 @@
-package config;
-
-import java.lang.module.FindException;
+package io.github.ludogame.config;
 
 public final class UIConfig {
 

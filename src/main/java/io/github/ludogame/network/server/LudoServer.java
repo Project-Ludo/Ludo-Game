@@ -1,13 +1,16 @@
-package network.server;
+package io.github.ludogame.network.server;
 
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
-import network.response.Response;
-import network.response.ResponseStatus;
-import player.LudoPlayer;
-import player.PlayerColor;
+import io.github.ludogame.network.response.Response;
+import io.github.ludogame.network.response.ResponseStatus;
+import io.github.ludogame.player.LudoPlayer;
+import io.github.ludogame.player.Player;
+import io.github.ludogame.player.PlayerColor;
+import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -29,10 +32,12 @@ public class LudoServer implements IServer {
 
     private final Logger logger = Logger.getLogger(LudoServer.class.getName());
     private Server<Bundle> serverBundle;
+    private LudoGame ludoGame;
 
     @Override
     public void initializeServer(int port, LudoGame ludoGame) {
         this.serverBundle = FXGL.getNetService().newTCPServer(port);
+        this.ludoGame = ludoGame;
         serverBundle.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             if (message.getName().equals("ConnectionRequest")) {
                 LudoPlayer player = message.get("player");
@@ -57,7 +62,17 @@ public class LudoServer implements IServer {
             }
         }));
         serverBundle.startAsync();
+        lobbyTask();
         logger.log(Level.INFO, String.format(SERVER_CONNECTED, port));
+    }
+
+    public void lobbyTask(){
+        FXGL.run(() -> {
+            Bundle bundle = new Bundle("LobbyInfo");
+            bundle.put("players", (ArrayList<Player>) ludoGame.getPlayers());
+            serverBundle.broadcast(bundle);
+            System.out.println("Sent lobby info");
+        }, Duration.millis(500));
     }
 
     @Override

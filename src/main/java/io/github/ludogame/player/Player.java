@@ -1,4 +1,4 @@
-package player;
+package io.github.ludogame.player;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
-package menu;
+package io.github.ludogame.menu;
 
 import com.almasb.fxgl.dsl.FXGL;
-import config.UIConfig;
-import controller.SceneController;
+import io.github.ludogame.config.UIConfig;
+import io.github.ludogame.controller.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;

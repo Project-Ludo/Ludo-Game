@@ -1,6 +1,7 @@
-package network.server;
+package io.github.ludogame.network.server;
 
-import player.Player;
+
+import io.github.ludogame.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;

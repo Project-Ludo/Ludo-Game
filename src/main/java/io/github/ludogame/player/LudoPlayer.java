@@ -1,4 +1,4 @@
-package player;
+package io.github.ludogame.player;
 
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.net.Client;
@@ -9,6 +9,15 @@ public class LudoPlayer implements Player {
     private final UUID uuid;
     private PlayerColor color;
     private Client<Bundle> dataBundle;
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public LudoPlayer(UUID uuid) {
         this.uuid = uuid;

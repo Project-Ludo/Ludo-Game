@@ -1,4 +1,4 @@
-package config;
+package io.github.ludogame.config;
 
 public final class Config {
 

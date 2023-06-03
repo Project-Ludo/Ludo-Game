@@ -1,4 +1,4 @@
-package network.server;
+package io.github.ludogame.network.server;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;

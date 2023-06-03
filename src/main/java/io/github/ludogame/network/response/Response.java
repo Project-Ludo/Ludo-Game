@@ -1,6 +1,6 @@
-package network.response;
+package io.github.ludogame.network.response;
 
-import player.Player;
+import io.github.ludogame.player.Player;
 
 import java.io.Serializable;
 

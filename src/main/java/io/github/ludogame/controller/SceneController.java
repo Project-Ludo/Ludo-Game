@@ -1,7 +1,7 @@
-package controller;
+package io.github.ludogame.controller;
 
 import com.almasb.fxgl.dsl.FXGL;
-import config.Config;
+import io.github.ludogame.config.Config;
 import javafx.scene.Parent;
 import javafx.util.Duration;
 

@@ -1,12 +1,12 @@
-package network.client;
+package io.github.ludogame.network.client;
 
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Client;
+import io.github.ludogame.network.response.Response;
+import io.github.ludogame.network.response.ResponseStatus;
+import io.github.ludogame.player.LudoPlayer;
 import javafx.util.Duration;
-import network.response.Response;
-import network.response.ResponseStatus;
-import player.LudoPlayer;
 
 public class ClientConnector implements IClient {
 
@@ -28,6 +28,10 @@ public class ClientConnector implements IClient {
                     System.out.println("Failed to connect to server (" + response.getMessage() + ")");
                     client.disconnect();
                 }
+            }
+
+            if(message.getName().equals("LobbyInfo")){
+
             }
         }));
         client.connectAsync();
