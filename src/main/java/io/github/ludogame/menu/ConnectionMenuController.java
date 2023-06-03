@@ -89,6 +89,12 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         ClientConnector clientConnector = new ClientConnector();
         Client<Bundle> connect = clientConnector.connect(ip, port, ludoPlayer);
 
+        if(connect == null){
+            System.out.println("DUPA");
+            return;
+        }
+
+
         FXGL.run(() -> ludoPlayer.setDataBundle(connect), Duration.millis(500));
 
         sceneController.changeSceneAfter(sceneController.getServerLobbyScene(), 150);

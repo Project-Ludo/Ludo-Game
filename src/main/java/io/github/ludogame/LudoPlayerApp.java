@@ -13,7 +13,6 @@ import io.github.ludogame.network.server.LudoGame;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
-import java.net.URL;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
@@ -21,7 +20,7 @@ public class LudoPlayerApp extends GameApplication {
 
     private AStarGrid grid;
     private SceneController sceneController;
-    public static LudoGame ludoGame;
+    public static final LudoGame ludoGame = new LudoGame();
 
     @Override
     protected void initSettings(GameSettings settings) {

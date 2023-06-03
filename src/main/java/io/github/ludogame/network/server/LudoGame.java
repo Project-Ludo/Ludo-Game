@@ -1,29 +1,28 @@
 package io.github.ludogame.network.server;
 
 
-import io.github.ludogame.player.Player;
+import io.github.ludogame.player.LudoPlayer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LudoGame {
 
     private LudoServer server;
-    private final List<Player> players;
+    private ArrayList<LudoPlayer> players;
 
     public LudoGame() {
         this.players = new ArrayList<>();
     }
 
-    public List<Player> getPlayers() {
+    public ArrayList<LudoPlayer> getPlayers() {
         return players;
     }
 
-    public void addPlayer(Player player) {
+    public void addPlayer(LudoPlayer player) {
         this.players.add(player);
     }
 
-    public void removePlayer(Player player) {
+    public void removePlayer(LudoPlayer player) {
         this.players.remove(player);
     }
 
@@ -33,5 +32,13 @@ public class LudoGame {
 
     public void setServer(LudoServer server) {
         this.server = server;
+    }
+
+    public void addPlayers(ArrayList<LudoPlayer> players){
+        this.players.addAll(players);
+    }
+
+    public void setPlayers(ArrayList<LudoPlayer> players) {
+        this.players = players;
     }
 }

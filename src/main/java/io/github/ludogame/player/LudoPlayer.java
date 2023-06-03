@@ -3,9 +3,10 @@ package io.github.ludogame.player;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.net.Client;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class LudoPlayer implements Player {
+public class LudoPlayer implements Serializable {
     private final UUID uuid;
     private PlayerColor color;
     private Client<Bundle> dataBundle;
