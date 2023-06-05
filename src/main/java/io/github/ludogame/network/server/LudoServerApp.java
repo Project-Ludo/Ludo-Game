@@ -5,7 +5,7 @@ import com.almasb.fxgl.app.GameSettings;
 
 public class LudoServerApp extends GameApplication {
 
-    private LudoGame ludoGame;
+    public static LudoGame ludoGame;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -14,9 +14,9 @@ public class LudoServerApp extends GameApplication {
 
     @Override
     protected void initGame() {
-        this.ludoGame = new LudoGame();
+        ludoGame = new LudoGame();
         LudoServer ludoServer = new LudoServer();
-        ludoServer.initializeServer(55555, ludoGame);
+        ludoServer.initializeServer(55555);
         ludoGame.setServer(ludoServer);
     }
 

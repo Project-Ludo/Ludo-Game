@@ -9,8 +9,6 @@ import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -32,12 +30,10 @@ public class LudoServer implements IServer {
 
     private final Logger logger = Logger.getLogger(LudoServer.class.getName());
     private Server<Bundle> serverBundle;
-    private LudoGame ludoGame;
 
     @Override
-    public void initializeServer(int port, LudoGame ludoGame) {
-        this.serverBundle = FXGL.getNetService().newTCPServer(port);
-        this.ludoGame = ludoGame;
+    public void initializeServer(int port) {
+        this.serverBundle = FXGL.getNetService().newUDPServer(port);
         serverBundle.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             if (!message.getName().equals("ConnectionRequest")) {
                 return;
@@ -55,7 +51,7 @@ public class LudoServer implements IServer {
             } else {
                 player.setColor(PLAYER_COLOR_MAP.get(serverBundle.getConnections().size()));
                 response = new Response(ResponseStatus.SUCCESS, "Connected", player);
-                ludoGame.addPlayer(player);
+                LudoServerApp.ludoGame.addPlayer(player);
                 logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
             }
 
@@ -72,12 +68,8 @@ public class LudoServer implements IServer {
     public void lobbyTask() {
         FXGL.run(() -> {
             Bundle bundle = new Bundle("LobbyInfo");
-
-            //FIXME player receiving another list than server is sending ??????? ClientConnector class
-            bundle.put("players", ludoGame.getPlayers());
-            ArrayList<LudoPlayer> players = bundle.get("players");
+            bundle.put("players", LudoServerApp.ludoGame.getPlayers());
             serverBundle.broadcast(bundle);
-            System.out.println("size:"+players.size());
         }, Duration.millis(500));
     }
 

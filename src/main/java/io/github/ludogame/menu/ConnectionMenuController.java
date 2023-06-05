@@ -2,7 +2,6 @@ package io.github.ludogame.menu;
 
 import animatefx.animation.Shake;
 import com.almasb.fxgl.core.serialization.Bundle;
-import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Client;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.network.client.ClientConnector;
@@ -19,7 +18,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -95,7 +93,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         }
 
 
-        FXGL.run(() -> ludoPlayer.setDataBundle(connect), Duration.millis(500));
+//        FXGL.run(() -> ludoPlayer.setDataBundle(connect), Duration.millis(500));
 
         sceneController.changeSceneAfter(sceneController.getServerLobbyScene(), 150);
     }

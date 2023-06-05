@@ -10,13 +10,12 @@ import io.github.ludogame.player.LudoPlayer;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ClientConnector implements IClient {
 
     @Override
     public Client<Bundle> connect(String ip, int port, LudoPlayer player) {
-        Client<Bundle> client = FXGL.getNetService().newTCPClient(ip, port);
+        Client<Bundle> client = FXGL.getNetService().newUDPClient(ip, port);
         client.connectAsync();
         setConnectionHandler(client, player);
 
@@ -57,11 +56,8 @@ public class ClientConnector implements IClient {
         if (!message.getName().equals("LobbyInfo")) {
             return;
         }
-        //FIXME player receiving another list than server is sending ??????? LudoServer class
 
         ArrayList<LudoPlayer> players = message.get("players");
-        System.out.println(message.getData());
-        System.out.println("LobbyP:" + players.size());
         LudoPlayerApp.ludoGame.setPlayers(players);
     }
 }
