@@ -26,17 +26,19 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
 
-        Font font = Font.loadFont(getClass().getResourceAsStream("/assets/ui/fonts/04B_30__.TTF"), 12);
-        playerInLobby.setFont(font);
+        //FIXME font below doesnt support multiline
+
+        //FIXME handle player disconnection (i guess by using isConnected flag in LudoPlayer - setting the flag is not done)
+//        Font font = Font.loadFont(getClass().getResourceAsStream("/assets/ui/fonts/04B_30__.TTF"), 12);
+//        playerInLobby.setFont(font);
 
         FXGL.run(() -> {
-            System.out.println("SizeP: "+LudoPlayerApp.ludoGame.getPlayers().size());
             String collect = LudoPlayerApp.ludoGame.getPlayers().stream()
                     .map(LudoPlayer::getNickname)
-                    .collect(Collectors.joining(","));
+                    .collect(Collectors.joining("\n"));
 
             playerInLobby.setText(collect);
-        }, Duration.millis(5000));
+        }, Duration.millis(500));
     }
 
     public void onStartButtonClick() {
