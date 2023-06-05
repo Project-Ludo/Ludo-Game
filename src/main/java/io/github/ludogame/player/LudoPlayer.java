@@ -11,6 +11,7 @@ public class LudoPlayer implements Serializable {
     private PlayerColor color;
     private Client<Bundle> dataBundle;
     private String nickname;
+    private boolean isConnected;
 
     public String getNickname() {
         return nickname;
@@ -42,5 +43,13 @@ public class LudoPlayer implements Serializable {
 
     public void setDataBundle(Client<Bundle> dataBundle) {
         this.dataBundle = dataBundle;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
     }
 }

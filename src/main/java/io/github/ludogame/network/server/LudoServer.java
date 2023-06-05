@@ -35,30 +35,7 @@ public class LudoServer implements IServer {
     public void initializeServer(int port) {
         this.serverBundle = FXGL.getNetService().newUDPServer(port);
         serverBundle.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
-            if (!message.getName().equals("ConnectionRequest")) {
-                return;
-            }
-
-            LudoPlayer player = message.get("player");
-            UUID playerUUID = player.getUuid();
-            logger.log(Level.INFO, String.format(PLAYER_CONNECT_REQUEST, playerUUID));
-
-            Response response;
-            if (isFull()) {
-                String responseMessage = "Server is full";
-                response = new Response(ResponseStatus.ERROR, responseMessage, player);
-                logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
-            } else {
-                player.setColor(PLAYER_COLOR_MAP.get(serverBundle.getConnections().size()));
-                response = new Response(ResponseStatus.SUCCESS, "Connected", player);
-                LudoServerApp.ludoGame.addPlayer(player);
-                logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
-            }
-
-            Bundle bundle = new Bundle("ConnectionResponse");
-            bundle.put("response", response);
-            serverBundle.broadcast(bundle);
-
+            handleConnection(message);
         }));
         serverBundle.startAsync();
         lobbyTask();
@@ -71,6 +48,32 @@ public class LudoServer implements IServer {
             bundle.put("players", LudoServerApp.ludoGame.getPlayers());
             serverBundle.broadcast(bundle);
         }, Duration.millis(500));
+    }
+
+    public void handleConnection(Bundle message){
+        if (!message.getName().equals("ConnectionRequest")) {
+            return;
+        }
+
+        LudoPlayer player = message.get("player");
+        UUID playerUUID = player.getUuid();
+        logger.log(Level.INFO, String.format(PLAYER_CONNECT_REQUEST, playerUUID));
+
+        Response response;
+        if (isFull()) {
+            String responseMessage = "Server is full";
+            response = new Response(ResponseStatus.ERROR, responseMessage, player);
+            logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
+        } else {
+            player.setColor(PLAYER_COLOR_MAP.get(serverBundle.getConnections().size()));
+            response = new Response(ResponseStatus.SUCCESS, "Connected", player);
+            LudoServerApp.ludoGame.addPlayer(player);
+            logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
+        }
+
+        Bundle bundle = new Bundle("ConnectionResponse");
+        bundle.put("response", response);
+        serverBundle.broadcast(bundle);
     }
 
     @Override
