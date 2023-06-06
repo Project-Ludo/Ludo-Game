@@ -16,6 +16,9 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
     @FXML
     public Label playerInLobby;
 
+    @FXML
+    public Label countdownText;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
@@ -42,6 +45,9 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
             });
 
             playerInLobby.setText(stringBuffer.toString());
+            if (LudoPlayerApp.ludoGame.isCountdownStarted()) {
+                countdownText.setText("Do startu: " + LudoPlayerApp.ludoGame.getStartCountdown());
+            }
         }, Duration.millis(500));
     }
 

@@ -21,5 +21,10 @@
          <font>
             <Font size="14.0" />
          </font></Label>
+      <Label fx:id="countdownText" alignment="CENTER" layoutX="282.0" layoutY="309.0" prefHeight="74.0" prefWidth="237.0">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

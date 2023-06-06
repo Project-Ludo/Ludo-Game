@@ -1,17 +1,21 @@
 package io.github.ludogame.network.server;
 
 
+import com.almasb.fxgl.dsl.FXGL;
 import io.github.ludogame.player.LudoPlayer;
+import javafx.util.Duration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class LudoGame {
+public class LudoGame implements Serializable {
 
-    private LudoServer server;
-    private ArrayList<LudoPlayer> players;
+    private ArrayList<LudoPlayer> players = new ArrayList<>();
+    private AtomicInteger startCountdown = new AtomicInteger(60);
+    private boolean countdownStarted;
 
     public LudoGame() {
-        this.players = new ArrayList<>();
     }
 
     public ArrayList<LudoPlayer> getPlayers() {
@@ -24,14 +28,6 @@ public class LudoGame {
 
     public void removePlayer(LudoPlayer player) {
         this.players.remove(player);
-    }
-
-    public LudoServer getServer() {
-        return server;
-    }
-
-    public void setServer(LudoServer server) {
-        this.server = server;
     }
 
     public void addPlayers(ArrayList<LudoPlayer> players) {
@@ -51,5 +47,42 @@ public class LudoGame {
                     p.setConnected(player.isConnected());
                     p.setNickname(player.getNickname());
                 });
+    }
+
+    public long getReadyPlayersAmount() {
+        return players.stream()
+                .filter(LudoPlayer::isReady)
+                .count();
+    }
+
+    public AtomicInteger getStartCountdown() {
+        return startCountdown;
+    }
+
+    public void setStartCountdown(AtomicInteger startCountdown) {
+        this.startCountdown = startCountdown;
+    }
+
+    public boolean isCountdownStarted() {
+        return countdownStarted;
+    }
+
+    public void setCountdownStarted(boolean countdownStarted) {
+        this.countdownStarted = countdownStarted;
+    }
+
+    public void startCountdown() {
+        this.countdownStarted = true;
+        FXGL.run(() -> {
+            this.startCountdown.decrementAndGet();
+
+            if (getReadyPlayersAmount() >= 4 && this.startCountdown.get() > 10) {
+                this.startCountdown.set(10);
+            }
+
+            if (this.startCountdown.get() < 0) {
+                this.startCountdown.set(0);
+            }
+        }, Duration.seconds(1), 60);
     }
 }

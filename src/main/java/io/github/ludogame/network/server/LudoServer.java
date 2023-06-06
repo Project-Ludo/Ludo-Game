@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LudoServer implements IServer {
+public class LudoServer {
 
     private final static int MAX_PLAYERS_AMOUNT = 4;
     private final static String SERVER_CONNECTED = "Server is now working on port: %s";
@@ -38,7 +38,6 @@ public class LudoServer implements IServer {
         this.connectionHandler = new ConnectionHandler();
     }
 
-    @Override
     public void initializeServer(int port) {
         this.serverBundle = FXGL.getNetService().newUDPServer(port);
         serverBundle.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
@@ -53,8 +52,13 @@ public class LudoServer implements IServer {
     public void lobbyTask() {
         FXGL.run(() -> {
             Bundle bundle = new Bundle("LobbyInfo");
-            bundle.put("players", LudoServerApp.ludoGame.getPlayers());
+            LudoGameDTO ludoGameDTO = GameService.convertToDTO(LudoServerApp.ludoGame);
+            bundle.put("game", ludoGameDTO);
             serverBundle.broadcast(bundle);
+
+            if (LudoServerApp.ludoGame.getReadyPlayersAmount() >= 2 && !LudoServerApp.ludoGame.isCountdownStarted()) {
+                LudoServerApp.ludoGame.startCountdown();
+            }
         }, Duration.millis(500));
     }
 
@@ -78,6 +82,7 @@ public class LudoServer implements IServer {
         logger.log(Level.INFO, String.format(PLAYER_CONNECT_REQUEST, playerUUID));
 
         Response response;
+        //TODO jesli uuid gracza jest w playerach to znaczy ze byl on w tej grze i powinien moc wrocic do poprzedniego stanu swojego konta.
         if (isFull()) {
             String responseMessage = "Server is full";
             response = new Response(ResponseStatus.ERROR, responseMessage, player);
@@ -94,7 +99,6 @@ public class LudoServer implements IServer {
         serverBundle.broadcast(bundle);
     }
 
-    @Override
     public boolean isFull() {
         return serverBundle.getConnections().size() > MAX_PLAYERS_AMOUNT;
     }

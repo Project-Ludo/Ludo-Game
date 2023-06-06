@@ -17,7 +17,6 @@ public class LudoServerApp extends GameApplication {
         ludoGame = new LudoGame();
         LudoServer ludoServer = new LudoServer();
         ludoServer.initializeServer(55555);
-        ludoGame.setServer(ludoServer);
     }
 
     public static void main(String[] args) {
