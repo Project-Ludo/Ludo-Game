@@ -7,6 +7,7 @@ import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
+import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
 import java.util.Map;
@@ -62,8 +63,9 @@ public class LudoServer implements IServer {
             return;
         }
 
-        UUID uuid = message.get("uuid");
-        connectionHandler.updateLastRequestTime(uuid);
+        LudoPlayer ludoPlayer = PlayerService.convertToPlayer(message.get("player"));
+        connectionHandler.updateLastRequestTime(ludoPlayer.getUuid());
+        LudoServerApp.ludoGame.updatePlayer(ludoPlayer);
     }
 
     public void handleConnectionRequest(Bundle message) {

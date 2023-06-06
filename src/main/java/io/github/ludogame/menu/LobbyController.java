@@ -35,7 +35,10 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
                     stringBuffer.append(" (offline)");
                 }
 
+                stringBuffer.append(player.isReady() ? "[ready]" : "[not ready]");
+
                 stringBuffer.append("\n");
+
             });
 
             playerInLobby.setText(stringBuffer.toString());
@@ -43,6 +46,7 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
     }
 
     public void onStartButtonClick() {
+        LudoPlayerApp.player.setReady(true);
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
     }
 

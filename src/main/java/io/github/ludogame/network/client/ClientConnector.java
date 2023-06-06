@@ -8,6 +8,8 @@ import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
 import io.github.ludogame.player.LudoPlayer;
+import io.github.ludogame.player.LudoPlayerDTO;
+import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -73,13 +75,10 @@ public class ClientConnector implements IClient {
                 return;
             }
 
+            LudoPlayerDTO playerDTO = PlayerService.convertToDTO(player);
             Bundle bundle = new Bundle("ConnectionFlag");
-            bundle.put("uuid", player.getUuid());
+            bundle.put("player", playerDTO);
             client.broadcast(bundle);
         }, Duration.millis(500));
-    }
-
-    public TimerAction getConnectionHandlerTask() {
-        return connectionHandlerTask;
     }
 }

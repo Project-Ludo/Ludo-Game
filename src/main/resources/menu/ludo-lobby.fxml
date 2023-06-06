@@ -17,7 +17,7 @@
         <Button fx:id="exitButton" layoutX="700.0" layoutY="50.0" mnemonicParsing="false" onAction="#onExitButtonClick" onMouseEntered="#onExitButtonHover" onMouseExited="#onExitButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
         <Button fx:id="musicButton" layoutX="700.0" layoutY="125.0" mnemonicParsing="false" onAction="#onMusicButtonClick" onMouseEntered="#onMusicButtonHover" onMouseExited="#onMusicButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
         <Label fx:id="lobbyTile" alignment="CENTER" layoutX="250.0" layoutY="75.0" prefHeight="100.0" prefWidth="300.0" text="Lobby" />
-        <Label fx:id="playerInLobby" alignment="TOP_LEFT" layoutX="250.0" layoutY="219.0" prefHeight="175.0" prefWidth="300.0" text=" - Gracz Pierwszy&#10; - Gracz Drugi&#10; - Gracz Trzeci&#10; - Gracz Czwarty">
+        <Label fx:id="playerInLobby" alignment="TOP_LEFT" layoutX="254.0" layoutY="224.0" prefHeight="170.0" prefWidth="290.0" text=" - Gracz Pierwszy&#10; - Gracz Drugi&#10; - Gracz Trzeci&#10; - Gracz Czwarty">
          <font>
             <Font size="14.0" />
          </font></Label>

@@ -34,11 +34,22 @@ public class LudoGame {
         this.server = server;
     }
 
-    public void addPlayers(ArrayList<LudoPlayer> players){
+    public void addPlayers(ArrayList<LudoPlayer> players) {
         this.players.addAll(players);
     }
 
     public void setPlayers(ArrayList<LudoPlayer> players) {
         this.players = players;
+    }
+
+    public void updatePlayer(LudoPlayer player) {
+        players.stream()
+                .filter(p -> p.getUuid().equals(player.getUuid()))
+                .findFirst()
+                .ifPresent(p -> {
+                    p.setReady(player.isReady());
+                    p.setConnected(player.isConnected());
+                    p.setNickname(player.getNickname());
+                });
     }
 }

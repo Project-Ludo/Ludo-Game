@@ -7,11 +7,15 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class LudoPlayer implements Serializable {
-    private final UUID uuid;
+    private UUID uuid;
     private PlayerColor color;
     private Client<Bundle> dataBundle;
     private String nickname;
-    private boolean isConnected;
+    private boolean connected;
+    private boolean ready;
+
+    public LudoPlayer() {
+    }
 
     public String getNickname() {
         return nickname;
@@ -23,11 +27,15 @@ public class LudoPlayer implements Serializable {
 
     public LudoPlayer(UUID uuid) {
         this.uuid = uuid;
-        this.isConnected = true;
+        this.connected = true;
     }
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public PlayerColor getColor() {
@@ -47,15 +55,35 @@ public class LudoPlayer implements Serializable {
     }
 
     public boolean isConnected() {
-        return isConnected;
+        return connected;
     }
 
     public void setConnected(boolean connected) {
-        isConnected = connected;
+        this.connected = connected;
     }
 
     public void disconnectFromServer() {
         this.dataBundle.disconnect();
-        this.isConnected = false;
+        this.connected = false;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+
+    @Override
+    public String toString() {
+        return "LudoPlayer{" +
+                "uuid=" + uuid +
+                ", color=" + color +
+                ", dataBundle=" + dataBundle +
+                ", nickname='" + nickname + '\'' +
+                ", isConnected=" + connected +
+                ", isReady=" + ready +
+                '}';
     }
 }
