@@ -23,6 +23,7 @@ public class LudoPlayer implements Serializable {
 
     public LudoPlayer(UUID uuid) {
         this.uuid = uuid;
+        this.isConnected = true;
     }
 
     public UUID getUuid() {
@@ -51,5 +52,10 @@ public class LudoPlayer implements Serializable {
 
     public void setConnected(boolean connected) {
         isConnected = connected;
+    }
+
+    public void disconnectFromServer() {
+        this.dataBundle.disconnect();
+        this.isConnected = false;
     }
 }

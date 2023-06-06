@@ -10,9 +10,11 @@ import io.github.ludogame.menu.LobbyController;
 import io.github.ludogame.menu.MainMenuController;
 import io.github.ludogame.menu.RulesMenuController;
 import io.github.ludogame.network.server.LudoGame;
+import io.github.ludogame.player.LudoPlayer;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
@@ -21,6 +23,7 @@ public class LudoPlayerApp extends GameApplication {
     private AStarGrid grid;
     private SceneController sceneController;
     public static final LudoGame ludoGame = new LudoGame();
+    public static final LudoPlayer player = new LudoPlayer(UUID.randomUUID());
 
     @Override
     protected void initSettings(GameSettings settings) {

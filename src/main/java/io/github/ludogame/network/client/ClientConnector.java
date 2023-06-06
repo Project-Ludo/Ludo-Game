@@ -3,6 +3,7 @@ package io.github.ludogame.network.client;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Client;
+import com.almasb.fxgl.time.TimerAction;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
@@ -12,6 +13,8 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class ClientConnector implements IClient {
+
+    private TimerAction connectionHandlerTask;
 
     @Override
     public Client<Bundle> connect(String ip, int port, LudoPlayer player) {
@@ -25,17 +28,18 @@ public class ClientConnector implements IClient {
             client.broadcast(connectionData);
         }, Duration.seconds(0.2));
 
+        connectionHandlerTask(client, player);
         return client;
     }
 
     private void setConnectionHandler(Client<Bundle> client, LudoPlayer player) {
         client.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
-            handleConnection(message, player, client);
+            handleConnection(message, player);
             handleLobby(message);
         }));
     }
 
-    private void handleConnection(Bundle message, LudoPlayer player, Client<Bundle> client) {
+    private void handleConnection(Bundle message, LudoPlayer player) {
         if (!message.getName().equals("ConnectionResponse")) {
             return;
         }
@@ -59,5 +63,23 @@ public class ClientConnector implements IClient {
 
         ArrayList<LudoPlayer> players = message.get("players");
         LudoPlayerApp.ludoGame.setPlayers(players);
+    }
+
+    private void connectionHandlerTask(Client<Bundle> client, LudoPlayer player) {
+        this.connectionHandlerTask = FXGL.run(() -> {
+            //FIXME asynchronous task expiration :((
+            if (!player.isConnected()) {
+                this.connectionHandlerTask.expire();
+                return;
+            }
+
+            Bundle bundle = new Bundle("ConnectionFlag");
+            bundle.put("uuid", player.getUuid());
+            client.broadcast(bundle);
+        }, Duration.millis(500));
+    }
+
+    public TimerAction getConnectionHandlerTask() {
+        return connectionHandlerTask;
     }
 }

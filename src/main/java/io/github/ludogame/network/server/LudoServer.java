@@ -28,14 +28,21 @@ public class LudoServer implements IServer {
             4, PlayerColor.YELLOW
     );
 
-    private final Logger logger = Logger.getLogger(LudoServer.class.getName());
+    private final ConnectionHandler connectionHandler;
+    private final Logger logger;
     private Server<Bundle> serverBundle;
+
+    public LudoServer() {
+        this.logger = Logger.getLogger(LudoServer.class.getName());
+        this.connectionHandler = new ConnectionHandler();
+    }
 
     @Override
     public void initializeServer(int port) {
         this.serverBundle = FXGL.getNetService().newUDPServer(port);
         serverBundle.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
-            handleConnection(message);
+            handleConnectionRequest(message);
+            connectionHandler(message);
         }));
         serverBundle.startAsync();
         lobbyTask();
@@ -50,7 +57,16 @@ public class LudoServer implements IServer {
         }, Duration.millis(500));
     }
 
-    public void handleConnection(Bundle message){
+    public void connectionHandler(Bundle message) {
+        if (!message.getName().equals("ConnectionFlag")) {
+            return;
+        }
+
+        UUID uuid = message.get("uuid");
+        connectionHandler.updateLastRequestTime(uuid);
+    }
+
+    public void handleConnectionRequest(Bundle message) {
         if (!message.getName().equals("ConnectionRequest")) {
             return;
         }
