@@ -1,5 +1,6 @@
 package io.github.ludogame.menu;
 
+import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.config.UIConfig;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.fxml.FXML;
@@ -35,6 +36,8 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
 
     public void onMusicButtonClick() {
         changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
+
+        new ErrorNotification("Error Message Music");
     }
 
     public void onRulesButtonClick() {

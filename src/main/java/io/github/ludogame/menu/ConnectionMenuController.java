@@ -7,6 +7,7 @@ import com.almasb.fxgl.net.Client;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.network.client.ClientConnector;
+import io.github.ludogame.notification.ErrorNotification;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -162,6 +163,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
 
     private ValidationError validateText(TextField textField, int maxLength, int minLength, Pattern pattern) {
         if (textField.getText().length() > maxLength) {
+            new ErrorNotification("Too log nick");
             return ValidationError.TOO_LONG;
         }
 
