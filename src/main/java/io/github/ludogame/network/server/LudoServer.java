@@ -8,6 +8,7 @@ import io.github.ludogame.game.LudoGameDTO;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
 import io.github.ludogame.player.LudoPlayer;
+import io.github.ludogame.player.LudoPlayerDTO;
 import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
@@ -82,20 +83,27 @@ public class LudoServer {
             return;
         }
 
-        LudoPlayer player = message.get("player");
+        LudoPlayerDTO playerDTO = message.get("player");
+        LudoPlayer player = PlayerService.convertToPlayer(playerDTO);
         UUID playerUUID = player.getUuid();
         logger.log(Level.INFO, String.format(PLAYER_CONNECT_REQUEST, playerUUID));
 
         Response response;
         //TODO jesli uuid gracza jest w playerach to znaczy ze byl on w tej grze i powinien moc wrocic do poprzedniego stanu swojego konta.
+        for (LudoPlayer ludoGamePlayer : LudoServerApp.ludoGame.getPlayers()) {
+            if (ludoGamePlayer.getUuid().equals(playerUUID)) {
+                return;
+            }
+        }
+
         if (isFull()) {
             String responseMessage = "Server is full";
-            response = new Response(ResponseStatus.ERROR, responseMessage, player);
+            response = new Response(ResponseStatus.ERROR, responseMessage, playerDTO);
             logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
         } else {
             PlayerColor availableColor = LudoServerApp.ludoGame.getAvailableColor();
             player.setColor(availableColor);
-            response = new Response(ResponseStatus.SUCCESS, "Connected", player);
+            response = new Response(ResponseStatus.SUCCESS, "Connected", PlayerService.convertToDTO(player));
             LudoServerApp.ludoGame.addPlayer(player);
             logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
         }

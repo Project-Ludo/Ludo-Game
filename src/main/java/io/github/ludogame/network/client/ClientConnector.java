@@ -25,7 +25,8 @@ public class ClientConnector implements IClient {
 
         FXGL.runOnce(() -> {
             Bundle connectionData = new Bundle("ConnectionRequest");
-            connectionData.put("player", player);
+            LudoPlayerDTO playerDTO = PlayerService.convertToDTO(player);
+            connectionData.put("player", playerDTO);
             client.broadcast(connectionData);
         }, Duration.seconds(0.2));
 
@@ -46,7 +47,8 @@ public class ClientConnector implements IClient {
         }
 
         Response response = message.get("response");
-        LudoPlayer responsePlayer = response.getPlayer();
+        LudoPlayerDTO responsePlayerDTO = response.getPlayer();
+        LudoPlayer responsePlayer = PlayerService.convertToPlayer(responsePlayerDTO);
         if (!responsePlayer.getUuid().equals(player.getUuid())) {
             return;
         }
@@ -76,6 +78,7 @@ public class ClientConnector implements IClient {
                 return;
             }
 
+            System.out.println("COMEC");
             LudoPlayerDTO playerDTO = PlayerService.convertToDTO(player);
             Bundle bundle = new Bundle("ConnectionFlag");
             bundle.put("player", playerDTO);
