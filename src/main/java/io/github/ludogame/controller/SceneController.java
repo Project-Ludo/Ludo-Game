@@ -10,13 +10,14 @@ public class SceneController {
     private final Parent rulesScene;
     private final Parent serverConnectScene;
     private final Parent serverLobbyScene;
-    //private final Parent game;
+    private final Parent gameScene;
 
-    public SceneController(Parent mainMenuScene, Parent rulesScene, Parent serverConnectScene, Parent serverLobbyScene) {
+    public SceneController(Parent mainMenuScene, Parent rulesScene, Parent serverConnectScene, Parent serverLobbyScene, Parent gameScene) {
         this.mainMenuScene = mainMenuScene;
         this.rulesScene = rulesScene;
         this.serverConnectScene = serverConnectScene;
         this.serverLobbyScene = serverLobbyScene;
+        this.gameScene = gameScene;
     }
 
     public Parent getMainMenuScene() {
@@ -33,6 +34,10 @@ public class SceneController {
 
     public Parent getServerLobbyScene() {
         return serverLobbyScene;
+    }
+
+    public Parent getGameScene() {
+        return gameScene;
     }
 
     public void changeSceneAfter(Parent nextScene, double millis) {

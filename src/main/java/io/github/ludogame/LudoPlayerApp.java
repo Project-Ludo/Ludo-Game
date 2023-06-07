@@ -3,8 +3,8 @@ package io.github.ludogame;
 import io.github.ludogame.config.Config;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import io.github.ludogame.controller.SceneController;
+import io.github.ludogame.game.GameController;
 import io.github.ludogame.menu.ConnectionMenuController;
 import io.github.ludogame.menu.LobbyController;
 import io.github.ludogame.menu.MainMenuController;
@@ -20,7 +20,6 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
 public class LudoPlayerApp extends GameApplication {
 
-    private AStarGrid grid;
     private SceneController sceneController;
     public static final LudoGame ludoGame = new LudoGame();
     public static final LudoPlayer player = new LudoPlayer(UUID.randomUUID());
@@ -34,24 +33,8 @@ public class LudoPlayerApp extends GameApplication {
 
     @Override
     protected void initGame() {
-
         loadScene();
         getGameScene().addUINode(sceneController.getMainMenuScene());
-
-//        getGameWorld().addEntityFactory(new LudoFactory());
-//        Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
-//        level.getEntities().forEach(entity -> {
-//            Point2D fixedPoint = new Point2D(((double) Config.MAP_WIDTH / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2),
-//                    ((double) Config.MAP_HEIGHT / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2));
-//            entity.translate(fixedPoint);
-//        });
-//
-//        getGameWorld().setLevel(level);
-//
-//        this.grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> CellState.NOT_WALKABLE);
-//        getGameWorld().getEntitiesByType(EntityType.BACKGROUND)
-//                .forEach(entity -> entity.setVisible(false));
-//
     }
 
     private void loadScene() {
@@ -59,9 +42,10 @@ public class LudoPlayerApp extends GameApplication {
         FXMLLoader fxmlLoaderRulesMenu = new FXMLLoader(getClass().getClassLoader().getResource("Menu/ludo-rules-menu.fxml"));
         FXMLLoader fxmlLoaderConnectionMenu = new FXMLLoader(getClass().getClassLoader().getResource("Menu/ludo-connection-menu.fxml"));
         FXMLLoader fxmlLoaderLobby = new FXMLLoader(getClass().getClassLoader().getResource("Menu/ludo-lobby.fxml"));
+        FXMLLoader fxmlLoaderGame = new FXMLLoader(getClass().getClassLoader().getResource("game/ludo-game.fxml"));
 
         try {
-            sceneController = new SceneController(fxmlLoaderStartMenu.load(), fxmlLoaderRulesMenu.load(), fxmlLoaderConnectionMenu.load(), fxmlLoaderLobby.load());
+            sceneController = new SceneController(fxmlLoaderStartMenu.load(), fxmlLoaderRulesMenu.load(), fxmlLoaderConnectionMenu.load(), fxmlLoaderLobby.load(), fxmlLoaderGame.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -70,10 +54,12 @@ public class LudoPlayerApp extends GameApplication {
         RulesMenuController menuRulesController = fxmlLoaderRulesMenu.getController();
         ConnectionMenuController menuConnectionController = fxmlLoaderConnectionMenu.getController();
         LobbyController lobbyController = fxmlLoaderLobby.getController();
+        GameController gameController = fxmlLoaderGame.getController();
         menuStartController.initSceneController(sceneController);
         menuRulesController.initSceneController(sceneController);
         menuConnectionController.initSceneController(sceneController);
         lobbyController.initSceneController(sceneController);
+        gameController.initSceneController(sceneController);
     }
 
     @Override

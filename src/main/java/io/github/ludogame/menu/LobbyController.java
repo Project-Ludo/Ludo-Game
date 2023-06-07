@@ -1,6 +1,8 @@
 package io.github.ludogame.menu;
 
+import animatefx.animation.ZoomIn;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.time.TimerAction;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.config.UIConfig;
 import javafx.fxml.FXML;
@@ -19,17 +21,20 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
     @FXML
     public Label countdownText;
 
+    TimerAction run;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
 
-        //FIXME font below doesnt support multiline
-//        Font font = Font.loadFont(getClass().getResourceAsStream("/assets/ui/fonts/04B_30__.TTF"), 12);
-//        playerInLobby.setFont(font);
+        if (run != null) {
+            run.resume();
+            return;
+        }
 
-        FXGL.run(() -> {
+        run = FXGL.run(() -> {
             StringBuffer stringBuffer = new StringBuffer();
             LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
                 stringBuffer.append(player.getNickname());
@@ -47,6 +52,11 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
             playerInLobby.setText(stringBuffer.toString());
             if (LudoPlayerApp.ludoGame.isCountdownStarted()) {
                 countdownText.setText("Do startu: " + LudoPlayerApp.ludoGame.getStartCountdown());
+                new ZoomIn(countdownText).setSpeed(2).play();
+                if (LudoPlayerApp.ludoGame.getStartCountdown().get() == 0) {
+                    sceneController.changeSceneAfter(sceneController.getGameScene(), 500);
+                    run.pause();
+                }
             }
         }, Duration.millis(500));
     }

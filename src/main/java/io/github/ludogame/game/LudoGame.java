@@ -84,8 +84,8 @@ public class LudoGame implements Serializable {
         FXGL.run(() -> {
             this.startCountdown.decrementAndGet();
 
-            if (getReadyPlayersAmount() >= 4 && this.startCountdown.get() > 10) {
-                this.startCountdown.set(10);
+            if (getReadyPlayersAmount() >= 2 && this.startCountdown.get() > 5) {
+                this.startCountdown.set(5);
             }
 
             if (this.startCountdown.get() < 0) {
