@@ -9,7 +9,7 @@ import io.github.ludogame.menu.ConnectionMenuController;
 import io.github.ludogame.menu.LobbyController;
 import io.github.ludogame.menu.MainMenuController;
 import io.github.ludogame.menu.RulesMenuController;
-import io.github.ludogame.network.server.LudoGame;
+import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.fxml.FXMLLoader;
 

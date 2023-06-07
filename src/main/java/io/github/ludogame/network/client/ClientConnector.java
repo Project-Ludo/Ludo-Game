@@ -7,14 +7,11 @@ import com.almasb.fxgl.time.TimerAction;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
-import io.github.ludogame.network.server.LudoGameDTO;
+import io.github.ludogame.game.LudoGameDTO;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.LudoPlayerDTO;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientConnector implements IClient {
 

@@ -1,4 +1,4 @@
-package io.github.ludogame.network.server;
+package io.github.ludogame.game;
 
 import io.github.ludogame.player.LudoPlayer;
 
