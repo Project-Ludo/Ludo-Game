@@ -1,12 +1,20 @@
 package io.github.ludogame.game;
 
 
+import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.net.Server;
 import io.github.ludogame.player.LudoPlayer;
+import io.github.ludogame.player.PlayerColor;
 import javafx.util.Duration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,6 +22,7 @@ public class LudoGame implements Serializable {
 
     private CopyOnWriteArrayList<LudoPlayer> players = new CopyOnWriteArrayList<>();
     private AtomicInteger startCountdown = new AtomicInteger(60);
+    private Server<Bundle> server;
     private boolean countdownStarted;
 
     public LudoGame() {
@@ -85,5 +94,20 @@ public class LudoGame implements Serializable {
                 this.startCountdown.set(0);
             }
         }, Duration.seconds(1), 60);
+    }
+
+    public PlayerColor getAvailableColor() {
+        List<PlayerColor> allColors = new ArrayList<>(Arrays.asList(PlayerColor.BLUE, PlayerColor.RED, PlayerColor.GREEN, PlayerColor.YELLOW));
+        players.forEach(player -> allColors.removeIf(color -> color.equals(player.getColor())));
+        Collections.shuffle(allColors);
+        return allColors.get(0);
+    }
+
+    public Server<Bundle> getServer() {
+        return server;
+    }
+
+    public void setServer(Server<Bundle> server) {
+        this.server = server;
     }
 }

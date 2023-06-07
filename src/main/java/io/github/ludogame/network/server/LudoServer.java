@@ -47,6 +47,7 @@ public class LudoServer {
             connectionHandler(message);
         }));
         serverBundle.startAsync();
+        LudoServerApp.ludoGame.setServer(serverBundle);
         lobbyTask();
         logger.log(Level.INFO, String.format(SERVER_CONNECTED, port));
     }
@@ -92,7 +93,8 @@ public class LudoServer {
             response = new Response(ResponseStatus.ERROR, responseMessage, player);
             logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
         } else {
-            player.setColor(PLAYER_COLOR_MAP.get(serverBundle.getConnections().size()));
+            PlayerColor availableColor = LudoServerApp.ludoGame.getAvailableColor();
+            player.setColor(availableColor);
             response = new Response(ResponseStatus.SUCCESS, "Connected", player);
             LudoServerApp.ludoGame.addPlayer(player);
             logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
@@ -104,7 +106,7 @@ public class LudoServer {
     }
 
     public boolean isFull() {
-        return serverBundle.getConnections().size() > MAX_PLAYERS_AMOUNT;
+        return LudoServerApp.ludoGame.getPlayers().size() > MAX_PLAYERS_AMOUNT;
     }
 
     public Server<Bundle> getBundle() {
