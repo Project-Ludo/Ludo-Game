@@ -61,6 +61,8 @@ public class LudoServer {
             if (LudoServerApp.ludoGame.getReadyPlayersAmount() >= 2 && !LudoServerApp.ludoGame.isCountdownStarted()) {
                 LudoServerApp.ludoGame.startCountdown();
             }
+
+            LudoServerApp.ludoGame.getPlayers().forEach(System.out::println);
         }, Duration.millis(500));
     }
 

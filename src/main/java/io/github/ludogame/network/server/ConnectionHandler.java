@@ -1,6 +1,7 @@
 package io.github.ludogame.network.server;
 
 import com.almasb.fxgl.dsl.FXGL;
+import io.github.ludogame.player.LudoPlayer;
 import javafx.util.Duration;
 
 import java.sql.Timestamp;
@@ -10,8 +11,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ConnectionHandler {
+    private final static Integer SECONDS_TO_OFFLINE_STATUS = 5;
+    private final static Integer SECONDS_TO_REMOVE = 30;
     private final Map<UUID, Long> lastRequestTime;
-    private final static Integer SECONDS_LIMIT = 5;
 
     public ConnectionHandler() {
         this.lastRequestTime = new HashMap<>();
@@ -26,15 +28,32 @@ public class ConnectionHandler {
         return lastRequestTime.getOrDefault(uuid, System.currentTimeMillis());
     }
 
-    private boolean validateTime(UUID uuid) {
+    public boolean hasPassed(UUID uuid, int seconds) {
         Long lastRequestTime = getLastRequestTime(uuid);
         Timestamp timestamp = new Timestamp(lastRequestTime);
-        Instant instant = timestamp.toInstant().plusSeconds(SECONDS_LIMIT);
+        Instant instant = timestamp.toInstant().plusSeconds(seconds);
         return instant.isAfter(Instant.now());
     }
 
+    private boolean validateTime(UUID uuid) {
+        return hasPassed(uuid, SECONDS_TO_OFFLINE_STATUS);
+    }
+
+    private boolean validateRemoval(UUID uuid) {
+        return hasPassed(uuid, SECONDS_TO_REMOVE);
+    }
+
+    private void validatePlayer(LudoPlayer player) {
+        if (!validateRemoval(player.getUuid())) {
+            LudoServerApp.ludoGame.getPlayers().removeIf(p -> p.getUuid().equals(player.getUuid()));
+            return;
+        }
+
+        player.setConnected(validateTime(player.getUuid()));
+    }
+
     private void validatePlayers() {
-        LudoServerApp.ludoGame.getPlayers().forEach(player -> player.setConnected(validateTime(player.getUuid())));
+        LudoServerApp.ludoGame.getPlayers().forEach(this::validatePlayer);
     }
 
     private void initializeValidationTask() {
