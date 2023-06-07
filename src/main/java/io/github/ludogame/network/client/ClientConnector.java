@@ -65,9 +65,7 @@ public class ClientConnector implements IClient {
         }
 
         LudoGameDTO game = message.get("game");
-        LudoPlayerApp.ludoGame.setStartCountdown(game.getStartCountdown());
-        LudoPlayerApp.ludoGame.setCountdownStarted(game.isCountdownStarted());
-        LudoPlayerApp.ludoGame.setPlayers(game.getPlayers());
+        LudoPlayerApp.ludoGame.updateGame(game);
     }
 
     private void connectionHandlerTask(Client<Bundle> client, LudoPlayer player) {

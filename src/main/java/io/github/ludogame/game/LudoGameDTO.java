@@ -1,23 +1,22 @@
 package io.github.ludogame.game;
 
-import io.github.ludogame.player.LudoPlayer;
+import io.github.ludogame.player.LudoPlayerDTO;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class LudoGameDTO implements Serializable {
 
-    private CopyOnWriteArrayList<LudoPlayer> players = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<LudoPlayerDTO> players = new CopyOnWriteArrayList<>();
     private AtomicInteger startCountdown = new AtomicInteger(60);
     private boolean countdownStarted;
 
-    public CopyOnWriteArrayList<LudoPlayer> getPlayers() {
+    public CopyOnWriteArrayList<LudoPlayerDTO> getPlayers() {
         return players;
     }
 
-    public void setPlayers(CopyOnWriteArrayList<LudoPlayer> players) {
+    public void setPlayers(CopyOnWriteArrayList<LudoPlayerDTO> players) {
         this.players = players;
     }
 

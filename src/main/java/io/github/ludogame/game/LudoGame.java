@@ -6,6 +6,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
+import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
 import java.io.Serializable;
@@ -109,5 +110,11 @@ public class LudoGame implements Serializable {
 
     public void setServer(Server<Bundle> server) {
         this.server = server;
+    }
+
+    public void updateGame(LudoGameDTO ludoGameDTO){
+        this.players = PlayerService.convertToPlayerList(ludoGameDTO.getPlayers());
+        this.startCountdown = ludoGameDTO.getStartCountdown();
+        this.countdownStarted = ludoGameDTO.isCountdownStarted();
     }
 }
