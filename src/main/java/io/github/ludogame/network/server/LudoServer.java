@@ -59,12 +59,14 @@ public class LudoServer {
             LudoGameDTO ludoGameDTO = GameService.convertToDTO(LudoServerApp.ludoGame);
             bundle.put("game", ludoGameDTO);
             serverBundle.broadcast(bundle);
-
+            LudoServerApp.ludoGame.getPlayers().forEach(System.out::println);
+            System.out.println();
             if (LudoServerApp.ludoGame.getReadyPlayersAmount() >= 2 && !LudoServerApp.ludoGame.isCountdownStarted()) {
                 LudoServerApp.ludoGame.startCountdown();
             }
 
-            LudoServerApp.ludoGame.getPlayers().forEach(System.out::println);
+//            LudoServerApp.ludoGame.getPlayers().forEach(System.out::println);
+//            System.out.println("     ");
         }, Duration.millis(500));
     }
 
@@ -89,7 +91,6 @@ public class LudoServer {
         logger.log(Level.INFO, String.format(PLAYER_CONNECT_REQUEST, playerUUID));
 
         Response response;
-        //TODO jesli uuid gracza jest w playerach to znaczy ze byl on w tej grze i powinien moc wrocic do poprzedniego stanu swojego konta.
         for (LudoPlayer ludoGamePlayer : LudoServerApp.ludoGame.getPlayers()) {
             if (ludoGamePlayer.getUuid().equals(playerUUID)) {
                 return;

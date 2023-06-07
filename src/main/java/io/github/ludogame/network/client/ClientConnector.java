@@ -15,13 +15,12 @@ import javafx.util.Duration;
 
 public class ClientConnector implements IClient {
 
-    private TimerAction connectionHandlerTask;
-
     @Override
     public Client<Bundle> connect(String ip, int port, LudoPlayer player) {
         Client<Bundle> client = FXGL.getNetService().newUDPClient(ip, port);
         client.connectAsync();
         setConnectionHandler(client, player);
+        player.setConnected(true);
 
         FXGL.runOnce(() -> {
             Bundle connectionData = new Bundle("ConnectionRequest");

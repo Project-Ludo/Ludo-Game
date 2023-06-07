@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class ConnectionHandler {
     private final static Integer SECONDS_TO_OFFLINE_STATUS = 5;
-    private final static Integer SECONDS_TO_REMOVE = 30;
+    private final static Integer SECONDS_TO_REMOVE = 10;
     private final Map<UUID, Long> lastRequestTime;
 
     public ConnectionHandler() {
@@ -46,6 +46,7 @@ public class ConnectionHandler {
     private void validatePlayer(LudoPlayer player) {
         if (!validateRemoval(player.getUuid())) {
             LudoServerApp.ludoGame.getPlayers().removeIf(p -> p.getUuid().equals(player.getUuid()));
+            lastRequestTime.remove(player.getUuid());
             return;
         }
 
