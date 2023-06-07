@@ -59,14 +59,9 @@ public class LudoServer {
             LudoGameDTO ludoGameDTO = GameService.convertToDTO(LudoServerApp.ludoGame);
             bundle.put("game", ludoGameDTO);
             serverBundle.broadcast(bundle);
-            LudoServerApp.ludoGame.getPlayers().forEach(System.out::println);
-            System.out.println();
             if (LudoServerApp.ludoGame.getReadyPlayersAmount() >= 2 && !LudoServerApp.ludoGame.isCountdownStarted()) {
                 LudoServerApp.ludoGame.startCountdown();
             }
-
-//            LudoServerApp.ludoGame.getPlayers().forEach(System.out::println);
-//            System.out.println("     ");
         }, Duration.millis(500));
     }
 
@@ -95,6 +90,16 @@ public class LudoServer {
             if (ludoGamePlayer.getUuid().equals(playerUUID)) {
                 return;
             }
+
+            if(ludoGamePlayer.getNickname().equals(player.getNickname())){
+                String responseMessage = "nickname is taken";
+                response = new Response(ResponseStatus.ERROR, responseMessage, playerDTO);
+                logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
+                Bundle bundle = new Bundle("ConnectionResponse");
+                bundle.put("response", response);
+                serverBundle.broadcast(bundle);
+                return;
+            }
         }
 
         if (isFull()) {
@@ -104,6 +109,8 @@ public class LudoServer {
         } else {
             PlayerColor availableColor = LudoServerApp.ludoGame.getAvailableColor();
             player.setColor(availableColor);
+            player.setConnected(true);
+            player.setReady(false);
             response = new Response(ResponseStatus.SUCCESS, "Connected", PlayerService.convertToDTO(player));
             LudoServerApp.ludoGame.addPlayer(player);
             logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));

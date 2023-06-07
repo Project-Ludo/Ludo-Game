@@ -8,6 +8,7 @@ import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
 import io.github.ludogame.game.LudoGameDTO;
+import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.LudoPlayerDTO;
 import io.github.ludogame.player.PlayerService;
@@ -19,25 +20,21 @@ public class ClientConnector implements IClient {
     public Client<Bundle> connect(String ip, int port, LudoPlayer player) {
         Client<Bundle> client = FXGL.getNetService().newUDPClient(ip, port);
         client.connectAsync();
-        setConnectionHandler(client, player);
-        player.setConnected(true);
+        client.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
+            handleConnection(message, player);
+            handleLobby(message);
+        }));
 
         FXGL.runOnce(() -> {
             Bundle connectionData = new Bundle("ConnectionRequest");
             LudoPlayerDTO playerDTO = PlayerService.convertToDTO(player);
             connectionData.put("player", playerDTO);
             client.broadcast(connectionData);
+            player.setDataBundle(client);
         }, Duration.seconds(0.2));
 
         connectionHandlerTask(client, player);
         return client;
-    }
-
-    private void setConnectionHandler(Client<Bundle> client, LudoPlayer player) {
-        client.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
-            handleConnection(message, player);
-            handleLobby(message);
-        }));
     }
 
     private void handleConnection(Bundle message, LudoPlayer player) {
@@ -54,7 +51,11 @@ public class ClientConnector implements IClient {
 
         if (response.getStatus() == ResponseStatus.SUCCESS) {
             player.setColor(responsePlayer.getColor());
+            player.setReady(responsePlayer.isReady());
+            player.setConnected(response.getPlayer().isConnected());
             System.out.println("Success, your color: " + player.getColor());
+        }else{
+            new ErrorNotification(response.getMessage());
         }
     }
 

@@ -86,10 +86,13 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         int port = Integer.parseInt(split[1]);
 
         ClientConnector clientConnector = new ClientConnector();
-        Client<Bundle> connect = clientConnector.connect(ip, port, LudoPlayerApp.player);
-        FXGL.run(() -> LudoPlayerApp.player.setDataBundle(connect), Duration.millis(500));
+        clientConnector.connect(ip, port, LudoPlayerApp.player);
 
-        sceneController.changeSceneAfter(sceneController.getServerLobbyScene(), 150);
+        FXGL.run(() -> {
+            if (LudoPlayerApp.player.isConnected()) {
+                sceneController.changeScene(sceneController.getServerLobbyScene());
+            }
+        }, Duration.millis(500));
     }
 
     public void onExitButtonClick() {

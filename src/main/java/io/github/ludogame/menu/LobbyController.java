@@ -30,10 +30,7 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
 //        Font font = Font.loadFont(getClass().getResourceAsStream("/assets/ui/fonts/04B_30__.TTF"), 12);
 //        playerInLobby.setFont(font);
 
-
         FXGL.run(() -> {
-            LudoPlayerApp.ludoGame.getPlayers().forEach(System.out::println);
-
             StringBuffer stringBuffer = new StringBuffer();
             LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
                 stringBuffer.append(player.getNickname());

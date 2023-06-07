@@ -1,7 +1,6 @@
 package io.github.ludogame.controller;
 
 import com.almasb.fxgl.dsl.FXGL;
-import io.github.ludogame.config.Config;
 import javafx.scene.Parent;
 import javafx.util.Duration;
 
@@ -36,10 +35,15 @@ public class SceneController {
         return serverLobbyScene;
     }
 
-    public void changeSceneAfter(Parent nextScene, double millis){
+    public void changeSceneAfter(Parent nextScene, double millis) {
         FXGL.runOnce(() -> {
             FXGL.getGameScene().clearUINodes();
             FXGL.getGameScene().addUINode(nextScene);
         }, Duration.millis(millis));
+    }
+
+    public void changeScene(Parent nextScene) {
+        FXGL.getGameScene().clearUINodes();
+        FXGL.getGameScene().addUINode(nextScene);
     }
 }
