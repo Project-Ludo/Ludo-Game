@@ -18,18 +18,6 @@ public class SceneController {
         this.rulesScene = rulesScene;
         this.serverConnectScene = serverConnectScene;
         this.serverLobbyScene = serverLobbyScene;
-
-        mainMenuScene.setLayoutX(Config.MENU_START_LAYOUT_X);
-        mainMenuScene.setLayoutY(Config.MENU_START_LAYOUT_Y);
-
-        rulesScene.setLayoutX(Config.MENU_START_LAYOUT_X);
-        rulesScene.setLayoutY(Config.MENU_START_LAYOUT_Y);
-
-        serverConnectScene.setLayoutX(Config.MENU_START_LAYOUT_X);
-        serverConnectScene.setLayoutY(Config.MENU_START_LAYOUT_Y);
-
-        serverLobbyScene.setLayoutX(Config.MENU_START_LAYOUT_X);
-        serverLobbyScene.setLayoutY(Config.MENU_START_LAYOUT_Y);
     }
 
     public Parent getMainMenuScene() {
