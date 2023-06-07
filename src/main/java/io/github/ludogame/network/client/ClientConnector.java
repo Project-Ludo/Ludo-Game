@@ -69,18 +69,13 @@ public class ClientConnector implements IClient {
     }
 
     private void connectionHandlerTask(Client<Bundle> client, LudoPlayer player) {
-        this.connectionHandlerTask = FXGL.run(() -> {
-            //FIXME asynchronous task expiration :((
-            if (!player.isConnected()) {
-                this.connectionHandlerTask.expire();
-                return;
-            }
-
-            System.out.println("COMEC");
+        TimerAction task = FXGL.run(() -> {
             LudoPlayerDTO playerDTO = PlayerService.convertToDTO(player);
             Bundle bundle = new Bundle("ConnectionFlag");
             bundle.put("player", playerDTO);
             client.broadcast(bundle);
         }, Duration.millis(500));
+
+        player.addTask(task);
     }
 }
