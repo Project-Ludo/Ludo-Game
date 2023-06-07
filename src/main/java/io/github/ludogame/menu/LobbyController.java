@@ -3,7 +3,6 @@ package io.github.ludogame.menu;
 import com.almasb.fxgl.dsl.FXGL;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.config.UIConfig;
-import io.github.ludogame.network.server.LudoServer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

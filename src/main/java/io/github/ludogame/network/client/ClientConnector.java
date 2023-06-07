@@ -54,7 +54,7 @@ public class ClientConnector implements IClient {
             player.setReady(responsePlayer.isReady());
             player.setConnected(response.getPlayer().isConnected());
             System.out.println("Success, your color: " + player.getColor());
-        }else{
+        } else {
             new ErrorNotification(response.getMessage());
         }
     }

@@ -13,7 +13,6 @@ import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
-import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +24,6 @@ public class LudoServer {
     private final static String PLAYER_CONNECT_REQUEST = "Player with id %s is trying to connect to server";
     private final static String PLAYER_CONNECT_ACCEPT = "Player with id %s has joined to server";
     private final static String PLAYER_CONNECT_REJECT = "Player with id %s connection's attempt has been rejected (Message: %s)";
-    private final static Map<Integer, PlayerColor> PLAYER_COLOR_MAP = Map.of(
-            1, PlayerColor.BLUE,
-            2, PlayerColor.RED,
-            3, PlayerColor.GREEN,
-            4, PlayerColor.YELLOW
-    );
 
     private final ConnectionHandler connectionHandler;
     private final Logger logger;
@@ -91,7 +84,7 @@ public class LudoServer {
                 return;
             }
 
-            if(ludoGamePlayer.getNickname().equals(player.getNickname())){
+            if (ludoGamePlayer.getNickname().equals(player.getNickname())) {
                 String responseMessage = "nickname is taken";
                 response = new Response(ResponseStatus.ERROR, responseMessage, playerDTO);
                 logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));

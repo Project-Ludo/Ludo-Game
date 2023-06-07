@@ -1,6 +1,5 @@
 package io.github.ludogame.game;
 
-
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
@@ -13,9 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -112,7 +109,7 @@ public class LudoGame implements Serializable {
         this.server = server;
     }
 
-    public void updateGame(LudoGameDTO ludoGameDTO){
+    public void updateGame(LudoGameDTO ludoGameDTO) {
         this.players = PlayerService.convertToPlayerList(ludoGameDTO.getPlayers());
         this.startCountdown = ludoGameDTO.getStartCountdown();
         this.countdownStarted = ludoGameDTO.isCountdownStarted();

@@ -80,11 +80,11 @@ public class LudoPlayer implements Serializable {
         this.ready = ready;
     }
 
-    public void addTask(TimerAction task){
+    public void addTask(TimerAction task) {
         this.tasks.add(task);
     }
 
-    public void expireAllTasks(){
+    public void expireAllTasks() {
         this.tasks.forEach(TimerAction::expire);
     }
 

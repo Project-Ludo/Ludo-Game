@@ -1,9 +1,7 @@
 package io.github.ludogame.menu;
 
 import animatefx.animation.Shake;
-import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.net.Client;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.network.client.ClientConnector;
