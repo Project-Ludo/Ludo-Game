@@ -13,12 +13,10 @@ public class RulesMenuController extends DefaultMenuButtonAction implements Init
     @FXML
     public Label rulesText;
 
-    @FXML
-    public Label rulesTileText;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
+        changeControlTexture(rulesText, "menu/texture/rules_text.png");
     }
 
     public void onExitButtonClick() {
