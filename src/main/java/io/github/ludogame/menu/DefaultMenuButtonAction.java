@@ -30,7 +30,7 @@ public abstract class DefaultMenuButtonAction{
     private Slider musicSlider;
 
     protected SceneController sceneController;
-    private boolean musicPlay = true;
+    private boolean isSlider = false;
 
     public void changeControlTexture(Labeled control, String imagePath) {
         ImageView view = new ImageView(new Image(imagePath));
@@ -61,10 +61,7 @@ public abstract class DefaultMenuButtonAction{
     }
     public void onMusicButtonClick() {
         changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
-
-        FXGL.<LudoPlayerApp>getAppCast().getMusic().switchMusic();
-
-
+        switchMusicSlider();
     }
     public void onRulesButtonHover() {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_HOVER);
@@ -84,5 +81,15 @@ public abstract class DefaultMenuButtonAction{
 
     public void initSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
+    }
+
+    private void switchMusicSlider(){
+        if (isSlider){
+            FXGL.<LudoPlayerApp>getAppCast().getMusic().removeSliderFromUI();
+            isSlider = false;
+        }else {
+            FXGL.<LudoPlayerApp>getAppCast().getMusic().addSliderToUI(musicButton);
+            isSlider = true;
+        }
     }
 }
