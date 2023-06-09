@@ -34,7 +34,7 @@ public class LudoPlayerApp extends GameApplication {
     @Override
     protected void initGame() {
         loadScene();
-        getGameScene().addUINode(sceneController.getMainMenuScene());
+        getGameScene().addUINode(sceneController.getGameScene());
     }
 
     private void loadScene() {

@@ -1,6 +1,7 @@
 package io.github.ludogame.game;
 
 import com.almasb.fxgl.app.scene.GameView;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
@@ -9,6 +10,7 @@ import io.github.ludogame.LudoFactory;
 import io.github.ludogame.config.Config;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.menu.DefaultMenuButtonAction;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -23,6 +25,8 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class GameController extends DefaultMenuButtonAction implements Initializable {
 
+    @FXML
+    public ImageView boardView;
     private LudoFactory ludoFactory;
     private AStarGrid grid;
 
@@ -62,17 +66,14 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     private void setBoard() {
-        ImageView imageView = new ImageView(new Image("assets/textures/board/board.png"));
+        boardView.setImage(new Image("assets/textures/board/board.png"));
 
-        imageView.setFitWidth(UIConfig.BOARD_WIDTH);
-        imageView.setPreserveRatio(true);
-        imageView.setVisible(true);
+        boardView.setFitWidth(UIConfig.BOARD_WIDTH);
+        boardView.setPreserveRatio(true);
+        boardView.setVisible(true);
 
-        imageView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X);
-        imageView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y);
-
-        GameView gameView = new GameView(imageView, -10);
-        getGameScene().addGameView(gameView);
+        boardView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X);
+        boardView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y);
     }
 
     public void onStartButtonClick() {
