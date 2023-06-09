@@ -54,6 +54,9 @@ public class LudoFactory implements EntityFactory {
                 .type(EntityType.PAWN)
                 .with(new AnimationComponent(pawnColor))
                 .onClick(entity -> {
+
+                    System.out.println("clicked");
+
                     AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
                     animationComponent.switchAnimation();
                 })

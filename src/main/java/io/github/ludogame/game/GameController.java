@@ -85,23 +85,23 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         UIConfig.SPAWN_POINTS_GREEN.forEach(point -> players.add(ludoFactory.spawnPawn(new SpawnData(point), PawnColor.YEllOW)));
 
         players.forEach(player -> {
-            AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
-            animationComponent.setAnimatedTextureIdle();
+//            AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
+//            animationComponent.setAnimatedTextureIdle();
             getGameWorld().addEntity(player);
         });
     }
 
     private void setBoard() {
-        boardView.setImage(new Image("assets/textures/board/board.png"));
+        ImageView imageView = new ImageView(new Image("assets/textures/board/board.png"));
 
-        boardView.setFitWidth(UIConfig.BOARD_WIDTH);
-        boardView.setPreserveRatio(true);
-        boardView.setVisible(true);
+        imageView.setFitWidth(UIConfig.BOARD_WIDTH);
+        imageView.setPreserveRatio(true);
+        imageView.setVisible(true);
 
-        boardView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X);
-        boardView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y);
+        imageView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X);
+        imageView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y);
 
-        GameView gameView = new GameView(boardView, -10);
+        GameView gameView = new GameView(imageView, -10);
         getGameScene().addGameView(gameView);
     }
 

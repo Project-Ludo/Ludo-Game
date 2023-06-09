@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.ludogame.game.GameController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.ludogame.game.GameController">
     <children>
         <!--
         style="-fx-background-color: transparent
@@ -16,6 +15,5 @@
             </font></Button>
         <Button fx:id="musicButton" layoutX="1000.0" layoutY="125.0" mnemonicParsing="false" onAction="#onMusicButtonClick" onMouseEntered="#onMusicButtonHover" onMouseExited="#onMusicButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
         <Button fx:id="exitButton" layoutX="1000.0" layoutY="50.0" mnemonicParsing="false" onAction="#onExitButtonClick" onMouseEntered="#onExitButtonHover" onMouseExited="#onExitButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
-      <ImageView fx:id="boardView" fitHeight="500.0" fitWidth="500.0" layoutX="450.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
