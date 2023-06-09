@@ -38,20 +38,6 @@ public class LudoPlayerApp extends GameApplication {
         loadScene();
         getGameScene().addUINode(sceneController.getMainMenuScene());
 
-//        getGameWorld().addEntityFactory(new LudoFactory());
-//        Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
-//        level.getEntities().forEach(entity -> {
-//            Point2D fixedPoint = new Point2D(((double) Config.MAP_WIDTH / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2),
-//                    ((double) Config.MAP_HEIGHT / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2));
-//            entity.translate(fixedPoint);
-//        });
-//
-//        getGameWorld().setLevel(level);
-//
-//        this.grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> CellState.NOT_WALKABLE);
-//        getGameWorld().getEntitiesByType(EntityType.BACKGROUND)
-//                .forEach(entity -> entity.setVisible(false));
-//
     }
 
     private void loadScene() {
