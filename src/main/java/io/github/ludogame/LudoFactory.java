@@ -1,10 +1,14 @@
 package io.github.ludogame;
 
+import com.almasb.fxgl.physics.BoundingShape;
+import com.almasb.fxgl.physics.HitBox;
+import io.github.ludogame.component.AnimationComponent;
 import io.github.ludogame.config.Config;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
+import io.github.ludogame.pawn.PawnColor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -44,11 +48,16 @@ public class LudoFactory implements EntityFactory {
                 .build();
     }
 
-    @Spawns("Player")
-    public Entity spawnPlayer(SpawnData data) {
+    @Spawns("Pawn")
+    public Entity spawnPawn(SpawnData data, PawnColor pawnColor) {
         return entityBuilder(data)
-                .type(EntityType.PLAYER)
-                .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.LIGHTCORAL))
+                .type(EntityType.PAWN)
+                .with(new AnimationComponent(pawnColor))
+                .onClick(entity -> {
+                    AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
+                    animationComponent.switchAnimation();
+                })
+                .bbox(new HitBox(BoundingShape.box(32, 32)))
                 .build();
     }
 }
