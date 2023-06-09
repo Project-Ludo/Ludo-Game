@@ -8,6 +8,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
+import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.pawn.PawnColor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -54,8 +55,10 @@ public class LudoFactory implements EntityFactory {
                 .type(EntityType.PAWN)
                 .with(new AnimationComponent(pawnColor))
                 .onClick(entity -> {
-
-                    System.out.println("clicked");
+                    if (!LudoPlayerApp.player.getColor().equals(data.get("owner"))) {
+                        new ErrorNotification("Mozesz ruszac tylko swoimi pionkami");
+                        return;
+                    }
 
                     AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
                     animationComponent.switchAnimation();

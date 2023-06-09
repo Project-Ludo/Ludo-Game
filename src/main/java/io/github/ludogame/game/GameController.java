@@ -10,13 +10,12 @@ import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import io.github.ludogame.LudoFactory;
 import io.github.ludogame.LudoPlayerApp;
-import io.github.ludogame.component.AnimationComponent;
 import io.github.ludogame.config.Config;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.menu.DefaultMenuButtonAction;
+import io.github.ludogame.pawn.Pawn;
 import io.github.ludogame.pawn.PawnColor;
 import io.github.ludogame.player.PlayerColor;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -27,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
@@ -34,8 +34,6 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class GameController extends DefaultMenuButtonAction implements Initializable {
 
-    @FXML
-    public ImageView boardView;
     private LudoFactory ludoFactory;
     private AStarGrid grid;
 
@@ -48,9 +46,7 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         setGridFromText();
         setBoard();
 
-        FXGL.runOnce(() -> {
-            spawnPlayersPawn(ludoFactory);
-        }, Duration.millis(300));
+        FXGL.runOnce(this::spawnPlayerPawns, Duration.millis(300));
     }
 
     private void setGridFromText() {
@@ -77,18 +73,33 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         );
     }
 
-    private void spawnPlayersPawn(LudoFactory ludoFactory) {
-        List<Entity> players = new ArrayList<>();
-        UIConfig.SPAWN_POINTS_RED.forEach(point -> players.add(ludoFactory.spawnPawn(new SpawnData(point), PawnColor.RED)));
-        UIConfig.SPAWN_POINTS_BLUE.forEach(point -> players.add(ludoFactory.spawnPawn(new SpawnData(point), PawnColor.BLUE)));
-        UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> players.add(ludoFactory.spawnPawn(new SpawnData(point), PawnColor.GREEN)));
-        UIConfig.SPAWN_POINTS_GREEN.forEach(point -> players.add(ludoFactory.spawnPawn(new SpawnData(point), PawnColor.YEllOW)));
+    private void spawnPlayerPawns() {
+        LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
+            if (player.getUuid().equals(LudoPlayerApp.player.getUuid())) {
+                List<Entity> entities = spawnPawns(player.getColor());
+                List<Pawn> pawns = entities.stream()
+                        .map(Pawn::new)
+                        .collect(Collectors.toList());
 
-        players.forEach(player -> {
-//            AnimationComponent animationComponent = player.getComponent(AnimationComponent.class);
-//            animationComponent.setAnimatedTextureIdle();
-            getGameWorld().addEntity(player);
+                LudoPlayerApp.player.setPawns(pawns);
+                return;
+            }
+
+            spawnPawns(player.getColor());
         });
+    }
+
+    private List<Entity> spawnPawns(PlayerColor playerColor) {
+        List<Entity> pawns = new ArrayList<>();
+        switch (playerColor) {
+            case RED -> UIConfig.SPAWN_POINTS_RED.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.RED)));
+            case BLUE -> UIConfig.SPAWN_POINTS_BLUE.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.BLUE)));
+            case GREEN -> UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.GREEN)));
+            case YELLOW -> UIConfig.SPAWN_POINTS_GREEN.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.YEllOW)));
+        }
+
+        pawns.forEach(pawn -> getGameWorld().addEntity(pawn));
+        return pawns;
     }
 
     private void setBoard() {
