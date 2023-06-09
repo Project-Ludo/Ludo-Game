@@ -1,9 +1,7 @@
 package io.github.ludogame.menu;
 
 import animatefx.animation.Shake;
-import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.net.Client;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.network.client.ClientConnector;
@@ -86,15 +84,22 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         int port = Integer.parseInt(split[1]);
 
         ClientConnector clientConnector = new ClientConnector();
-        Client<Bundle> connect = clientConnector.connect(ip, port, LudoPlayerApp.player);
-        FXGL.run(() -> LudoPlayerApp.player.setDataBundle(connect), Duration.millis(500));
+        clientConnector.connect(ip, port, LudoPlayerApp.player);
 
-        sceneController.changeSceneAfter(sceneController.getServerLobbyScene(), 150);
+        FXGL.run(() -> {
+            if (LudoPlayerApp.player.isConnected()) {
+                sceneController.changeScene(sceneController.getServerLobbyScene());
+            }
+        }, Duration.millis(500));
     }
 
     public void onExitButtonClick() {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
+    }
+
+    public void onMusicButtonClick() {
+        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
     }
 
     private void initializeTextField(TextField textField, Label errorMessageField, int maxLength, int minLength, Pattern pattern) {

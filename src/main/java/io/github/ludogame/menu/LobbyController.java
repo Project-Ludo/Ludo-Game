@@ -39,7 +39,7 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
                 }
 
                 stringBuffer.append(player.isReady() ? "[ready]" : "[not ready]");
-
+                stringBuffer.append("[color: ").append(player.getColor().name()).append("]");
                 stringBuffer.append("\n");
 
             });
@@ -60,5 +60,9 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         LudoPlayerApp.player.disconnectFromServer();
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
+    }
+
+    public void onMusicButtonClick() {
+        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
     }
 }

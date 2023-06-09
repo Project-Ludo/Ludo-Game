@@ -1,19 +1,16 @@
 package io.github.ludogame.menu;
 
-import com.almasb.fxgl.audio.Music;
 import com.almasb.fxgl.dsl.FXGL;
-import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.controller.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
-import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public abstract class DefaultMenuButtonAction{
+public abstract class DefaultMenuButtonAction {
 
     @FXML
     public Button rulesButton;
@@ -27,10 +24,7 @@ public abstract class DefaultMenuButtonAction{
     @FXML
     public Button startButton;
 
-    private Slider musicSlider;
-
     protected SceneController sceneController;
-    private boolean isSlider = false;
 
     public void changeControlTexture(Labeled control, String imagePath) {
         ImageView view = new ImageView(new Image(imagePath));
@@ -59,10 +53,7 @@ public abstract class DefaultMenuButtonAction{
     public void onMusicButtonExit() {
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
     }
-    public void onMusicButtonClick() {
-        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
-        switchMusicSlider();
-    }
+
     public void onRulesButtonHover() {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_HOVER);
     }
@@ -81,15 +72,5 @@ public abstract class DefaultMenuButtonAction{
 
     public void initSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
-    }
-
-    private void switchMusicSlider(){
-        if (isSlider){
-            FXGL.<LudoPlayerApp>getAppCast().getMusic().removeSliderFromUI();
-            isSlider = false;
-        }else {
-            FXGL.<LudoPlayerApp>getAppCast().getMusic().addSliderToUI(musicButton);
-            isSlider = true;
-        }
     }
 }

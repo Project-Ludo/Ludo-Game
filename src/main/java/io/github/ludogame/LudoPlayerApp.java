@@ -1,6 +1,5 @@
 package io.github.ludogame;
 
-import com.almasb.fxgl.dsl.FXGL;
 import io.github.ludogame.config.Config;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
@@ -10,8 +9,7 @@ import io.github.ludogame.menu.ConnectionMenuController;
 import io.github.ludogame.menu.LobbyController;
 import io.github.ludogame.menu.MainMenuController;
 import io.github.ludogame.menu.RulesMenuController;
-import io.github.ludogame.music.GameMusic;
-import io.github.ludogame.network.server.LudoGame;
+import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.fxml.FXMLLoader;
 
@@ -26,7 +24,6 @@ public class LudoPlayerApp extends GameApplication {
     private SceneController sceneController;
     public static final LudoGame ludoGame = new LudoGame();
     public static final LudoPlayer player = new LudoPlayer(UUID.randomUUID());
-    private GameMusic music;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -39,8 +36,7 @@ public class LudoPlayerApp extends GameApplication {
     protected void initGame() {
 
         loadScene();
-        music = new GameMusic("start_menu.wav");
-        FXGL.getGameScene().addUINode(sceneController.getMainMenuScene());
+        getGameScene().addUINode(sceneController.getMainMenuScene());
 
 //        getGameWorld().addEntityFactory(new LudoFactory());
 //        Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
@@ -56,10 +52,6 @@ public class LudoPlayerApp extends GameApplication {
 //        getGameWorld().getEntitiesByType(EntityType.BACKGROUND)
 //                .forEach(entity -> entity.setVisible(false));
 //
-    }
-
-    public GameMusic getMusic() {
-        return music;
     }
 
     private void loadScene() {

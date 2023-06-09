@@ -1,18 +1,18 @@
 package io.github.ludogame.network.response;
 
-import io.github.ludogame.player.LudoPlayer;
+import io.github.ludogame.player.LudoPlayerDTO;
 
 import java.io.Serializable;
 
 public class Response implements Serializable {
     private final ResponseStatus status;
     private final String message;
-    private final LudoPlayer player;
+    private final LudoPlayerDTO ludoPlayerDTO;
 
-    public Response(ResponseStatus status, String message, LudoPlayer player) {
+    public Response(ResponseStatus status, String message, LudoPlayerDTO ludoPlayerDTO) {
         this.status = status;
         this.message = message;
-        this.player = player;
+        this.ludoPlayerDTO = ludoPlayerDTO;
     }
 
     public ResponseStatus getStatus() {
@@ -23,7 +23,7 @@ public class Response implements Serializable {
         return message;
     }
 
-    public LudoPlayer getPlayer() {
-        return player;
+    public LudoPlayerDTO getPlayer() {
+        return ludoPlayerDTO;
     }
 }

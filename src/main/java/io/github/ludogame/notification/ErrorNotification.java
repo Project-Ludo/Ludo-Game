@@ -16,18 +16,16 @@ public class ErrorNotification {
     private StackPane customBox;
     private Text message;
 
-    public ErrorNotification(String message){
+    public ErrorNotification(String message) {
         initNotification();
 
         addText(message);
 
         FXGL.getGameScene().addUINode(customBox);
-        FXGL.runOnce(()->{
-            FXGL.getGameScene().removeUINode(customBox);
-        }, Duration.seconds(5));
+        FXGL.runOnce(() -> FXGL.getGameScene().removeUINode(customBox), Duration.seconds(5));
     }
 
-    private void initNotification(){
+    private void initNotification() {
         this.customBox = new StackPane();
 
         customBox.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
@@ -37,7 +35,7 @@ public class ErrorNotification {
         customBox.setLayoutY(50);
     }
 
-    private void addText(String message){
+    private void addText(String message) {
         this.message = new Text(message);
         this.message.setFont(Font.font("Arial", 18));
         this.message.setFill(Color.BLACK);
