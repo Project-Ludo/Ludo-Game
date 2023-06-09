@@ -75,7 +75,6 @@ public class LudoFactory implements EntityFactory {
                         new ErrorNotification("Nie twoja tura! Aktualnie rusza " + ludoPlayer.getNickname());
                         return;
                     }
-                    System.out.println(LudoPlayerApp.ludoGame.getPlayerColorTurn());
 
                     AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
                     animationComponent.switchAnimation();

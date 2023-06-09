@@ -18,6 +18,7 @@ import io.github.ludogame.pawn.PawnColor;
 import io.github.ludogame.player.PlayerColor;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -34,6 +35,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class GameController extends DefaultMenuButtonAction implements Initializable {
 
+    public Label testText;
     private LudoFactory ludoFactory;
     private AStarGrid grid;
 
@@ -47,6 +49,17 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         setBoard();
 
         FXGL.runOnce(this::spawnPlayerPawns, Duration.millis(300));
+
+
+        //ONLY FOR TESTING PURPOSES
+        FXGL.run(() -> {
+            StringBuffer stringBuffer = new StringBuffer();
+            LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
+                stringBuffer.append(player.getNickname()).append(" - ").append(player.getColor()).append("\n");
+            });
+            stringBuffer.append("Turn: ").append(LudoPlayerApp.ludoGame.getPlayerColorTurn());
+            testText.setText(stringBuffer.toString());
+        },Duration.millis(500));
     }
 
     private void setGridFromText() {
