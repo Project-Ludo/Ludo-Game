@@ -86,7 +86,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         ClientConnector clientConnector = new ClientConnector();
         clientConnector.connect(ip, port, LudoPlayerApp.player);
 
-        FXGL.run(() -> {
+        FXGL.runOnce(() -> {
             if (LudoPlayerApp.player.isConnected()) {
                 sceneController.changeScene(sceneController.getServerLobbyScene());
             }
