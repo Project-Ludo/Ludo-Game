@@ -34,7 +34,11 @@ public class LudoPlayerApp extends GameApplication {
     @Override
     protected void initGame() {
         loadScene();
-        getGameScene().addUINode(sceneController.getGameScene());
+        try {
+            getGameScene().addUINode(sceneController.getMainMenuScene());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadScene() {
@@ -44,22 +48,7 @@ public class LudoPlayerApp extends GameApplication {
         FXMLLoader fxmlLoaderLobby = new FXMLLoader(getClass().getClassLoader().getResource("Menu/ludo-lobby.fxml"));
         FXMLLoader fxmlLoaderGame = new FXMLLoader(getClass().getClassLoader().getResource("game/ludo-game.fxml"));
 
-        try {
-            sceneController = new SceneController(fxmlLoaderStartMenu.load(), fxmlLoaderRulesMenu.load(), fxmlLoaderConnectionMenu.load(), fxmlLoaderLobby.load(), fxmlLoaderGame.load());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        MainMenuController menuStartController = fxmlLoaderStartMenu.getController();
-        RulesMenuController menuRulesController = fxmlLoaderRulesMenu.getController();
-        ConnectionMenuController menuConnectionController = fxmlLoaderConnectionMenu.getController();
-        LobbyController lobbyController = fxmlLoaderLobby.getController();
-        GameController gameController = fxmlLoaderGame.getController();
-        menuStartController.initSceneController(sceneController);
-        menuRulesController.initSceneController(sceneController);
-        menuConnectionController.initSceneController(sceneController);
-        lobbyController.initSceneController(sceneController);
-        gameController.initSceneController(sceneController);
+        sceneController = new SceneController(fxmlLoaderStartMenu, fxmlLoaderRulesMenu, fxmlLoaderConnectionMenu, fxmlLoaderLobby, fxmlLoaderGame);
     }
 
     @Override

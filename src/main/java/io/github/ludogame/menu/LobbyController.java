@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,7 +55,11 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
                 countdownText.setText("Do startu: " + LudoPlayerApp.ludoGame.getStartCountdown());
                 new ZoomIn(countdownText).setSpeed(2).play();
                 if (LudoPlayerApp.ludoGame.getStartCountdown().get() == 0) {
-                    sceneController.changeSceneAfter(sceneController.getGameScene(), 500);
+                    try {
+                        sceneController.changeSceneAfter(sceneController.getGameScene(), 500);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     run.pause();
                 }
             }
@@ -66,7 +71,7 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
     }
 
-    public void onExitButtonClick() {
+    public void onExitButtonClick() throws IOException {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         LudoPlayerApp.player.disconnectFromServer();
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);

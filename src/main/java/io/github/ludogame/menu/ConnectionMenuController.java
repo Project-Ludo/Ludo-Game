@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -88,12 +89,16 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
 
         FXGL.runOnce(() -> {
             if (LudoPlayerApp.player.isConnected()) {
-                sceneController.changeScene(sceneController.getServerLobbyScene());
+                try {
+                    sceneController.changeScene(sceneController.getServerLobbyScene());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }, Duration.millis(500));
     }
 
-    public void onExitButtonClick() {
+    public void onExitButtonClick() throws IOException {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }

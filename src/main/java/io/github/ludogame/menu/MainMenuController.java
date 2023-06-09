@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,7 +25,7 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
         changeControlTexture(titleText, "menu/texture/tile.png");
     }
 
-    public void onStartButtonClick() {
+    public void onStartButtonClick() throws IOException {
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getServerConnectScene(), 150);
     }
@@ -40,7 +41,7 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
         new ErrorNotification("Error Message Music");
     }
 
-    public void onRulesButtonClick() {
+    public void onRulesButtonClick() throws IOException {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);
     }
