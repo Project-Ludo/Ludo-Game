@@ -16,11 +16,13 @@ import io.github.ludogame.menu.DefaultMenuButtonAction;
 import io.github.ludogame.pawn.Pawn;
 import io.github.ludogame.pawn.PawnColor;
 import io.github.ludogame.player.PlayerColor;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -35,7 +37,12 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class GameController extends DefaultMenuButtonAction implements Initializable {
 
+    @FXML
     public Label testText;
+    @FXML
+    public ImageView boardView;
+    @FXML
+    public AnchorPane anchorPane;
     private LudoFactory ludoFactory;
     private AStarGrid grid;
 
@@ -116,17 +123,8 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     private void setBoard() {
-        ImageView imageView = new ImageView(new Image("assets/textures/board/board.png"));
-
-        imageView.setFitWidth(UIConfig.BOARD_WIDTH);
-        imageView.setPreserveRatio(true);
-        imageView.setVisible(true);
-
-        imageView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X);
-        imageView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y);
-
-        GameView gameView = new GameView(imageView, -10);
-        getGameScene().addGameView(gameView);
+        boardView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X);
+        boardView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y);
     }
 
     public void onStartButtonClick() {

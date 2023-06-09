@@ -1,5 +1,6 @@
 package io.github.ludogame.controller;
 
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
 import io.github.ludogame.game.GameController;
 import io.github.ludogame.menu.ConnectionMenuController;
@@ -29,49 +30,56 @@ public class SceneController {
     }
 
     public Parent getMainMenuScene() throws IOException {
-        Parent load = mainMenuScene.load();
+        Parent load = (mainMenuScene.getRoot() == null) ? mainMenuScene.load() : mainMenuScene.getRoot();
         MainMenuController controller = mainMenuScene.getController();
         controller.initSceneController(this);
         return load;
     }
 
     public Parent getRulesScene() throws IOException {
-        Parent load = rulesScene.load();
+        Parent load = (rulesScene.getRoot() == null) ? rulesScene.load() : rulesScene.getRoot();
         RulesMenuController controller = rulesScene.getController();
         controller.initSceneController(this);
         return load;
     }
 
     public Parent getServerConnectScene() throws IOException {
-        Parent load = serverConnectScene.load();
+        Parent load = (serverConnectScene.getRoot() == null) ? serverConnectScene.load() : serverConnectScene.getRoot();
         ConnectionMenuController controller = serverConnectScene.getController();
         controller.initSceneController(this);
         return load;
     }
 
     public Parent getServerLobbyScene() throws IOException {
-        Parent load = serverLobbyScene.load();
+        Parent load = (serverLobbyScene.getRoot() == null) ? serverLobbyScene.load() : serverLobbyScene.getRoot();
         LobbyController controller = serverLobbyScene.getController();
         controller.initSceneController(this);
         return load;
     }
 
     public Parent getGameScene() throws IOException {
-        Parent load = gameScene.load();
+        Parent load = (gameScene.getRoot() == null) ? gameScene.load() : gameScene.getRoot();
         GameController controller = gameScene.getController();
         controller.initSceneController(this);
         return load;
     }
 
     public void changeSceneAfter(Parent nextScene, double millis) {
-        FXGL.runOnce(() -> {
-            FXGL.getGameScene().clearUINodes();
-            FXGL.getGameScene().addUINode(nextScene);
-        }, Duration.millis(millis));
+        //TODO Nie wyświetla się po czasie
+//        FXGL.runOnce(() -> {
+////            FXGL.getGameScene().clearUINodes();
+//////            FXGL.getGameScene().addUINode(nextScene);
+////            FXGL.getGameScene().clearGameViews();
+////            FXGL.getGameScene().addGameView(new GameView(nextScene, -100));
+//        }, Duration.millis(millis));
+        FXGL.getGameScene().clearUINodes();
+//            FXGL.getGameScene().addUINode(nextScene);
+        FXGL.getGameScene().clearGameViews();
+        FXGL.getGameScene().addGameView(new GameView(nextScene, -100));
     }
 
     public void changeScene(Parent nextScene) {
-        FXGL.getGameScene().clearUINodes();
-        FXGL.getGameScene().addUINode(nextScene);
+        FXGL.getGameScene().clearGameViews();
+        FXGL.getGameScene().addGameView(new GameView(nextScene, -100));
     }
 }

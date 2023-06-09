@@ -18,9 +18,10 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
 
     @FXML
     public Label playerInLobby;
-
     @FXML
     public Label countdownText;
+    @FXML
+    public Label lobbyTile;
 
     TimerAction run;
 
