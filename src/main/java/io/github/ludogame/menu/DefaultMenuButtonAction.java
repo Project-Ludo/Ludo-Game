@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public abstract class DefaultMenuButtonAction{
+public abstract class DefaultMenuButtonAction {
 
     @FXML
     public Button rulesButton;
@@ -82,7 +82,6 @@ public abstract class DefaultMenuButtonAction{
     public void initSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
     }
-
     private void switchMusicSlider(){
         if (isSlider){
             FXGL.<LudoPlayerApp>getAppCast().getMusic().removeSliderFromUI();

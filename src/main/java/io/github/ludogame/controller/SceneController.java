@@ -36,7 +36,7 @@ public class SceneController {
         return serverLobbyScene;
     }
 
-    public void changeSceneAfter(Parent nextScene, double millis){
+    public void changeSceneAfter(Parent nextScene, double millis) {
         FXGL.runOnce(() -> {
             FXGL.getGameScene().clearUINodes();
             FXGL.getGameScene().addUINode(nextScene);

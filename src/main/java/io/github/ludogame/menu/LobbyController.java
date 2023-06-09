@@ -39,7 +39,7 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
                 }
 
                 stringBuffer.append(player.isReady() ? "[ready]" : "[not ready]");
-
+                stringBuffer.append("[color: ").append(player.getColor().name()).append("]");
                 stringBuffer.append("\n");
 
             });

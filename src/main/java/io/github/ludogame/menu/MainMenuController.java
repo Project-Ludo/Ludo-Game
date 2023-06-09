@@ -34,7 +34,6 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
         FXGL.getGameController().exit();
     }
 
-
     public void onRulesButtonClick() {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);

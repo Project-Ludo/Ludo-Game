@@ -2,8 +2,11 @@ package io.github.ludogame.player;
 
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.net.Client;
+import com.almasb.fxgl.time.TimerAction;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class LudoPlayer implements Serializable {
@@ -13,6 +16,7 @@ public class LudoPlayer implements Serializable {
     private String nickname;
     private boolean connected;
     private boolean ready;
+    private List<TimerAction> tasks;
 
     public LudoPlayer() {
     }
@@ -28,6 +32,7 @@ public class LudoPlayer implements Serializable {
     public LudoPlayer(UUID uuid) {
         this.uuid = uuid;
         this.connected = true;
+        this.tasks = new ArrayList<>();
     }
 
     public UUID getUuid() {
@@ -63,7 +68,7 @@ public class LudoPlayer implements Serializable {
     }
 
     public void disconnectFromServer() {
-        this.dataBundle.disconnect();
+        this.expireAllTasks();
         this.connected = false;
     }
 
@@ -73,6 +78,14 @@ public class LudoPlayer implements Serializable {
 
     public void setReady(boolean ready) {
         this.ready = ready;
+    }
+
+    public void addTask(TimerAction task) {
+        this.tasks.add(task);
+    }
+
+    public void expireAllTasks() {
+        this.tasks.forEach(TimerAction::expire);
     }
 
     @Override

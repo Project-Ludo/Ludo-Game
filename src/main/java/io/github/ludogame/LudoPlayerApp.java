@@ -61,7 +61,6 @@ public class LudoPlayerApp extends GameApplication {
     public GameMusic getMusic() {
         return music;
     }
-
     private void loadScene() {
         FXMLLoader fxmlLoaderStartMenu = new FXMLLoader(getClass().getClassLoader().getResource("Menu/ludo-start-menu.fxml"));
         FXMLLoader fxmlLoaderRulesMenu = new FXMLLoader(getClass().getClassLoader().getResource("Menu/ludo-rules-menu.fxml"));
