@@ -98,10 +98,6 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 
-    public void onMusicButtonClick() {
-        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
-    }
-
     private void initializeTextField(TextField textField, Label errorMessageField, int maxLength, int minLength, Pattern pattern) {
         setTextFieldBackground(textField, UIConfig.TEXT_BOX);
         initializeTextFieldListener(textField, errorMessageField, maxLength, minLength, pattern);
