@@ -3,6 +3,7 @@ package io.github.ludogame.game;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
+import com.almasb.fxgl.time.TimerAction;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
@@ -15,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LudoGame implements Serializable {
 
@@ -22,8 +25,18 @@ public class LudoGame implements Serializable {
     private AtomicInteger startCountdown = new AtomicInteger(60);
     private Server<Bundle> server;
     private boolean countdownStarted;
+    private PlayerColor playerColorTurn;
+    private TimerAction countdownTask;
 
     public LudoGame() {
+    }
+
+    public PlayerColor getPlayerColorTurn() {
+        return playerColorTurn;
+    }
+
+    public void setPlayerColorTurn(PlayerColor playerColorTurn) {
+        this.playerColorTurn = playerColorTurn;
     }
 
     public CopyOnWriteArrayList<LudoPlayer> getPlayers() {
@@ -81,7 +94,7 @@ public class LudoGame implements Serializable {
 
     public void startCountdown() {
         this.countdownStarted = true;
-        FXGL.run(() -> {
+        this.countdownTask = FXGL.run(() -> {
             this.startCountdown.decrementAndGet();
 
             if (getReadyPlayersAmount() >= 2 && this.startCountdown.get() > 5) {
@@ -89,7 +102,8 @@ public class LudoGame implements Serializable {
             }
 
             if (this.startCountdown.get() < 0) {
-                this.startCountdown.set(0);
+                setPlayerColorTurn(getTakenColor());
+                countdownTask.expire();
             }
         }, Duration.seconds(1), 60);
     }
@@ -100,6 +114,15 @@ public class LudoGame implements Serializable {
         Collections.shuffle(allColors);
         return allColors.get(0);
     }
+
+    public PlayerColor getTakenColor() {
+        List<PlayerColor> allColors = new ArrayList<>(Arrays.asList(PlayerColor.BLUE, PlayerColor.RED, PlayerColor.GREEN, PlayerColor.YELLOW));
+        List<PlayerColor> playerColors = players.stream().map(LudoPlayer::getColor).collect(Collectors.toList());
+        allColors.retainAll(playerColors);
+        Collections.shuffle(allColors);
+        return allColors.get(0);
+    }
+
 
     public Server<Bundle> getServer() {
         return server;
@@ -113,5 +136,6 @@ public class LudoGame implements Serializable {
         this.players = PlayerService.convertToPlayerList(ludoGameDTO.getPlayers());
         this.startCountdown = ludoGameDTO.getStartCountdown();
         this.countdownStarted = ludoGameDTO.isCountdownStarted();
+        this.playerColorTurn = ludoGameDTO.getPlayerColorTurn();
     }
 }

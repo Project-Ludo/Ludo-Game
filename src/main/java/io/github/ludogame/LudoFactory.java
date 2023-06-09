@@ -8,8 +8,10 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
+import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.pawn.PawnColor;
+import io.github.ludogame.player.LudoPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -55,10 +57,25 @@ public class LudoFactory implements EntityFactory {
                 .type(EntityType.PAWN)
                 .with(new AnimationComponent(pawnColor))
                 .onClick(entity -> {
-                    if (!LudoPlayerApp.player.getColor().equals(data.get("owner"))) {
+                    LudoPlayer player = LudoPlayerApp.player;
+                    LudoGame game = LudoPlayerApp.ludoGame;
+
+                    if (!player.getColor().equals(data.get("owner"))) {
                         new ErrorNotification("Mozesz ruszac tylko swoimi pionkami");
                         return;
                     }
+
+                    if (!game.getPlayerColorTurn().equals(player.getColor())) {
+                        LudoPlayer ludoPlayer = game.getPlayers()
+                                .stream()
+                                .filter(p -> p.getColor().equals(game.getPlayerColorTurn()))
+                                .findFirst()
+                                .get();
+
+                        new ErrorNotification("Nie twoja tura! Aktualnie rusza " + ludoPlayer.getNickname());
+                        return;
+                    }
+                    System.out.println(LudoPlayerApp.ludoGame.getPlayerColorTurn());
 
                     AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
                     animationComponent.switchAnimation();
