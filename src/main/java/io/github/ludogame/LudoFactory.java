@@ -1,5 +1,7 @@
 package io.github.ludogame;
 
+import com.almasb.fxgl.app.scene.GameView;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import io.github.ludogame.component.AnimationComponent;
@@ -12,10 +14,13 @@ import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.pawn.PawnColor;
 import io.github.ludogame.player.LudoPlayer;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.runOnce;
 
 public class LudoFactory implements EntityFactory {
 
@@ -60,6 +65,9 @@ public class LudoFactory implements EntityFactory {
                     LudoPlayer player = LudoPlayerApp.player;
                     LudoGame game = LudoPlayerApp.ludoGame;
 
+                    LudoPlayer actualPlayer = data.get("player");
+                    addTextOverThePoint(data.getX(), data.getY(), actualPlayer);
+
                     if (!player.getColor().equals(data.get("owner"))) {
                         new ErrorNotification("Mozesz ruszac tylko swoimi pionkami");
                         return;
@@ -82,4 +90,17 @@ public class LudoFactory implements EntityFactory {
                 .bbox(new HitBox(BoundingShape.box(32, 32)))
                 .build();
     }
+
+    private void addTextOverThePoint(double x, double y,LudoPlayer player){
+        Label label = new Label(player.getNickname());
+//        label.setLocation(x, y);
+        label.setLayoutX(x);
+        label.setLayoutY(y);
+        FXGL.getGameScene().addUINode(label);
+        runOnce(()->{
+            FXGL.getGameScene().removeUINode(label);
+            return null;
+        }, Duration.seconds(2));
+    }
+
 }

@@ -14,6 +14,7 @@ import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.menu.DefaultMenuButtonAction;
 import io.github.ludogame.pawn.Pawn;
 import io.github.ludogame.pawn.PawnColor;
+import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -111,11 +113,19 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
 
     private List<Entity> spawnPawns(PlayerColor playerColor) {
         List<Entity> pawns = new ArrayList<>();
+
+        CopyOnWriteArrayList<LudoPlayer> playerslist = LudoPlayerApp.ludoGame.getPlayers();
+        LudoPlayer player = playerslist.stream().filter(p -> p.getColor().equals(playerColor)).findFirst().get();
+
         switch (playerColor) {
-            case RED -> UIConfig.SPAWN_POINTS_RED.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.RED)));
-            case BLUE -> UIConfig.SPAWN_POINTS_BLUE.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.BLUE)));
-            case GREEN -> UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.GREEN)));
-            case YELLOW -> UIConfig.SPAWN_POINTS_GREEN.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor), PawnColor.YEllOW)));
+            case RED -> UIConfig.SPAWN_POINTS_RED.forEach(point -> pawns.add(
+                    ludoFactory.spawnPawn(
+                            new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.RED)
+                    )
+            );
+            case BLUE -> UIConfig.SPAWN_POINTS_BLUE.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.BLUE)));
+            case GREEN -> UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.GREEN)));
+            case YELLOW -> UIConfig.SPAWN_POINTS_GREEN.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.YEllOW)));
         }
 
         pawns.forEach(pawn -> getGameWorld().addEntity(pawn));
