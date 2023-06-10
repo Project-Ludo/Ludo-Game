@@ -1,14 +1,18 @@
 package io.github.ludogame.game;
 
+import com.almasb.fxgl.core.collection.grid.Cell;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
+import com.almasb.fxgl.pathfinding.astar.AStarCell;
+import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.time.TimerAction;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,8 +31,36 @@ public class LudoGame implements Serializable {
     private PlayerColor playerColorTurn;
     private TimerAction countdownTask;
     private int diceResult;
+    private AStarGrid aStarGrid;
+    private List<AStarCell> listOfGrid;
 
     public LudoGame() {
+    }
+
+    public void setListOfGrid(List<AStarCell> listOfGrid) {
+        this.listOfGrid = listOfGrid;
+    }
+
+    public List<AStarCell> getListOfGrid() {
+        return listOfGrid;
+    }
+    public int findIndexOfCellPositionInList(int x, int y){
+
+        int i;
+        for (i = 0; i < listOfGrid.size(); i++) {
+            if(listOfGrid.get(i).getY() == y && listOfGrid.get(i).getX() == x){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void setaStarGrid(AStarGrid aStarGrid) {
+        this.aStarGrid = aStarGrid;
+    }
+
+    public AStarGrid getaStarGrid() {
+        return aStarGrid;
     }
 
     public PlayerColor getPlayerColorTurn() {

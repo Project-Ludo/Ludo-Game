@@ -1,5 +1,6 @@
 package io.github.ludogame.game;
 
+import com.almasb.fxgl.core.collection.grid.Cell;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -7,9 +8,12 @@ import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
+import com.almasb.fxgl.pathfinding.astar.AStarCell;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
+import io.github.ludogame.EntityType;
 import io.github.ludogame.LudoFactory;
 import io.github.ludogame.LudoPlayerApp;
+import io.github.ludogame.component.PawnComponent;
 import io.github.ludogame.config.Config;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.menu.DefaultMenuButtonAction;
@@ -48,6 +52,7 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     public ImageView diceView;
     private LudoFactory ludoFactory;
     private AStarGrid grid;
+    private PawnComponent pawnComponent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,8 +97,74 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
                 Config.MAP_SIZE,
                 Config.BLOCK_SIZE,
                 Config.BLOCK_SIZE,
-                type -> CellState.NOT_WALKABLE
+                type -> {
+                    if(type.equals(EntityType.PLATFORM) || type.equals(EntityType.START_SPAWN_POINT)){
+                        return CellState.WALKABLE;
+                    }
+                    return CellState.NOT_WALKABLE;
+                }
         );
+
+        //list of grid
+        //Set list of ceel into LudoGame list
+        setLisCell();
+        LudoPlayerApp.ludoGame.setaStarGrid(grid);
+    }
+
+    private void setLisCell(){
+        ArrayList<AStarCell> list = new ArrayList<>();
+        int x = 1, y = 6;
+
+        while (x < 6) {
+            list.add(grid.get(++x,y));
+        }
+
+        while (y > 1) {
+            list.add(grid.get(x,--y));
+        }
+
+        while (x < 8) {
+            list.add(grid.get(++x,y));
+        }
+
+        while (y < 6) {
+            list.add(grid.get(x,++y));
+        }
+
+        while (x < 13) {
+            list.add(grid.get(++x,y));
+        }
+
+        while (y < 8) {
+            list.add(grid.get(x,++y));
+        }
+
+        while (x > 8) {
+            list.add(grid.get(--x,y));
+        }
+
+        while (y < 13) {
+            list.add(grid.get(x,++y));
+        }
+
+        while (x > 6) {
+            list.add(grid.get(--x,y));
+        }
+
+        while (y > 8) {
+            list.add(grid.get(x,--y));
+        }
+
+        while (x > 1) {
+            list.add(grid.get(--x,y));
+        }
+
+        while (y > 6) {
+            list.add(grid.get(x,--y));
+        }
+//        list.add(grid.get(x,y));
+
+        LudoPlayerApp.ludoGame.setListOfGrid(list);
     }
 
     private void spawnPlayerPawns() {

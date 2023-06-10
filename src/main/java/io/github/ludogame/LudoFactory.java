@@ -1,10 +1,12 @@
 package io.github.ludogame;
 
-import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.pathfinding.CellMoveComponent;
+import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import io.github.ludogame.component.AnimationComponent;
+import io.github.ludogame.component.PawnComponent;
 import io.github.ludogame.config.Config;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
@@ -49,10 +51,17 @@ public class LudoFactory implements EntityFactory {
     }
 
     @Spawns("S")
+    public Entity spawnStartSpawnPoint(SpawnData data) {
+        return entityBuilder(data)
+                .type(EntityType.START_SPAWN_POINT)
+                .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.RED))
+                .build();
+    }
+    @Spawns("s")
     public Entity spawnSpawnPoint(SpawnData data) {
         return entityBuilder(data)
                 .type(EntityType.SPAWN_POINT)
-                .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.RED))
+                .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.BLUE))
                 .build();
     }
 
@@ -84,9 +93,24 @@ public class LudoFactory implements EntityFactory {
                         return;
                     }
 
-                    AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
-                    animationComponent.switchAnimation();
+                    //TODO potrzeba wysłać serwerowi wiadomośc że stoje na tym polu
+
+
+                    //Po sprawdzeniu że twoja tura można sprawdzić czy wylosowało się 6 i czy możesz sie ruszyć dalej
+//                    game.getDiceResult();
+                    if(game.getDiceResult() == 6){
+                        //check if
+
+                    }
+
+                    //TODO Do odkomentowania
+//                    AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
+//                    animationComponent.switchAnimation();
+
                 })
+                .with(new CellMoveComponent(40, 40, 10))
+                .with(new AStarMoveComponent(LudoPlayerApp.ludoGame.getaStarGrid()))
+                .with(new PawnComponent())
                 .bbox(new HitBox(BoundingShape.box(32, 32)))
                 .build();
     }
@@ -95,7 +119,7 @@ public class LudoFactory implements EntityFactory {
         Label label = new Label(player.getNickname());
 //        label.setLocation(x, y);
         label.setLayoutX(x);
-        label.setLayoutY(y);
+        label.setLayoutY(y-5);
         FXGL.getGameScene().addUINode(label);
         runOnce(() -> {
             FXGL.getGameScene().removeUINode(label);

@@ -35,7 +35,7 @@ public class LudoPlayerApp extends GameApplication {
     protected void initGame() {
         loadScene();
         try {
-            getGameScene().addUINode(sceneController.getMainMenuScene());
+            getGameScene().addUINode(sceneController.getGameScene());
         } catch (IOException e) {
             e.printStackTrace();
         }
