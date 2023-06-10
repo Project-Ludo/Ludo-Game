@@ -34,12 +34,6 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
         FXGL.getGameController().exit();
     }
 
-    public void onMusicButtonClick() {
-        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
-
-        new ErrorNotification("Error Message Music");
-    }
-
     public void onRulesButtonClick() {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);
