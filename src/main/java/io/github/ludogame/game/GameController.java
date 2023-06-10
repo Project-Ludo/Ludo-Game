@@ -1,5 +1,6 @@
 package io.github.ludogame.game;
 
+import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
@@ -134,11 +135,15 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     public void onStartButtonClick() {
-        System.out.println("RZUT");
+        Bundle bundle = new Bundle("DiceRoll");
+        bundle.put("result", 0);
+        LudoPlayerApp.player.getDataBundle().broadcast(bundle);
+
         Image diceFastThrow = new Image("assets/textures/dice/dice_throw_fast.gif");
         diceView.setImage(diceFastThrow);
+
         runOnce(() -> {
-            setSpecificDiceImage(random(1, 6));
+            setSpecificDiceImage(LudoPlayerApp.ludoGame.getDiceResult());
             return null;
         }, Duration.seconds(1));
     }
@@ -147,7 +152,8 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         if (number < 1 || number > 6) {
             return;
         }
-        Image diceImage = new Image("assets/textures/dice/dice_" + String.valueOf(number) + ".png");
+
+        Image diceImage = new Image("assets/textures/dice/dice_" + number + ".png");
         diceView.setImage(diceImage);
     }
 

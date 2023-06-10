@@ -13,6 +13,7 @@ public class LudoGameDTO implements Serializable {
     private AtomicInteger startCountdown = new AtomicInteger(60);
     private boolean countdownStarted;
     private PlayerColor playerColorTurn;
+    private int diceResult;
 
     public PlayerColor getPlayerColorTurn() {
         return playerColorTurn;
@@ -44,5 +45,13 @@ public class LudoGameDTO implements Serializable {
 
     public void setCountdownStarted(boolean countdownStarted) {
         this.countdownStarted = countdownStarted;
+    }
+
+    public int getDiceResult() {
+        return diceResult;
+    }
+
+    public void setDiceResult(int diceResult) {
+        this.diceResult = diceResult;
     }
 }

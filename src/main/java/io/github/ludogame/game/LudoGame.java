@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LudoGame implements Serializable {
 
@@ -27,6 +26,7 @@ public class LudoGame implements Serializable {
     private boolean countdownStarted;
     private PlayerColor playerColorTurn;
     private TimerAction countdownTask;
+    private int diceResult;
 
     public LudoGame() {
     }
@@ -137,5 +137,14 @@ public class LudoGame implements Serializable {
         this.startCountdown = ludoGameDTO.getStartCountdown();
         this.countdownStarted = ludoGameDTO.isCountdownStarted();
         this.playerColorTurn = ludoGameDTO.getPlayerColorTurn();
+        this.diceResult = ludoGameDTO.getDiceResult();
+    }
+
+    public int getDiceResult() {
+        return diceResult;
+    }
+
+    public void setDiceResult(int diceResult) {
+        this.diceResult = diceResult;
     }
 }

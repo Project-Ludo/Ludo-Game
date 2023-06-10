@@ -13,6 +13,7 @@ import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
+import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +40,7 @@ public class LudoServer {
         serverBundle.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             handleConnectionRequest(message);
             connectionHandler(message);
+            diceHandler(message);
         }));
         serverBundle.startAsync();
         LudoServerApp.ludoGame.setServer(serverBundle);
@@ -66,6 +68,16 @@ public class LudoServer {
         LudoPlayer ludoPlayer = PlayerService.convertToPlayer(message.get("player"));
         connectionHandler.updateLastRequestTime(ludoPlayer.getUuid());
         LudoServerApp.ludoGame.updatePlayer(ludoPlayer);
+    }
+
+    public void diceHandler(Bundle message) {
+        if (!message.getName().equals("DiceRoll")) {
+            return;
+        }
+
+        int result = new Random().nextInt(1, 7);
+        LudoServerApp.ludoGame.setDiceResult(result);
+        System.out.println("DiceRolled, result:" + result);
     }
 
     public void handleConnectionRequest(Bundle message) {
