@@ -65,10 +65,10 @@ public class LudoFactory implements EntityFactory {
                     LudoPlayer player = LudoPlayerApp.player;
                     LudoGame game = LudoPlayerApp.ludoGame;
 
-                    LudoPlayer actualPlayer = data.get("player");
-                    addTextOverThePoint(data.getX(), data.getY(), actualPlayer);
+                    LudoPlayer pawnOwner = data.get("player");
+                    addTextOverThePoint(data.getX(), data.getY(), pawnOwner);
 
-                    if (!player.getColor().equals(data.get("owner"))) {
+                    if (!player.getColor().equals(pawnOwner.getColor())) {
                         new ErrorNotification("Mozesz ruszac tylko swoimi pionkami");
                         return;
                     }
@@ -91,13 +91,13 @@ public class LudoFactory implements EntityFactory {
                 .build();
     }
 
-    private void addTextOverThePoint(double x, double y,LudoPlayer player){
+    private void addTextOverThePoint(double x, double y, LudoPlayer player) {
         Label label = new Label(player.getNickname());
 //        label.setLocation(x, y);
         label.setLayoutX(x);
         label.setLayoutY(y);
         FXGL.getGameScene().addUINode(label);
-        runOnce(()->{
+        runOnce(() -> {
             FXGL.getGameScene().removeUINode(label);
             return null;
         }, Duration.seconds(2));

@@ -68,7 +68,7 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
             });
             stringBuffer.append("Turn: ").append(LudoPlayerApp.ludoGame.getPlayerColorTurn());
             testText.setText(stringBuffer.toString());
-        },Duration.millis(500));
+        }, Duration.millis(500));
     }
 
     private void setGridFromText() {
@@ -118,14 +118,10 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         LudoPlayer player = playerslist.stream().filter(p -> p.getColor().equals(playerColor)).findFirst().get();
 
         switch (playerColor) {
-            case RED -> UIConfig.SPAWN_POINTS_RED.forEach(point -> pawns.add(
-                    ludoFactory.spawnPawn(
-                            new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.RED)
-                    )
-            );
-            case BLUE -> UIConfig.SPAWN_POINTS_BLUE.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.BLUE)));
-            case GREEN -> UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.GREEN)));
-            case YELLOW -> UIConfig.SPAWN_POINTS_GREEN.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("owner", playerColor).put("player", player), PawnColor.YEllOW)));
+            case RED -> UIConfig.SPAWN_POINTS_RED.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.RED)));
+            case BLUE -> UIConfig.SPAWN_POINTS_BLUE.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.BLUE)));
+            case GREEN -> UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.GREEN)));
+            case YELLOW -> UIConfig.SPAWN_POINTS_GREEN.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.YEllOW)));
         }
 
         pawns.forEach(pawn -> getGameWorld().addEntity(pawn));
@@ -141,13 +137,14 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         System.out.println("RZUT");
         Image diceFastThrow = new Image("assets/textures/dice/dice_throw_fast.gif");
         diceView.setImage(diceFastThrow);
-        runOnce(()->{
+        runOnce(() -> {
             setSpecificDiceImage(random(1, 6));
             return null;
         }, Duration.seconds(1));
     }
-    private void setSpecificDiceImage(int number){
-        if(number < 1 || number > 6){
+
+    private void setSpecificDiceImage(int number) {
+        if (number < 1 || number > 6) {
             return;
         }
         Image diceImage = new Image("assets/textures/dice/dice_" + String.valueOf(number) + ".png");
