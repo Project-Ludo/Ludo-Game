@@ -25,4 +25,21 @@ public class PawnComponent extends Component {
                 LudoPlayerApp.ludoGame.getListOfGrid().get(nextIndex)
         );
     }
+
+    public void moveToStartPoint(){
+        if(astar == null){
+            System.out.println("ASTRAT NULL");
+            return;
+        }
+        System.out.println("trynna move");
+        //Możliwe żeby to zadziałalo musi używac tej funckji spawn("Pawn", X, Y);
+
+        System.out.println("actual X: " + astar.getCurrentCell().get().getX());
+        System.out.println("actual Y: " + astar.getCurrentCell().get().getY());
+
+        System.out.println("to X: " + Config.BLUE_PAWN_START_SPAWN_POINT.getX());
+        System.out.println("to Y: " + (int)Config.BLUE_PAWN_START_SPAWN_POINT.getY());
+        astar.moveToCell((int) Config.BLUE_PAWN_START_SPAWN_POINT.getX(), (int)Config.BLUE_PAWN_START_SPAWN_POINT.getY());
+    }
+
 }

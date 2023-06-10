@@ -67,6 +67,9 @@ public class LudoFactory implements EntityFactory {
 
     @Spawns("Pawn")
     public Entity spawnPawn(SpawnData data, PawnColor pawnColor) {
+
+        PawnComponent pawnComponent = new PawnComponent();
+
         return entityBuilder(data)
                 .type(EntityType.PAWN)
                 .with(new AnimationComponent(pawnColor))
@@ -98,19 +101,17 @@ public class LudoFactory implements EntityFactory {
 
                     //Po sprawdzeniu że twoja tura można sprawdzić czy wylosowało się 6 i czy możesz sie ruszyć dalej
 //                    game.getDiceResult();
-                    if(game.getDiceResult() == 6){
-                        //check if
-
-                    }
+                    System.out.println("Move");
+                    pawnComponent.moveToStartPoint();
 
                     //TODO Do odkomentowania
 //                    AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
 //                    animationComponent.switchAnimation();
 
                 })
-                .with(new CellMoveComponent(40, 40, 10))
+                .with(new CellMoveComponent(Config.BLOCK_SIZE, Config.BLOCK_SIZE, 10))
                 .with(new AStarMoveComponent(LudoPlayerApp.ludoGame.getaStarGrid()))
-                .with(new PawnComponent())
+                .with(pawnComponent)
                 .bbox(new HitBox(BoundingShape.box(32, 32)))
                 .build();
     }
