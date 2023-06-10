@@ -1,6 +1,5 @@
 package io.github.ludogame.game;
 
-import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
@@ -28,12 +27,11 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class GameController extends DefaultMenuButtonAction implements Initializable {
 
@@ -43,6 +41,8 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     public ImageView boardView;
     @FXML
     public AnchorPane anchorPane;
+    @FXML
+    public ImageView diceView;
     private LudoFactory ludoFactory;
     private AStarGrid grid;
 
@@ -129,6 +129,19 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
 
     public void onStartButtonClick() {
         System.out.println("RZUT");
+        Image diceFastThrow = new Image("assets/textures/dice/dice_throw_fast.gif");
+        diceView.setImage(diceFastThrow);
+        runOnce(()->{
+            setSpecificDiceImage(random(1, 6));
+            return null;
+        }, Duration.seconds(1));
+    }
+    private void setSpecificDiceImage(int number){
+        if(number < 1 || number > 6){
+            return;
+        }
+        Image diceImage = new Image("assets/textures/dice/dice_" + String.valueOf(number) + ".png");
+        diceView.setImage(diceImage);
     }
 
     public void onMusicButtonClick() {
