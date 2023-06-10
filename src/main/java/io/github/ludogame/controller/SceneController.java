@@ -20,6 +20,7 @@ public class SceneController {
     private final FXMLLoader serverConnectScene;
     private final FXMLLoader serverLobbyScene;
     private final FXMLLoader gameScene;
+    private GameController gameSceneController;
 
     public SceneController(FXMLLoader mainMenuScene, FXMLLoader rulesScene, FXMLLoader serverConnectScene, FXMLLoader serverLobbyScene, FXMLLoader gameScene) {
         this.mainMenuScene = mainMenuScene;
@@ -60,6 +61,7 @@ public class SceneController {
     public Parent getGameScene() throws IOException {
         Parent load = (gameScene.getRoot() == null) ? gameScene.load() : gameScene.getRoot();
         GameController controller = gameScene.getController();
+        this.gameSceneController = controller;
         controller.initSceneController(this);
         return load;
     }
@@ -81,5 +83,9 @@ public class SceneController {
     public void changeScene(Parent nextScene) {
         FXGL.getGameScene().clearGameViews();
         FXGL.getGameScene().addGameView(new GameView(nextScene, -100));
+    }
+
+    public GameController getGameSceneController() {
+        return gameSceneController;
     }
 }

@@ -135,15 +135,18 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     public void onStartButtonClick() {
+        System.out.println("start");
         Bundle bundle = new Bundle("DiceRoll");
         bundle.put("result", 0);
         LudoPlayerApp.player.getDataBundle().broadcast(bundle);
+    }
 
+    public void rollDice(int result){
         Image diceFastThrow = new Image("assets/textures/dice/dice_throw_fast.gif");
         diceView.setImage(diceFastThrow);
 
         runOnce(() -> {
-            setSpecificDiceImage(LudoPlayerApp.ludoGame.getDiceResult());
+            setSpecificDiceImage(result);
             return null;
         }, Duration.seconds(1));
     }

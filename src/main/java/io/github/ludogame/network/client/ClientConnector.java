@@ -5,6 +5,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Client;
 import com.almasb.fxgl.time.TimerAction;
 import io.github.ludogame.LudoPlayerApp;
+import io.github.ludogame.controller.SceneController;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
 import io.github.ludogame.game.LudoGameDTO;
@@ -16,6 +17,12 @@ import javafx.util.Duration;
 
 public class ClientConnector implements IClient {
 
+    private final SceneController sceneController;
+
+    public ClientConnector(SceneController sceneController) {
+        this.sceneController = sceneController;
+    }
+
     @Override
     public Client<Bundle> connect(String ip, int port, LudoPlayer player) {
         Client<Bundle> client = FXGL.getNetService().newUDPClient(ip, port);
@@ -23,6 +30,7 @@ public class ClientConnector implements IClient {
         client.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             handleConnection(message, player);
             handleLobby(message);
+            handleDice(message);
         }));
 
         FXGL.runOnce(() -> {
@@ -77,5 +85,14 @@ public class ClientConnector implements IClient {
         }, Duration.millis(500));
 
         player.addTask(task);
+    }
+
+    private void handleDice(Bundle message) {
+        if (!message.getName().equals("DiceRoll")) {
+            return;
+        }
+
+        int result = message.get("result");
+        sceneController.getGameSceneController().rollDice(result);
     }
 }

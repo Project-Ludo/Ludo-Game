@@ -84,7 +84,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         String ip = split[0];
         int port = Integer.parseInt(split[1]);
 
-        ClientConnector clientConnector = new ClientConnector();
+        ClientConnector clientConnector = new ClientConnector(sceneController);
         clientConnector.connect(ip, port, LudoPlayerApp.player);
 
         FXGL.runOnce(() -> {

@@ -77,7 +77,9 @@ public class LudoServer {
 
         int result = new Random().nextInt(1, 7);
         LudoServerApp.ludoGame.setDiceResult(result);
-        System.out.println("DiceRolled, result:" + result);
+        Bundle bundle = new Bundle("DiceRoll");
+        bundle.put("result", result);
+        serverBundle.broadcast(bundle);
     }
 
     public void handleConnectionRequest(Bundle message) {
