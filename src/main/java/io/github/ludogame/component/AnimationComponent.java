@@ -14,6 +14,7 @@ public class AnimationComponent extends Component {
     public AnimationComponent(PawnColor pawnColor) {
         this.animChannelIdle = new AnimationChannel(pawnColor.idleImage, 7, 32, 32, Duration.seconds(2), 1, 6);
         this.animChannelRun = new AnimationChannel(pawnColor.runImage, 6, 32, 32, Duration.seconds(1), 1, 5);
+
         this.animatedTexture = new AnimatedTexture(animChannelIdle);
         animatedTexture.loop();
     }

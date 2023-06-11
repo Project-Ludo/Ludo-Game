@@ -7,17 +7,17 @@ import com.almasb.fxgl.net.Server;
 import com.almasb.fxgl.pathfinding.astar.AStarCell;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.time.TimerAction;
+import io.github.ludogame.config.Config;
+import io.github.ludogame.pawn.Pawn;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
 import javax.swing.*;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -32,27 +32,25 @@ public class LudoGame implements Serializable {
     private TimerAction countdownTask;
     private int diceResult;
     private AStarGrid aStarGrid;
-    private List<AStarCell> listOfGrid;
 
     public LudoGame() {
     }
-
-    public void setListOfGrid(List<AStarCell> listOfGrid) {
-        this.listOfGrid = listOfGrid;
-    }
-
-    public List<AStarCell> getListOfGrid() {
-        return listOfGrid;
-    }
-    public int findIndexOfCellPositionInList(int x, int y){
-
+    public int findIndexOfCellPositionInList(int x, int y, Pawn pawn){
+        if (!pawn.isStarted()){
+            pawn.setStarted(true);
+            return 0;
+        }
         int i;
-        for (i = 0; i < listOfGrid.size(); i++) {
-            if(listOfGrid.get(i).getY() == y && listOfGrid.get(i).getX() == x){
+        for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
+            if(Config.DEFAULT_PATH.get(i).getY() == y && Config.DEFAULT_PATH.get(i).getX() == x){
+                System.out.println(Config.DEFAULT_PATH.get(i).getX() + " " + Config.DEFAULT_PATH.get(i).getY());
                 return i;
             }
         }
         return -1;
+    }
+    public AStarGrid getListOfGrid(){
+        return aStarGrid;
     }
 
     public void setaStarGrid(AStarGrid aStarGrid) {

@@ -2,8 +2,10 @@ package io.github.ludogame;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.pathfinding.CellMoveComponent;
+import com.almasb.fxgl.pathfinding.astar.AStarCell;
 import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import com.almasb.fxgl.physics.BoundingShape;
+import com.almasb.fxgl.physics.CircleShapeData;
 import com.almasb.fxgl.physics.HitBox;
 import io.github.ludogame.component.AnimationComponent;
 import io.github.ludogame.component.PawnComponent;
@@ -14,12 +16,16 @@ import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.notification.ErrorNotification;
+import io.github.ludogame.pawn.Pawn;
 import io.github.ludogame.pawn.PawnColor;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import java.util.Optional;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.runOnce;
@@ -66,19 +72,23 @@ public class LudoFactory implements EntityFactory {
     }
 
     @Spawns("Pawn")
-    public Entity spawnPawn(SpawnData data, PawnColor pawnColor) {
-
-        PawnComponent pawnComponent = new PawnComponent();
+    public Entity spawnPawn(SpawnData data) {
+        PawnComponent pawnComponent = new PawnComponent(data);
+        AnimationComponent animationComponent = new AnimationComponent(data.get("pawnColor"));
+        AStarMoveComponent aStarMoveComponent = new AStarMoveComponent(LudoPlayerApp.ludoGame.getaStarGrid());
+        CellMoveComponent cellMoveComponent = new CellMoveComponent(Config.BLOCK_SIZE, Config.BLOCK_SIZE, 150);
+        HitBox hitBox = new HitBox(BoundingShape.circle(Config.BLOCK_SIZE/2));
 
         return entityBuilder(data)
                 .type(EntityType.PAWN)
-                .with(new AnimationComponent(pawnColor))
+                .with(animationComponent)
+                .bbox(new HitBox(BoundingShape.box(Config.BLOCK_SIZE, Config.BLOCK_SIZE)))
                 .onClick(entity -> {
                     LudoPlayer player = LudoPlayerApp.player;
                     LudoGame game = LudoPlayerApp.ludoGame;
 
                     LudoPlayer pawnOwner = data.get("player");
-                    addTextOverThePoint(data.getX(), data.getY(), pawnOwner);
+                    addTextOverThePoint(pawnComponent.getEntity().getPosition().getX(), pawnComponent.getEntity().getPosition().getY(), pawnOwner);
 
                     if (!player.getColor().equals(pawnOwner.getColor())) {
                         new ErrorNotification("Mozesz ruszac tylko swoimi pionkami");
@@ -96,23 +106,43 @@ public class LudoFactory implements EntityFactory {
                         return;
                     }
 
-                    //TODO potrzeba wysłać serwerowi wiadomośc że stoje na tym polu
-
-
-                    //Po sprawdzeniu że twoja tura można sprawdzić czy wylosowało się 6 i czy możesz sie ruszyć dalej
-//                    game.getDiceResult();
                     System.out.println("Move");
-                    pawnComponent.moveToStartPoint();
+                    //pawnComponent.moveToStartPoint();
+                    //pawnComponent.getEntity().setPosition((int) Config.BLUE_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2, (int)Config.BLUE_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2);
 
-                    //TODO Do odkomentowania
+                    Optional<AStarCell> pawnComponentCell = pawnComponent.getAstar().getCurrentCell();
+                    if(pawnComponentCell.isEmpty()){
+                        System.out.println("Blad pawnComponentCell");
+                        return;
+                    }
+                    System.out.println("pawnComponentCell: " + pawnComponentCell.get().getX() + " " + pawnComponentCell.get().getY());
+                    Optional<Pawn> currentPawn = LudoPlayerApp.player.getPawns().stream().filter(
+                            p -> p.getCell().equals(pawnComponentCell.get())
+                    ).findFirst();
+
+                    if(currentPawn.isEmpty()){
+                        System.out.println("pawn not exist Pawn in player.getPawns() ->");
+                        LudoPlayerApp.player.getPawns().forEach(
+                                p -> System.out.println(p.getCell().getX() + " " + p.getCell().getY())
+                        );
+                        return;
+                    }
+
+                    if(LudoPlayerApp.ludoGame.getDiceResult() == 6){
+                        pawnComponent.getEntity().setPosition((int) Config.BLUE_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2, (int)Config.BLUE_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2);
+                    }else {
+                        pawnComponent.move(LudoPlayerApp.ludoGame.getDiceResult(), currentPawn.get());
+                    }
+
+
+                        //TODO Do odkomentowania
 //                    AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
 //                    animationComponent.switchAnimation();
 
                 })
-                .with(new CellMoveComponent(Config.BLOCK_SIZE, Config.BLOCK_SIZE, 10))
-                .with(new AStarMoveComponent(LudoPlayerApp.ludoGame.getaStarGrid()))
+                .with(new CellMoveComponent(Config.BLOCK_SIZE, Config.BLOCK_SIZE, 150))
+                .with(aStarMoveComponent)
                 .with(pawnComponent)
-                .bbox(new HitBox(BoundingShape.box(32, 32)))
                 .build();
     }
 

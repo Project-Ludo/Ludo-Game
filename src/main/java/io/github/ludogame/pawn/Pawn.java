@@ -2,6 +2,7 @@ package io.github.ludogame.pawn;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.pathfinding.astar.AStarCell;
+import io.github.ludogame.component.PawnComponent;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ public class Pawn implements Serializable {
 
     public Pawn(Entity entity) {
         this.entity = entity;
+        this.cell = entity.getComponent(PawnComponent.class).getAstar().getCurrentCell().get();
     }
 
     public Entity getEntity() {

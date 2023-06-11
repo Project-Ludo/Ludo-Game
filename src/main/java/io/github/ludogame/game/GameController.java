@@ -81,99 +81,37 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         ludoFactory = new LudoFactory();
         getGameWorld().addEntityFactory(ludoFactory);
         Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
-        level.getEntities().forEach(entity -> {
-            Point2D fixedPoint = new Point2D(((double) Config.MAP_WIDTH / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2),
-                    ((double) Config.MAP_HEIGHT / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2));
-            entity.translate(fixedPoint);
-
-            entity.setVisible(false);
-        });
 
         getGameWorld().setLevel(level);
 
         this.grid = AStarGrid.fromWorld(
                 getGameWorld(),
-                Config.MAP_SIZE,
-                Config.MAP_SIZE,
+                24,
+                18,
                 Config.BLOCK_SIZE,
                 Config.BLOCK_SIZE,
                 type -> {
-                    if(type.equals(EntityType.PLATFORM) || type.equals(EntityType.START_SPAWN_POINT)){
-                        return CellState.WALKABLE;
-                    }
-                    return CellState.NOT_WALKABLE;
+                    return CellState.WALKABLE;
                 }
         );
 
         //list of grid
         //Set list of ceel into LudoGame list
-        setLisCell();
         LudoPlayerApp.ludoGame.setaStarGrid(grid);
-    }
-
-    private void setLisCell(){
-        ArrayList<AStarCell> list = new ArrayList<>();
-        int x = 1, y = 6;
-
-        while (x < 6) {
-            list.add(grid.get(++x,y));
-        }
-
-        while (y > 1) {
-            list.add(grid.get(x,--y));
-        }
-
-        while (x < 8) {
-            list.add(grid.get(++x,y));
-        }
-
-        while (y < 6) {
-            list.add(grid.get(x,++y));
-        }
-
-        while (x < 13) {
-            list.add(grid.get(++x,y));
-        }
-
-        while (y < 8) {
-            list.add(grid.get(x,++y));
-        }
-
-        while (x > 8) {
-            list.add(grid.get(--x,y));
-        }
-
-        while (y < 13) {
-            list.add(grid.get(x,++y));
-        }
-
-        while (x > 6) {
-            list.add(grid.get(--x,y));
-        }
-
-        while (y > 8) {
-            list.add(grid.get(x,--y));
-        }
-
-        while (x > 1) {
-            list.add(grid.get(--x,y));
-        }
-
-        while (y > 6) {
-            list.add(grid.get(x,--y));
-        }
-//        list.add(grid.get(x,y));
-
-        LudoPlayerApp.ludoGame.setListOfGrid(list);
     }
 
     private void spawnPlayerPawns() {
         LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
             if (player.getUuid().equals(LudoPlayerApp.player.getUuid())) {
                 List<Entity> entities = spawnPawns(player.getColor());
+
+                //entities.forEach(System.out::println);
+
                 List<Pawn> pawns = entities.stream()
                         .map(Pawn::new)
                         .collect(Collectors.toList());
+
+                //pawns.forEach(System.out::println);
 
                 LudoPlayerApp.player.setPawns(pawns);
                 return;
@@ -190,19 +128,18 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         LudoPlayer player = playerslist.stream().filter(p -> p.getColor().equals(playerColor)).findFirst().get();
 
         switch (playerColor) {
-            case RED -> UIConfig.SPAWN_POINTS_RED.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.RED)));
-            case BLUE -> UIConfig.SPAWN_POINTS_BLUE.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.BLUE)));
-            case GREEN -> UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.GREEN)));
-            case YELLOW -> UIConfig.SPAWN_POINTS_GREEN.forEach(point -> pawns.add(ludoFactory.spawnPawn(new SpawnData(point).put("player", player), PawnColor.YEllOW)));
+            case RED -> UIConfig.SPAWN_POINTS_RED.forEach(point -> pawns.add(spawn("Pawn",new SpawnData(point).put("player", player).put("pawnColor", PawnColor.RED))));
+            case BLUE -> UIConfig.SPAWN_POINTS_BLUE.forEach(point -> pawns.add(spawn("Pawn",new SpawnData(point).put("player", player).put("pawnColor", PawnColor.BLUE))));
+            case GREEN -> UIConfig.SPAWN_POINTS_YELLOW.forEach(point -> pawns.add(spawn("Pawn",new SpawnData(point).put("player", player).put("pawnColor", PawnColor.GREEN))));
+            case YELLOW -> UIConfig.SPAWN_POINTS_GREEN.forEach(point -> pawns.add(spawn("Pawn",new SpawnData(point).put("player", player).put("pawnColor", PawnColor.YEllOW))));
         }
 
-        pawns.forEach(pawn -> getGameWorld().addEntity(pawn));
         return pawns;
     }
 
     private void setBoard() {
-        boardView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X);
-        boardView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y);
+        boardView.setLayoutX(UIConfig.BOARD_START_LAYOUT_X + Config.BLOCK_SIZE/2 - 4);
+        boardView.setLayoutY(UIConfig.BOARD_START_LAYOUT_Y + Config.BLOCK_SIZE/2);
     }
 
     public void onStartButtonClick() {
