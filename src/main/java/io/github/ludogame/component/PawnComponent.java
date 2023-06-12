@@ -1,30 +1,17 @@
 package io.github.ludogame.component;
 
-import com.almasb.fxgl.core.collection.grid.Cell;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.pathfinding.astar.AStarCell;
 import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.config.Config;
-import io.github.ludogame.config.UIConfig;
-import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.pawn.Pawn;
-import io.github.ludogame.player.LudoPlayer;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import io.github.ludogame.pawn.PawnColor;
 
 public class PawnComponent extends Component {
-    private AStarMoveComponent astar;
-
-    private Point2D actualPosition;
-
+    private AStarMoveComponent aStar;
     private SpawnData data;
 
     public PawnComponent(SpawnData data) {
@@ -32,44 +19,89 @@ public class PawnComponent extends Component {
         this.data = data;
     }
 
+    /**
+     * Move Pawn to next position (depends on number) in board
+     *
+     * @param number How many hops to next position
+     * @param pawn   Pawn
+     */
     public void move(int number, Pawn pawn) {
-        Cell currentCell = astar.getCurrentCell().get();
+        if (!pawn.isStarted()) {
+            if (number == 6) {
+                moveToStartPoint(pawn);
+            }
+            new ErrorNotification("Musi byc 6");
+            return;
+        }
 
-        //Aktualna pozycja
-        int x = UIConfig.BOARD_START_LAYOUT_X + currentCell.getX() * Config.BLOCK_SIZE;
-        int y = UIConfig.BOARD_START_LAYOUT_Y + currentCell.getY() * Config.BLOCK_SIZE;
-
-        int index = LudoPlayerApp.ludoGame.findIndexOfCellPositionInList(pawn.getCell().getX(), pawn.getCell().getY(), pawn);
+        int index = LudoPlayerApp.ludoGame.findIndexOfCellInListByPawn(pawn);
         int nextIndex = (index + number) % Config.DEFAULT_PATH.size();
 
-        pawn.setCell(astar.getGrid().get(
-                (int) Config.DEFAULT_PATH.get(nextIndex).getX(), (int) Config.DEFAULT_PATH.get(nextIndex).getY())
-        );
-
-        astar.moveToCell(
-                (int) Config.DEFAULT_PATH.get(nextIndex).getX(), (int) Config.DEFAULT_PATH.get(nextIndex).getY()
-        );
+        moveToCellByIndex(pawn, nextIndex);
     }
 
-    public void moveToStartPoint() {
-        if (astar == null) {
-            System.out.println("ASTRAT NULL");
-            return;
+    /**
+     * Teleport Pawn to start point depends on his pawnColor
+     *
+     * @param pawn Pawn
+     */
+    private void moveToStartPoint(Pawn pawn) {
+        switch ((PawnColor) data.get("pawnColor")) {
+            case BLUE ->
+                    setPawnPosition(pawn, (int) Config.BLUE_PAWN_START_SPAWN_POINT.getX(), (int) Config.BLUE_PAWN_START_SPAWN_POINT.getY());
+            case RED ->
+                    setPawnPosition(pawn, (int) Config.RED_PAWN_START_SPAWN_POINT.getX(), (int) Config.RED_PAWN_START_SPAWN_POINT.getY());
+            case GREEN ->
+                    setPawnPosition(pawn, (int) Config.GREEN_PAWN_START_SPAWN_POINT.getX(), (int) Config.GREEN_PAWN_START_SPAWN_POINT.getY());
+            case YEllOW ->
+                    setPawnPosition(pawn, (int) Config.YELLOW_PAWN_START_SPAWN_POINT.getX(), (int) Config.YELLOW_PAWN_START_SPAWN_POINT.getY());
         }
-
-        if (astar.getCurrentCell().isEmpty()) {
-            System.out.println("Kurwa astar is empty");
-            return;
-        }
-        astar.moveToCell((int) Config.BLUE_PAWN_START_SPAWN_POINT.getX(), (int) Config.BLUE_PAWN_START_SPAWN_POINT.getY());
+        pawn.setStarted(true);
     }
 
-    private boolean isMoving() {
-        return !actualPosition.equals(this.entity.getPosition());
+    /**
+     * Teleport Pawn to position in grid
+     *
+     * @param pawn Pawn
+     * @param x    Position X in grid
+     * @param y    Position Y in grid
+     */
+    private void setPawnPosition(Pawn pawn, int x, int y) {
+        pawn.getEntity().setPosition(
+                (double) (x - Config.BLOCK_SIZE / 2) / Config.BLOCK_SIZE,
+                (double) (y - Config.BLOCK_SIZE / 2) / Config.BLOCK_SIZE
+        );
+        pawn.setCell(aStar.getGrid().get(x, y));
     }
 
+    /**
+     * Move Pawn to position from CONFIG."..."_PATH
+     *
+     * @param pawn  Pawn
+     * @param index Index of CONFIG."..."_PATH
+     */
+    private void moveToCellByIndex(Pawn pawn, int index) {
+        pawn.setCell(aStar.getGrid().get(
+                (int) Config.DEFAULT_PATH.get(index).getX(), (int) Config.DEFAULT_PATH.get(index).getY())
+        );
+        aStar.moveToCell(
+                (int) Config.DEFAULT_PATH.get(index).getX(), (int) Config.DEFAULT_PATH.get(index).getY()
+        );
+    }
 
-    public AStarMoveComponent getAstar() {
-        return astar;
+    /**
+     * Move Pawn to cell from CONFIG."..."_PATH
+     *
+     * @param pawn Pawn
+     * @param cell Cell from CONFIG."..."_PATH
+     */
+    private void moveToCellByCell(Pawn pawn, AStarCell cell) {
+        int index = LudoPlayerApp.ludoGame.findIndexOfCellInListByCell(cell);
+
+        moveToCellByIndex(pawn, index);
+    }
+
+    public AStarMoveComponent getaStar() {
+        return aStar;
     }
 }

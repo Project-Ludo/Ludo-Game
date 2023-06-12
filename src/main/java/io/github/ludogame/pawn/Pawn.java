@@ -15,7 +15,7 @@ public class Pawn implements Serializable {
 
     public Pawn(Entity entity) {
         this.entity = entity;
-        this.cell = entity.getComponent(PawnComponent.class).getAstar().getCurrentCell().get();
+        this.cell = entity.getComponent(PawnComponent.class).getaStar().getCurrentCell().get();
     }
 
     public Entity getEntity() {

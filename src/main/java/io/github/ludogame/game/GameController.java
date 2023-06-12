@@ -17,6 +17,7 @@ import io.github.ludogame.component.PawnComponent;
 import io.github.ludogame.config.Config;
 import io.github.ludogame.config.UIConfig;
 import io.github.ludogame.menu.DefaultMenuButtonAction;
+import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.pawn.Pawn;
 import io.github.ludogame.pawn.PawnColor;
 import io.github.ludogame.player.LudoPlayer;
@@ -143,6 +144,11 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     public void onStartButtonClick() {
+        if(LudoPlayerApp.player.isDiceRolled()){
+            new ErrorNotification("Dice is rolled");
+            return;
+        }
+        LudoPlayerApp.player.setDiceRolled(true);
         System.out.println("start");
         Bundle bundle = new Bundle("DiceRoll");
         bundle.put("result", 0);

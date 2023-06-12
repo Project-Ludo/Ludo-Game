@@ -24,16 +24,30 @@ public final class Config {
     public static final Point2D RED_PAWN_START_SPAWN_POINT = new Point2D(21,11);
     public static final Point2D GREEN_PAWN_START_SPAWN_POINT = new Point2D(15,15);
     public static final Point2D YELLOW_PAWN_START_SPAWN_POINT = new Point2D(17,5);
-//    public static final Point2D BLUE_PAWN_START_SPAWN_POINT = new Point2D(11,9);
-    public static final Point2D BLUE_PAWN_START_SPAWN_POINT = new Point2D(
-            11 * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
-            9 * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    public static final Point2D BLUE_PAWN_START_SPAWN_POINT = new Point2D(11,9);
+    public static final Point2D BLUE_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            BLUE_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            BLUE_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    );
+
+    public static final Point2D RED_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            RED_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            RED_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    );
+
+    public static final Point2D GREEN_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            GREEN_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            GREEN_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    );
+
+    public static final Point2D YELLOW_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            YELLOW_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            YELLOW_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
     );
 
 
     public static final LinkedList<Point2D> DEFAULT_PATH = new LinkedList<Point2D>(Arrays.asList(
             new Point2D(11,9),
-            new Point2D(12,9),
             new Point2D(12,9),
             new Point2D(13,9),
             new Point2D(14,9),

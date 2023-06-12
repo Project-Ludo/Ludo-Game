@@ -1,6 +1,5 @@
 package io.github.ludogame.game;
 
-import com.almasb.fxgl.core.collection.grid.Cell;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.net.Server;
@@ -14,8 +13,6 @@ import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
-import javax.swing.*;
-import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -35,20 +32,31 @@ public class LudoGame implements Serializable {
 
     public LudoGame() {
     }
-    public int findIndexOfCellPositionInList(int x, int y, Pawn pawn){
+    public int findIndexOfCellInListByPawn(Pawn pawn){
         if (!pawn.isStarted()){
             pawn.setStarted(true);
             return 0;
         }
         int i;
         for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
-            if(Config.DEFAULT_PATH.get(i).getY() == y && Config.DEFAULT_PATH.get(i).getX() == x){
+            if(Config.DEFAULT_PATH.get(i).getY() == pawn.getCell().getY() && Config.DEFAULT_PATH.get(i).getX() == pawn.getCell().getX()){
                 System.out.println(Config.DEFAULT_PATH.get(i).getX() + " " + Config.DEFAULT_PATH.get(i).getY());
                 return i;
             }
         }
         return -1;
     }
+
+    public int findIndexOfCellInListByCell(AStarCell cell){
+        int i;
+        for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
+            if(Config.DEFAULT_PATH.get(i).getY() == cell.getY() && Config.DEFAULT_PATH.get(i).getX() == cell.getX()){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public AStarGrid getListOfGrid(){
         return aStarGrid;
     }

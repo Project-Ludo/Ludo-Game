@@ -5,7 +5,6 @@ import com.almasb.fxgl.pathfinding.CellMoveComponent;
 import com.almasb.fxgl.pathfinding.astar.AStarCell;
 import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import com.almasb.fxgl.physics.BoundingShape;
-import com.almasb.fxgl.physics.CircleShapeData;
 import com.almasb.fxgl.physics.HitBox;
 import io.github.ludogame.component.AnimationComponent;
 import io.github.ludogame.component.PawnComponent;
@@ -17,11 +16,10 @@ import com.almasb.fxgl.entity.Spawns;
 import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.pawn.Pawn;
-import io.github.ludogame.pawn.PawnColor;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -63,6 +61,7 @@ public class LudoFactory implements EntityFactory {
                 .viewWithBBox(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE, Color.RED))
                 .build();
     }
+
     @Spawns("s")
     public Entity spawnSpawnPoint(SpawnData data) {
         return entityBuilder(data)
@@ -77,11 +76,12 @@ public class LudoFactory implements EntityFactory {
         AnimationComponent animationComponent = new AnimationComponent(data.get("pawnColor"));
         AStarMoveComponent aStarMoveComponent = new AStarMoveComponent(LudoPlayerApp.ludoGame.getaStarGrid());
         CellMoveComponent cellMoveComponent = new CellMoveComponent(Config.BLOCK_SIZE, Config.BLOCK_SIZE, 150);
-        HitBox hitBox = new HitBox(BoundingShape.circle(Config.BLOCK_SIZE/2));
+        HitBox hitBox = new HitBox(BoundingShape.circle(Config.BLOCK_SIZE / 2));
 
         return entityBuilder(data)
                 .type(EntityType.PAWN)
                 .with(animationComponent)
+//                .view(new Rectangle(Config.BLOCK_SIZE, Config.BLOCK_SIZE))
                 .bbox(new HitBox(BoundingShape.box(Config.BLOCK_SIZE, Config.BLOCK_SIZE)))
                 .onClick(entity -> {
                     LudoPlayer player = LudoPlayerApp.player;
@@ -106,21 +106,24 @@ public class LudoFactory implements EntityFactory {
                         return;
                     }
 
-                    System.out.println("Move");
-                    //pawnComponent.moveToStartPoint();
-                    //pawnComponent.getEntity().setPosition((int) Config.BLUE_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2, (int)Config.BLUE_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2);
 
-                    Optional<AStarCell> pawnComponentCell = pawnComponent.getAstar().getCurrentCell();
-                    if(pawnComponentCell.isEmpty()){
+                    if (!player.isDiceRolled()) {
+                        new ErrorNotification("Rzuc kostka");
+                        return;
+                    }
+
+                    Optional<AStarCell> pawnComponentCell = pawnComponent.getaStar().getCurrentCell();
+                    if (pawnComponentCell.isEmpty()) {
                         System.out.println("Blad pawnComponentCell");
                         return;
                     }
-                    System.out.println("pawnComponentCell: " + pawnComponentCell.get().getX() + " " + pawnComponentCell.get().getY());
+
+                    //System.out.println("pawnComponentCell: " + pawnComponentCell.get().getX() + " " + pawnComponentCell.get().getY());
                     Optional<Pawn> currentPawn = LudoPlayerApp.player.getPawns().stream().filter(
                             p -> p.getCell().equals(pawnComponentCell.get())
                     ).findFirst();
 
-                    if(currentPawn.isEmpty()){
+                    if (currentPawn.isEmpty()) {
                         System.out.println("pawn not exist Pawn in player.getPawns() ->");
                         LudoPlayerApp.player.getPawns().forEach(
                                 p -> System.out.println(p.getCell().getX() + " " + p.getCell().getY())
@@ -128,14 +131,37 @@ public class LudoFactory implements EntityFactory {
                         return;
                     }
 
-                    if(LudoPlayerApp.ludoGame.getDiceResult() == 6){
-                        pawnComponent.getEntity().setPosition((int) Config.BLUE_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2, (int)Config.BLUE_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2);
-                    }else {
+
+                    if (!currentPawn.get().isStarted()) {
+                        if (LudoPlayerApp.ludoGame.getDiceResult() == 6) {
+                            pawnComponent.move(LudoPlayerApp.ludoGame.getDiceResult(), currentPawn.get());
+                            player.setDiceRolled(false);
+                            FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
+                                    .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
+                            return;
+                        }
+
+                        long count = LudoPlayerApp.player.getPawns().stream().filter(Pawn::isStarted).count();
+                        System.out.println("Players count: " + count);
+                        if (count > 0) {
+                            new ErrorNotification("Musisz ruszyc sie innym pionkiem");
+                            return;
+                        } else {
+                            player.setDiceRolled(false);
+                            FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
+                                    .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
+                        }
+
+                        new ErrorNotification("No action");
+                    } else {
+                        player.setDiceRolled(false);
                         pawnComponent.move(LudoPlayerApp.ludoGame.getDiceResult(), currentPawn.get());
+                        FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
+                                .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
                     }
 
 
-                        //TODO Do odkomentowania
+                    //TODO Do odkomentowania
 //                    AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
 //                    animationComponent.switchAnimation();
 
@@ -150,7 +176,7 @@ public class LudoFactory implements EntityFactory {
         Label label = new Label(player.getNickname());
 //        label.setLocation(x, y);
         label.setLayoutX(x);
-        label.setLayoutY(y-5);
+        label.setLayoutY(y - 5);
         FXGL.getGameScene().addUINode(label);
         runOnce(() -> {
             FXGL.getGameScene().removeUINode(label);

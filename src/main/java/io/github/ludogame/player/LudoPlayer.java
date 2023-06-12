@@ -20,6 +20,8 @@ public class LudoPlayer implements Serializable {
     private List<TimerAction> tasks;
     private List<Pawn> pawns;
 
+    private boolean diceRolled;
+
     public LudoPlayer() {
     }
 
@@ -97,6 +99,14 @@ public class LudoPlayer implements Serializable {
 
     public void setPawns(List<Pawn> pawns) {
         this.pawns = pawns;
+    }
+
+    public boolean isDiceRolled() {
+        return diceRolled;
+    }
+
+    public void setDiceRolled(boolean diceRolled) {
+        this.diceRolled = diceRolled;
     }
 
     @Override

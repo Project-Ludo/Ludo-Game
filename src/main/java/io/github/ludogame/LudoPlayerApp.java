@@ -60,6 +60,10 @@ public class LudoPlayerApp extends GameApplication {
         getGameScene().setBackgroundRepeat("background/background.png");
     }
 
+    public SceneController getSceneController() {
+        return sceneController;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
