@@ -1,5 +1,6 @@
 package io.github.ludogame.menu;
 
+import com.almasb.fxgl.dsl.FXGL;
 import io.github.ludogame.config.UIConfig;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ public class RulesMenuController extends DefaultMenuButtonAction implements Init
     }
 
     public void onExitButtonClick() {
+        FXGL.play("click-select.wav");
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }

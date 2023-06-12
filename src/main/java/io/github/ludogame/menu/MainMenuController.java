@@ -1,6 +1,5 @@
 package io.github.ludogame.menu;
 
-import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.config.UIConfig;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.fxml.FXML;
@@ -25,16 +24,19 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
     }
 
     public void onStartButtonClick() {
+        FXGL.play("click-select.wav");
         changeControlTexture(startButton, UIConfig.START_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getServerConnectScene(), 150);
     }
 
     public void onExitButtonClick() {
+        FXGL.play("click-select.wav");
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         FXGL.getGameController().exit();
     }
 
     public void onRulesButtonClick() {
+        FXGL.play("click-select.wav");
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);
     }

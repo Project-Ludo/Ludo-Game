@@ -1,5 +1,7 @@
 package io.github.ludogame;
 
+import com.almasb.fxgl.audio.Sound;
+import com.almasb.fxgl.dsl.FXGL;
 import io.github.ludogame.config.Config;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
@@ -12,12 +14,19 @@ import io.github.ludogame.menu.RulesMenuController;
 import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.music.GameMusic;
 import io.github.ludogame.player.LudoPlayer;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
+import kotlin.jvm.functions.Function1;
 
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class LudoPlayerApp extends GameApplication {
 
@@ -36,27 +45,10 @@ public class LudoPlayerApp extends GameApplication {
 
     @Override
     protected void initGame() {
-
         loadScene();
         music = new GameMusic("start_menu.wav");
         getGameScene().addUINode(sceneController.getMainMenuScene());
-
-//        getGameWorld().addEntityFactory(new LudoFactory());
-//        Level level = getAssetLoader().loadLevel("Ludo.txt", new TextLevelLoader(Config.BLOCK_SIZE, Config.BLOCK_SIZE, '0'));
-//        level.getEntities().forEach(entity -> {
-//            Point2D fixedPoint = new Point2D(((double) Config.MAP_WIDTH / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2),
-//                    ((double) Config.MAP_HEIGHT / 2) - ((double) Config.BLOCK_SIZE * Config.MAP_SIZE / 2));
-//            entity.translate(fixedPoint);
-//        });
-//
-//        getGameWorld().setLevel(level);
-//
-//        this.grid = AStarGrid.fromWorld(getGameWorld(), Config.MAP_SIZE, Config.MAP_SIZE, Config.BLOCK_SIZE, Config.BLOCK_SIZE, type -> CellState.NOT_WALKABLE);
-//        getGameWorld().getEntitiesByType(EntityType.BACKGROUND)
-//                .forEach(entity -> entity.setVisible(false));
-//
     }
-
     public GameMusic getMusic() {
         return music;
     }
@@ -81,6 +73,13 @@ public class LudoPlayerApp extends GameApplication {
         menuRulesController.initSceneController(sceneController);
         menuConnectionController.initSceneController(sceneController);
         lobbyController.initSceneController(sceneController);
+    }
+    @Override
+    protected void initInput() {
+        onBtnUp(MouseButton.PRIMARY, () -> {
+            FXGL.play("click-select.wav");
+            return null;
+        });
     }
 
     @Override
