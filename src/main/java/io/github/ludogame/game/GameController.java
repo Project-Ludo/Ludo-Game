@@ -113,23 +113,17 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
 
     private void spawnPlayerPawns() {
         LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
+            List<Entity> entities = spawnPawns(player.getColor());
+            AtomicInteger i = new AtomicInteger(0);
+            List<Pawn> pawns = entities.stream()
+                    .map(entity -> new Pawn(entity, getPawnColorFromPlayerColor(player.getColor()), i.getAndIncrement()))
+                    .collect(Collectors.toList());
+
+            player.setPawns(pawns);
+
             if (player.getUuid().equals(LudoPlayerApp.player.getUuid())) {
-                List<Entity> entities = spawnPawns(player.getColor());
-
-                //entities.forEach(System.out::println);
-
-                AtomicInteger i = new AtomicInteger(0);
-                List<Pawn> pawns = entities.stream()
-                        .map(entity -> new Pawn(entity, getPawnColorFromPlayerColor(player.getColor()), i.getAndIncrement()))
-                        .collect(Collectors.toList());
-
-                //pawns.forEach(System.out::println);
-
                 LudoPlayerApp.player.setPawns(pawns);
-                return;
             }
-
-            spawnPawns(player.getColor());
         });
     }
 
@@ -155,8 +149,6 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     public void onStartButtonClick() {
-        LudoPlayerApp.player.getPawns().forEach(System.out::println);
-
         if(!LudoPlayerApp.ludoGame.getPlayerColorTurn().equals(LudoPlayerApp.player.getColor())){
             new ErrorNotification("Not your turn!");
             return;

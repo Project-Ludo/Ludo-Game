@@ -7,6 +7,7 @@ import io.github.ludogame.game.GameService;
 import io.github.ludogame.game.LudoGameDTO;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
+import io.github.ludogame.pawn.PawnMoveData;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.LudoPlayerDTO;
 import io.github.ludogame.player.PlayerColor;
@@ -41,6 +42,7 @@ public class LudoServer {
             handleConnectionRequest(message);
             connectionHandler(message);
             diceHandler(message);
+            moveHandler(message);
         }));
         serverBundle.startAsync();
         LudoServerApp.ludoGame.setServer(serverBundle);
@@ -79,6 +81,17 @@ public class LudoServer {
         LudoServerApp.ludoGame.setDiceResult(result);
         Bundle bundle = new Bundle("DiceRoll");
         bundle.put("result", result);
+        serverBundle.broadcast(bundle);
+    }
+
+    public void moveHandler(Bundle message){
+        if(!message.getName().equals("PawnMove")){
+            return;
+        }
+
+        PawnMoveData pawnMoveData = message.get("data");
+        Bundle bundle = new Bundle("PawnMove");
+        bundle.put("data", pawnMoveData);
         serverBundle.broadcast(bundle);
     }
 

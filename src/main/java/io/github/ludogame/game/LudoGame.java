@@ -32,14 +32,15 @@ public class LudoGame implements Serializable {
 
     public LudoGame() {
     }
-    public int findIndexOfCellInListByPawn(Pawn pawn){
-        if (!pawn.isStarted()){
+
+    public int findIndexOfCellInListByPawn(Pawn pawn) {
+        if (!pawn.isStarted()) {
             pawn.setStarted(true);
             return 0;
         }
         int i;
         for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
-            if(Config.DEFAULT_PATH.get(i).getY() == pawn.getCell().getY() && Config.DEFAULT_PATH.get(i).getX() == pawn.getCell().getX()){
+            if (Config.DEFAULT_PATH.get(i).getY() == pawn.getCell().getY() && Config.DEFAULT_PATH.get(i).getX() == pawn.getCell().getX()) {
                 System.out.println(Config.DEFAULT_PATH.get(i).getX() + " " + Config.DEFAULT_PATH.get(i).getY());
                 return i;
             }
@@ -47,17 +48,17 @@ public class LudoGame implements Serializable {
         return -1;
     }
 
-    public int findIndexOfCellInListByCell(AStarCell cell){
+    public int findIndexOfCellInListByCell(AStarCell cell) {
         int i;
         for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
-            if(Config.DEFAULT_PATH.get(i).getY() == cell.getY() && Config.DEFAULT_PATH.get(i).getX() == cell.getX()){
+            if (Config.DEFAULT_PATH.get(i).getY() == cell.getY() && Config.DEFAULT_PATH.get(i).getX() == cell.getX()) {
                 return i;
             }
         }
         return -1;
     }
 
-    public AStarGrid getListOfGrid(){
+    public AStarGrid getListOfGrid() {
         return aStarGrid;
     }
 
@@ -171,7 +172,10 @@ public class LudoGame implements Serializable {
     }
 
     public void updateGame(LudoGameDTO ludoGameDTO) {
+        Map<PlayerColor, List<Pawn>> toRollback = new HashMap<>();
+        this.players.forEach(p -> toRollback.put(p.getColor(), p.getPawns()));
         this.players = PlayerService.convertToPlayerList(ludoGameDTO.getPlayers());
+        this.players.forEach(p -> p.setPawns(toRollback.get(p.getColor())));
         this.startCountdown = ludoGameDTO.getStartCountdown();
         this.countdownStarted = ludoGameDTO.isCountdownStarted();
         this.playerColorTurn = ludoGameDTO.getPlayerColorTurn();

@@ -1,5 +1,6 @@
 package io.github.ludogame;
 
+import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.pathfinding.CellMoveComponent;
 import com.almasb.fxgl.pathfinding.astar.AStarCell;
@@ -16,6 +17,7 @@ import com.almasb.fxgl.entity.Spawns;
 import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.pawn.Pawn;
+import io.github.ludogame.pawn.PawnMoveData;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -130,14 +132,14 @@ public class LudoFactory implements EntityFactory {
                         );
                         return;
                     }
-
-
                     if (!currentPawn.get().isStarted()) {
                         if (LudoPlayerApp.ludoGame.getDiceResult() == 6) {
-                            pawnComponent.move(LudoPlayerApp.ludoGame.getDiceResult(), currentPawn.get());
                             player.setDiceRolled(false);
-                            FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
-                                    .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
+
+                            PawnMoveData pawnMoveData = new PawnMoveData(currentPawn.get().getId(), currentPawn.get().getPawnColor(), LudoPlayerApp.ludoGame.getDiceResult());
+                            Bundle bundle = new Bundle("PawnMove");
+                            bundle.put("data", pawnMoveData);
+                            LudoPlayerApp.player.getDataBundle().broadcast(bundle);
                             return;
                         }
 
@@ -155,9 +157,11 @@ public class LudoFactory implements EntityFactory {
                         new ErrorNotification("No action");
                     } else {
                         player.setDiceRolled(false);
-                        pawnComponent.move(LudoPlayerApp.ludoGame.getDiceResult(), currentPawn.get());
-                        FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
-                                .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
+
+                        PawnMoveData pawnMoveData = new PawnMoveData(currentPawn.get().getId(), currentPawn.get().getPawnColor(), LudoPlayerApp.ludoGame.getDiceResult());
+                        Bundle bundle = new Bundle("PawnMove");
+                        bundle.put("data", pawnMoveData);
+                        LudoPlayerApp.player.getDataBundle().broadcast(bundle);
                     }
 
 
