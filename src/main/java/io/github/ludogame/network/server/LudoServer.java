@@ -43,6 +43,7 @@ public class LudoServer {
             connectionHandler(message);
             diceHandler(message);
             moveHandler(message);
+            turnHandler(message);
         }));
         serverBundle.startAsync();
         LudoServerApp.ludoGame.setServer(serverBundle);
@@ -84,8 +85,8 @@ public class LudoServer {
         serverBundle.broadcast(bundle);
     }
 
-    public void moveHandler(Bundle message){
-        if(!message.getName().equals("PawnMove")){
+    public void moveHandler(Bundle message) {
+        if (!message.getName().equals("PawnMove")) {
             return;
         }
 
@@ -93,6 +94,16 @@ public class LudoServer {
         Bundle bundle = new Bundle("PawnMove");
         bundle.put("data", pawnMoveData);
         serverBundle.broadcast(bundle);
+        LudoServerApp.ludoGame.nextPlayerColorTurn();
+    }
+
+    public void turnHandler(Bundle message) {
+        if (!message.getName().equals("ChangeTurn")) {
+            return;
+        }
+
+        LudoServerApp.ludoGame.nextPlayerColorTurn();
+        serverBundle.broadcast(message);
     }
 
     public void handleConnectionRequest(Bundle message) {

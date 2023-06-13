@@ -41,6 +41,7 @@ public class ClientConnector implements IClient {
             handleLobby(message);
             handleDice(message);
             handlePawnMove(message);
+            handleTurn(message);
         }));
 
         FXGL.runOnce(() -> {
@@ -139,5 +140,14 @@ public class ClientConnector implements IClient {
 
         int result = message.get("result");
         sceneController.getGameSceneController().rollDice(result);
+    }
+
+    private void handleTurn(Bundle message) {
+        if (!message.getName().equals("ChangeTurn")) {
+            return;
+        }
+
+        FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
+                .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
     }
 }

@@ -148,18 +148,46 @@ public class LudoGame implements Serializable {
     }
 
     public PlayerColor getAvailableColor() {
-        List<PlayerColor> allColors = new ArrayList<>(Arrays.asList(PlayerColor.BLUE, PlayerColor.RED, PlayerColor.GREEN, PlayerColor.YELLOW));
+        List<PlayerColor> allColors = new ArrayList<>(Arrays.asList(PlayerColor.BLUE, PlayerColor.YELLOW, PlayerColor.RED, PlayerColor.GREEN));
         players.forEach(player -> allColors.removeIf(color -> color.equals(player.getColor())));
-        Collections.shuffle(allColors);
         return allColors.get(0);
     }
 
     public PlayerColor getTakenColor() {
-        List<PlayerColor> allColors = new ArrayList<>(Arrays.asList(PlayerColor.BLUE, PlayerColor.RED, PlayerColor.GREEN, PlayerColor.YELLOW));
+        List<PlayerColor> allColors = new ArrayList<>(Arrays.asList(PlayerColor.BLUE, PlayerColor.YELLOW, PlayerColor.RED, PlayerColor.GREEN));
         List<PlayerColor> playerColors = players.stream().map(LudoPlayer::getColor).collect(Collectors.toList());
         allColors.retainAll(playerColors);
-        Collections.shuffle(allColors);
         return allColors.get(0);
+    }
+
+    public void nextPlayerColorTurn() {
+        List<PlayerColor> allColors = new ArrayList<>(Arrays.asList(PlayerColor.BLUE, PlayerColor.YELLOW, PlayerColor.RED, PlayerColor.GREEN));
+        List<PlayerColor> fixedList = new ArrayList<>();
+        fixedList.add(playerColorTurn);
+
+        int index = allColors.indexOf(playerColorTurn);
+
+        for (int i = index + 1; i < allColors.size(); i++) {
+            fixedList.add(allColors.get(i));
+        }
+
+        for (int i = 0; i < index; i++) {
+            fixedList.add(allColors.get(i));
+        }
+
+        int resultIndex = 0;
+        for (PlayerColor playerColor : fixedList) {
+            if (playerColor == playerColorTurn) {
+                continue;
+            }
+
+            for (LudoPlayer player : this.players) {
+                if (player.getColor() == playerColor) {
+                    setPlayerColorTurn(playerColor);
+                    return;
+                }
+            }
+        }
     }
 
 

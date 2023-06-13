@@ -152,6 +152,8 @@ public class LudoFactory implements EntityFactory {
                             player.setDiceRolled(false);
                             FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
                                     .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
+                            Bundle bundle = new Bundle("ChangeTurn");
+                            LudoPlayerApp.player.getDataBundle().broadcast(bundle);
                         }
 
                         new ErrorNotification("No action");
