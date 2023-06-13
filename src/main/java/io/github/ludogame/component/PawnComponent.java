@@ -47,7 +47,7 @@ public class PawnComponent extends Component {
      * @param pawn Pawn
      */
     private void moveToStartPoint(Pawn pawn) {
-        switch ((PawnColor) data.get("pawnColor")) {
+        switch (pawn.getPawnColor()) {
             case BLUE ->
                     setPawnPosition(pawn, (int) Config.BLUE_PAWN_START_SPAWN_POINT.getX(), (int) Config.BLUE_PAWN_START_SPAWN_POINT.getY());
             case RED ->

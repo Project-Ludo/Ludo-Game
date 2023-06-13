@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -101,6 +102,15 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         LudoPlayerApp.ludoGame.setaStarGrid(grid);
     }
 
+    private PawnColor getPawnColorFromPlayerColor(PlayerColor playerColor){
+        return switch (playerColor) {
+            case YELLOW -> PawnColor.YEllOW;
+            case GREEN -> PawnColor.GREEN;
+            case BLUE -> PawnColor.BLUE;
+            default -> PawnColor.RED;
+        };
+    }
+
     private void spawnPlayerPawns() {
         LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
             if (player.getUuid().equals(LudoPlayerApp.player.getUuid())) {
@@ -108,8 +118,9 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
 
                 //entities.forEach(System.out::println);
 
+                AtomicInteger i = new AtomicInteger(0);
                 List<Pawn> pawns = entities.stream()
-                        .map(Pawn::new)
+                        .map(entity -> new Pawn(entity, getPawnColorFromPlayerColor(player.getColor()), i.getAndIncrement()))
                         .collect(Collectors.toList());
 
                 //pawns.forEach(System.out::println);
@@ -144,7 +155,9 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     public void onStartButtonClick() {
-        if(LudoPlayerApp.ludoGame.getPlayerColorTurn().equals(LudoPlayerApp.player.getColor())){
+        LudoPlayerApp.player.getPawns().forEach(System.out::println);
+
+        if(!LudoPlayerApp.ludoGame.getPlayerColorTurn().equals(LudoPlayerApp.player.getColor())){
             new ErrorNotification("Not your turn!");
             return;
         }

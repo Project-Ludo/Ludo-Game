@@ -12,10 +12,14 @@ public class Pawn implements Serializable {
     private AStarCell cell;
     private boolean finished;
     private boolean started;
+    private PawnColor pawnColor;
+    private int id;
 
-    public Pawn(Entity entity) {
+    public Pawn(Entity entity, PawnColor pawnColor, int id) {
         this.entity = entity;
         this.cell = entity.getComponent(PawnComponent.class).getaStar().getCurrentCell().get();
+        this.pawnColor = pawnColor;
+        this.id = id;
     }
 
     public Entity getEntity() {
@@ -50,6 +54,22 @@ public class Pawn implements Serializable {
         this.started = started;
     }
 
+    public PawnColor getPawnColor() {
+        return pawnColor;
+    }
+
+    public void setPawnColor(PawnColor pawnColor) {
+        this.pawnColor = pawnColor;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Pawn{" +
@@ -57,6 +77,8 @@ public class Pawn implements Serializable {
                 ", cell=" + cell +
                 ", finished=" + finished +
                 ", started=" + started +
+                ", pawnColor=" + pawnColor +
+                ", id=" + id +
                 '}';
     }
 }
