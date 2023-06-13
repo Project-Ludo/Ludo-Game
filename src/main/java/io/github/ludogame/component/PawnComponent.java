@@ -29,8 +29,9 @@ public class PawnComponent extends Component {
         if (!pawn.isStarted()) {
             if (number == 6) {
                 moveToStartPoint(pawn);
+            }else {
+                new ErrorNotification("Musi byc 6");
             }
-            new ErrorNotification("Musi byc 6");
             return;
         }
 
@@ -68,8 +69,8 @@ public class PawnComponent extends Component {
      */
     private void setPawnPosition(Pawn pawn, int x, int y) {
         pawn.getEntity().setPosition(
-                (double) (x - Config.BLOCK_SIZE / 2) / Config.BLOCK_SIZE,
-                (double) (y - Config.BLOCK_SIZE / 2) / Config.BLOCK_SIZE
+                (double) (x * Config.BLOCK_SIZE + Config.BLOCK_SIZE / 2),
+                (double) (y * Config.BLOCK_SIZE + Config.BLOCK_SIZE / 2)
         );
         pawn.setCell(aStar.getGrid().get(x, y));
     }
