@@ -144,10 +144,16 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     }
 
     public void onStartButtonClick() {
+        if(LudoPlayerApp.ludoGame.getPlayerColorTurn().equals(LudoPlayerApp.player.getColor())){
+            new ErrorNotification("Not your turn!");
+            return;
+        }
+
         if(LudoPlayerApp.player.isDiceRolled()){
             new ErrorNotification("Dice is rolled");
             return;
         }
+
         LudoPlayerApp.player.setDiceRolled(true);
         System.out.println("start");
         Bundle bundle = new Bundle("DiceRoll");
