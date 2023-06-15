@@ -50,7 +50,11 @@ public class ConnectionHandler {
             return;
         }
 
-        player.setConnected(validateTime(player.getUuid()));
+        boolean validated = validateTime(player.getUuid());
+        player.setConnected(validated);
+        if (!validated) {
+            player.setReady(false);
+        }
     }
 
     private void validatePlayers() {

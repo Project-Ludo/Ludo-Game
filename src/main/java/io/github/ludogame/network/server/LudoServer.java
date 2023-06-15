@@ -119,10 +119,18 @@ public class LudoServer {
         Response response;
         for (LudoPlayer ludoGamePlayer : LudoServerApp.ludoGame.getPlayers()) {
             if (ludoGamePlayer.getUuid().equals(playerUUID)) {
+                player.setConnected(true);
+                response = new Response(ResponseStatus.SUCCESS, "Connected", PlayerService.convertToDTO(player));
+                LudoServerApp.ludoGame.updatePlayer(player);
+                logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
+                Bundle bundle = new Bundle("ConnectionResponse");
+                bundle.put("response", response);
+                serverBundle.broadcast(bundle);
                 return;
             }
 
             if (ludoGamePlayer.getNickname().equals(player.getNickname())) {
+                player.setConnected(false);
                 String responseMessage = "nickname is taken";
                 response = new Response(ResponseStatus.ERROR, responseMessage, playerDTO);
                 logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
@@ -136,6 +144,7 @@ public class LudoServer {
         if (isFull()) {
             String responseMessage = "Server is full";
             response = new Response(ResponseStatus.ERROR, responseMessage, playerDTO);
+            player.setConnected(false);
             logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
         } else {
             PlayerColor availableColor = LudoServerApp.ludoGame.getAvailableColor();

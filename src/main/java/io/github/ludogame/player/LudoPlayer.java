@@ -35,7 +35,7 @@ public class LudoPlayer implements Serializable {
 
     public LudoPlayer(UUID uuid) {
         this.uuid = uuid;
-        this.connected = true;
+        this.connected = false;
         this.tasks = new ArrayList<>();
         this.pawns = new ArrayList<>();
     }
