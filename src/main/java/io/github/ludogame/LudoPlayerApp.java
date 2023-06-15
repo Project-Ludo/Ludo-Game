@@ -5,6 +5,7 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import io.github.ludogame.controller.SceneController;
 import io.github.ludogame.game.LudoGame;
+import io.github.ludogame.music.GameMusic;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.fxml.FXMLLoader;
 
@@ -18,6 +19,7 @@ public class LudoPlayerApp extends GameApplication {
     private SceneController sceneController;
     public static final LudoGame ludoGame = new LudoGame();
     public static final LudoPlayer player = new LudoPlayer(UUID.randomUUID());
+    private GameMusic music;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -34,6 +36,12 @@ public class LudoPlayerApp extends GameApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
+      
+        music = new GameMusic("start_menu.wav");
+    }
+
+    public GameMusic getMusic() {
+        return music;
     }
 
     private void loadScene() {

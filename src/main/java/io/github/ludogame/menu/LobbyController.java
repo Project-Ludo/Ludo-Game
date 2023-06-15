@@ -104,8 +104,4 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
         LudoPlayerApp.player.disconnectFromServer();
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
-
-    public void onMusicButtonClick() {
-        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
-    }
 }
