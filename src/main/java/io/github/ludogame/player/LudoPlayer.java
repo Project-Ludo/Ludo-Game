@@ -3,6 +3,7 @@ package io.github.ludogame.player;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.net.Client;
 import com.almasb.fxgl.time.TimerAction;
+import io.github.ludogame.pawn.Pawn;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class LudoPlayer implements Serializable {
     private boolean connected;
     private boolean ready;
     private List<TimerAction> tasks;
+    private List<Pawn> pawns;
+
+    private boolean diceRolled;
 
     public LudoPlayer() {
     }
@@ -31,8 +35,9 @@ public class LudoPlayer implements Serializable {
 
     public LudoPlayer(UUID uuid) {
         this.uuid = uuid;
-        this.connected = true;
+        this.connected = false;
         this.tasks = new ArrayList<>();
+        this.pawns = new ArrayList<>();
     }
 
     public UUID getUuid() {
@@ -86,6 +91,22 @@ public class LudoPlayer implements Serializable {
 
     public void expireAllTasks() {
         this.tasks.forEach(TimerAction::expire);
+    }
+
+    public List<Pawn> getPawns() {
+        return pawns;
+    }
+
+    public void setPawns(List<Pawn> pawns) {
+        this.pawns = pawns;
+    }
+
+    public boolean isDiceRolled() {
+        return diceRolled;
+    }
+
+    public void setDiceRolled(boolean diceRolled) {
+        this.diceRolled = diceRolled;
     }
 
     @Override

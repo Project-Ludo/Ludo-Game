@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.ludogame.game.GameController">
+    <children>
+        <Button fx:id="startButton" layoutX="440.0" layoutY="600.0" mnemonicParsing="false" onAction="#onStartButtonClick" onMouseEntered="#onStartButtonHover" onMouseExited="#onStartButtonExit" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font></Button>
+        <Button fx:id="musicButton" layoutX="1000.0" layoutY="125.0" mnemonicParsing="false" onAction="#onMusicButtonClick" onMouseEntered="#onMusicButtonHover" onMouseExited="#onMusicButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
+        <Button fx:id="exitButton" layoutX="1000.0" layoutY="50.0" mnemonicParsing="false" onAction="#onExitButtonClick" onMouseEntered="#onExitButtonHover" onMouseExited="#onExitButtonExit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" />
+      <Label fx:id="testText" layoutX="156.0" layoutY="529.0" prefHeight="142.0" prefWidth="274.0" text="Label" />
+        <ImageView fx:id="boardView" fitHeight="500.0" fitWidth="500.0" layoutX="450.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/textures/board/board.png" />
+         </image>
+        </ImageView>
+      <ImageView fx:id="diceView" fitHeight="50.0" fitWidth="50.0" layoutX="675.0" layoutY="613.0" pickOnBounds="true" preserveRatio="true" >
+          <image>
+              <Image url="@../assets/textures/dice/dice_throw.gif" preserveRatio="true" />
+          </image>
+      </ImageView>
+    </children>
+</AnchorPane>

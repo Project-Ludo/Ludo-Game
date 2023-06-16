@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,7 +20,7 @@ public class RulesMenuController extends DefaultMenuButtonAction implements Init
         changeControlTexture(rulesText, "menu/texture/rules_text.png");
     }
 
-    public void onExitButtonClick() {
+    public void onExitButtonClick() throws IOException {
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }

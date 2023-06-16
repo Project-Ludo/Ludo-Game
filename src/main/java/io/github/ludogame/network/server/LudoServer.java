@@ -7,12 +7,14 @@ import io.github.ludogame.game.GameService;
 import io.github.ludogame.game.LudoGameDTO;
 import io.github.ludogame.network.response.Response;
 import io.github.ludogame.network.response.ResponseStatus;
+import io.github.ludogame.pawn.PawnMoveData;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.LudoPlayerDTO;
 import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
 import javafx.util.Duration;
 
+import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +41,9 @@ public class LudoServer {
         serverBundle.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
             handleConnectionRequest(message);
             connectionHandler(message);
+            diceHandler(message);
+            moveHandler(message);
+            turnHandler(message);
         }));
         serverBundle.startAsync();
         LudoServerApp.ludoGame.setServer(serverBundle);
@@ -68,6 +73,39 @@ public class LudoServer {
         LudoServerApp.ludoGame.updatePlayer(ludoPlayer);
     }
 
+    public void diceHandler(Bundle message) {
+        if (!message.getName().equals("DiceRoll")) {
+            return;
+        }
+
+        int result = new Random().nextInt(1, 7);
+        LudoServerApp.ludoGame.setDiceResult(result);
+        Bundle bundle = new Bundle("DiceRoll");
+        bundle.put("result", result);
+        serverBundle.broadcast(bundle);
+    }
+
+    public void moveHandler(Bundle message) {
+        if (!message.getName().equals("PawnMove")) {
+            return;
+        }
+
+        PawnMoveData pawnMoveData = message.get("data");
+        Bundle bundle = new Bundle("PawnMove");
+        bundle.put("data", pawnMoveData);
+        serverBundle.broadcast(bundle);
+        LudoServerApp.ludoGame.nextPlayerColorTurn();
+    }
+
+    public void turnHandler(Bundle message) {
+        if (!message.getName().equals("ChangeTurn")) {
+            return;
+        }
+
+        LudoServerApp.ludoGame.nextPlayerColorTurn();
+        serverBundle.broadcast(message);
+    }
+
     public void handleConnectionRequest(Bundle message) {
         if (!message.getName().equals("ConnectionRequest")) {
             return;
@@ -81,10 +119,18 @@ public class LudoServer {
         Response response;
         for (LudoPlayer ludoGamePlayer : LudoServerApp.ludoGame.getPlayers()) {
             if (ludoGamePlayer.getUuid().equals(playerUUID)) {
+                player.setConnected(true);
+                response = new Response(ResponseStatus.SUCCESS, "Connected", PlayerService.convertToDTO(player));
+                LudoServerApp.ludoGame.updatePlayer(player);
+                logger.log(Level.INFO, String.format(PLAYER_CONNECT_ACCEPT, playerUUID));
+                Bundle bundle = new Bundle("ConnectionResponse");
+                bundle.put("response", response);
+                serverBundle.broadcast(bundle);
                 return;
             }
 
             if (ludoGamePlayer.getNickname().equals(player.getNickname())) {
+                player.setConnected(false);
                 String responseMessage = "nickname is taken";
                 response = new Response(ResponseStatus.ERROR, responseMessage, playerDTO);
                 logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
@@ -98,6 +144,7 @@ public class LudoServer {
         if (isFull()) {
             String responseMessage = "Server is full";
             response = new Response(ResponseStatus.ERROR, responseMessage, playerDTO);
+            player.setConnected(false);
             logger.log(Level.INFO, String.format(PLAYER_CONNECT_REJECT, playerUUID, responseMessage));
         } else {
             PlayerColor availableColor = LudoServerApp.ludoGame.getAvailableColor();

@@ -1,14 +1,13 @@
 package io.github.ludogame.notification;
 
 import com.almasb.fxgl.dsl.FXGL;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class ErrorNotification {
@@ -22,23 +21,28 @@ public class ErrorNotification {
         addText(message);
 
         FXGL.getGameScene().addUINode(customBox);
-        FXGL.runOnce(() -> FXGL.getGameScene().removeUINode(customBox), Duration.seconds(5));
+        FXGL.runOnce(() -> FXGL.getGameScene().removeUINode(customBox), Duration.seconds(4));
     }
 
     private void initNotification() {
         this.customBox = new StackPane();
 
-        customBox.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY)));
-        customBox.setPadding(new Insets(20));
+        Image image = new Image(this.getClass().getClassLoader().getResource("notification/textures/notification_background.png").toExternalForm());
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(200);
 
-        customBox.setLayoutX(50);
-        customBox.setLayoutY(50);
+        customBox.getChildren().add(imageView);
+
+        customBox.setLayoutX(20);
     }
 
     private void addText(String message) {
         this.message = new Text(message);
-        this.message.setFont(Font.font("Arial", 18));
+        this.message.setFont(Font.font("Arial", 16));
         this.message.setFill(Color.BLACK);
+        this.message.setTextAlignment(TextAlignment.CENTER);
+        this.message.setWrappingWidth(180);
 
         customBox.getChildren().add(this.message);
     }

@@ -1,6 +1,7 @@
 package io.github.ludogame.game;
 
 import io.github.ludogame.player.LudoPlayerDTO;
+import io.github.ludogame.player.PlayerColor;
 
 import java.io.Serializable;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -11,6 +12,16 @@ public class LudoGameDTO implements Serializable {
     private CopyOnWriteArrayList<LudoPlayerDTO> players = new CopyOnWriteArrayList<>();
     private AtomicInteger startCountdown = new AtomicInteger(60);
     private boolean countdownStarted;
+    private PlayerColor playerColorTurn;
+    private int diceResult;
+
+    public PlayerColor getPlayerColorTurn() {
+        return playerColorTurn;
+    }
+
+    public void setPlayerColorTurn(PlayerColor playerColorTurn) {
+        this.playerColorTurn = playerColorTurn;
+    }
 
     public CopyOnWriteArrayList<LudoPlayerDTO> getPlayers() {
         return players;
@@ -34,5 +45,13 @@ public class LudoGameDTO implements Serializable {
 
     public void setCountdownStarted(boolean countdownStarted) {
         this.countdownStarted = countdownStarted;
+    }
+
+    public int getDiceResult() {
+        return diceResult;
+    }
+
+    public void setDiceResult(int diceResult) {
+        this.diceResult = diceResult;
     }
 }
