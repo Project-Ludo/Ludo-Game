@@ -185,10 +185,6 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         diceView.setImage(diceImage);
     }
 
-    public void onMusicButtonClick() {
-        System.out.println("Music");
-    }
-
     public void onExitButtonClick() {
         System.out.println("Exit");
     }

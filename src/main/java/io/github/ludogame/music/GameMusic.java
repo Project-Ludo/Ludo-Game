@@ -27,7 +27,7 @@ public class GameMusic{
         Media media = new Media(musicPath);
         mediaPlayer = new MediaPlayer(media);
 
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0);
         mediaPlayer.play();
         isPlay = true;
 
@@ -41,7 +41,7 @@ public class GameMusic{
         slider.setMax(100);
         slider.setLayoutX(20);
         slider.setLayoutY(20);
-        slider.setValue(50);
+        slider.setValue(0);
         slider.valueProperty().addListener(
                 observable -> mediaPlayer.setVolume(slider.getValue()/100));
     }
