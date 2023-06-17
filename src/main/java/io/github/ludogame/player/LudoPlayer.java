@@ -44,6 +44,12 @@ public class LudoPlayer implements Serializable {
         return uuid;
     }
 
+    public long getFinishedPawns() {
+        return pawns.stream()
+                .filter(Pawn::isFinished)
+                .count();
+    }
+
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }

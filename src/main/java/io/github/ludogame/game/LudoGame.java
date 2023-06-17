@@ -11,6 +11,7 @@ import io.github.ludogame.pawn.Pawn;
 import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
 import io.github.ludogame.player.PlayerService;
+import javafx.geometry.Point2D;
 import javafx.util.Duration;
 
 import java.io.Serializable;
@@ -38,25 +39,26 @@ public class LudoGame implements Serializable {
             pawn.setStarted(true);
             return 0;
         }
-        int i;
-        for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
-            if (Config.DEFAULT_PATH.get(i).getY() == pawn.getCell().getY() && Config.DEFAULT_PATH.get(i).getX() == pawn.getCell().getX()) {
-                System.out.println(Config.DEFAULT_PATH.get(i).getX() + " " + Config.DEFAULT_PATH.get(i).getY());
+
+        List<Point2D> path = pawn.getPawnColor().path;
+        for (int i = 0; i < path.size(); i++) {
+            if (path.get(i).getY() == pawn.getCell().getY() && path.get(i).getX() == pawn.getCell().getX()) {
                 return i;
             }
         }
+
         return -1;
     }
 
-    public int findIndexOfCellInListByCell(AStarCell cell) {
-        int i;
-        for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
-            if (Config.DEFAULT_PATH.get(i).getY() == cell.getY() && Config.DEFAULT_PATH.get(i).getX() == cell.getX()) {
-                return i;
-            }
-        }
-        return -1;
-    }
+//    public int findIndexOfCellInListByCell(AStarCell cell) {
+//        int i;
+//        for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
+//            if (Config.DEFAULT_PATH.get(i).getY() == cell.getY() && Config.DEFAULT_PATH.get(i).getX() == cell.getX()) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
 
     public AStarGrid getListOfGrid() {
         return aStarGrid;

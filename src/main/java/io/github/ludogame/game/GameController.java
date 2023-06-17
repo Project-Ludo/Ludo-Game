@@ -1,6 +1,5 @@
 package io.github.ludogame.game;
 
-import com.almasb.fxgl.core.collection.grid.Cell;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -8,9 +7,7 @@ import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
-import com.almasb.fxgl.pathfinding.astar.AStarCell;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
-import io.github.ludogame.EntityType;
 import io.github.ludogame.LudoFactory;
 import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.component.PawnComponent;
@@ -24,7 +21,6 @@ import io.github.ludogame.player.LudoPlayer;
 import io.github.ludogame.player.PlayerColor;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,7 +30,6 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -72,9 +67,8 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         FXGL.run(() -> {
             StringBuffer stringBuffer = new StringBuffer();
             LudoPlayerApp.ludoGame.getPlayers().forEach(player -> {
-                stringBuffer.append(player.getNickname()).append(" - ").append(player.getColor()).append("\n");
+                stringBuffer.append(player.getNickname()).append(" - ").append(player.getColor()).append(" Pawns f: ").append(player.getFinishedPawns()).append("\n");
             });
-            stringBuffer.append("Turn: ").append(LudoPlayerApp.ludoGame.getPlayerColorTurn());
             testText.setText(stringBuffer.toString());
         }, Duration.millis(500));
     }
@@ -92,9 +86,7 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
                 18,
                 Config.BLOCK_SIZE,
                 Config.BLOCK_SIZE,
-                type -> {
-                    return CellState.WALKABLE;
-                }
+                type -> CellState.WALKABLE
         );
 
         //list of grid

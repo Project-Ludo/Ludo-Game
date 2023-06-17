@@ -94,7 +94,10 @@ public class LudoServer {
         Bundle bundle = new Bundle("PawnMove");
         bundle.put("data", pawnMoveData);
         serverBundle.broadcast(bundle);
-        LudoServerApp.ludoGame.nextPlayerColorTurn();
+
+        if(pawnMoveData.getDiceResult() != 6) {
+            LudoServerApp.ludoGame.nextPlayerColorTurn();
+        }
     }
 
     public void turnHandler(Bundle message) {
