@@ -25,7 +25,7 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <StackPane fx:id="lobbyStackPane" layoutX="300.0" layoutY="90.0" prefHeight="400.0" prefWidth="500.0">
+      <StackPane fx:id="lobbyStackPane" layoutX="200.0" layoutY="90.0" prefHeight="400.0" prefWidth="500.0">
       </StackPane>
     </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package io.github.ludogame.menu;
 
+import com.almasb.fxgl.ui.UI;
 import io.github.ludogame.notification.ErrorNotification;
 import io.github.ludogame.config.UIConfig;
 import com.almasb.fxgl.dsl.FXGL;
@@ -22,7 +23,7 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_DEFAULT);
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
-        changeControlTexture(titleText, "menu/texture/tile.png");
+        changeControlTexture(titleText, UIConfig.TITLE_TEXT);
     }
 
     public void onStartButtonClick() throws IOException {
@@ -38,5 +39,15 @@ public class MainMenuController extends DefaultMenuButtonAction implements Initi
     public void onRulesButtonClick() throws IOException {
         changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getRulesScene(), 150);
+    }
+
+    @Override
+    public void onStartButtonHover() {
+        changeControlTexture(startButton, UIConfig.START_BUTTON_HOVER);
+    }
+
+    @Override
+    public void onStartButtonExit() {
+        changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
     }
 }

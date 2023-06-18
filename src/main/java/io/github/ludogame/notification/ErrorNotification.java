@@ -1,6 +1,7 @@
 package io.github.ludogame.notification;
 
 import com.almasb.fxgl.dsl.FXGL;
+import io.github.ludogame.config.Config;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -29,12 +30,13 @@ public class ErrorNotification {
 
         Image image = new Image(this.getClass().getClassLoader().getResource("notification/textures/notification_background.png").toExternalForm());
         ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
         imageView.setFitWidth(200);
+        imageView.setFitHeight(100);
 
         customBox.getChildren().add(imageView);
 
-        customBox.setLayoutX(20);
+        customBox.setLayoutX(Config.MAP_WIDTH/2 - imageView.getFitWidth()/2);
+        customBox.setLayoutY(-5);
     }
 
     private void addText(String message) {

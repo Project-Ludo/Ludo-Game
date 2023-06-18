@@ -24,4 +24,14 @@ public class RulesMenuController extends DefaultMenuButtonAction implements Init
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
+
+    @Override
+    public void onStartButtonHover() {
+        changeControlTexture(startButton, UIConfig.START_BUTTON_HOVER);
+    }
+
+    @Override
+    public void onStartButtonExit() {
+        changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
+    }
 }

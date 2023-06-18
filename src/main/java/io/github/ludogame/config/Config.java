@@ -22,6 +22,24 @@ public final class Config {
     public static final Point2D GREEN_PAWN_START_SPAWN_POINT = new Point2D(15, 15);
     public static final Point2D YELLOW_PAWN_START_SPAWN_POINT = new Point2D(17, 5);
     public static final Point2D BLUE_PAWN_START_SPAWN_POINT = new Point2D(11, 9);
+    public static final Point2D BLUE_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            BLUE_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            BLUE_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    );
+    public static final Point2D RED_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            RED_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            RED_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    );
+
+    public static final Point2D GREEN_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            GREEN_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            GREEN_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    );
+
+    public static final Point2D YELLOW_PAWN_START_SPAWN_POINT_PIXELS = new Point2D(
+            YELLOW_PAWN_START_SPAWN_POINT.getX() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2,
+            YELLOW_PAWN_START_SPAWN_POINT.getY() * Config.BLOCK_SIZE + Config.BLOCK_SIZE/2
+    );
 
     public static final Point2D RED_PAWN_FINISH_POINT = new Point2D(17, 10);
     public static final Point2D GREEN_PAWN_FINISH_POINT = new Point2D(16, 11);

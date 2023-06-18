@@ -3,11 +3,14 @@ package io.github.ludogame.player;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.net.Client;
 import com.almasb.fxgl.time.TimerAction;
+import io.github.ludogame.LudoPlayerApp;
 import io.github.ludogame.pawn.Pawn;
+import javafx.geometry.Point2D;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class LudoPlayer implements Serializable {
@@ -113,6 +116,49 @@ public class LudoPlayer implements Serializable {
 
     public void setDiceRolled(boolean diceRolled) {
         this.diceRolled = diceRolled;
+    }
+
+    public boolean hasPossibleMove(int diceResult) {
+
+        //Nie ma żadnego pionka na planszy który sie może ruszyć
+        if (diceResult != 6) {
+            Optional<Pawn> optionalPawn = getPawns().stream()
+                    .filter(p -> !p.isFinished() && p.isStarted())
+                    .findAny();
+            if (optionalPawn.isEmpty()) {
+                return false;
+            }
+
+            // Jeśli liczba oczek jest mneisza lub równa dystansowi do końca
+            Optional<Pawn> optionalPawnIfCanFinish = getPawns().stream()
+                    .filter(p -> {
+                        List<Point2D> path = p.getPawnColor().path;
+                        int currentIndex = LudoPlayerApp.ludoGame.findIndexOfCellInListByPawn(p);
+                        int toEnd = (path.size() - 1) - currentIndex;
+                        return diceResult <= toEnd;
+                    })
+                    .findAny();
+            if (optionalPawnIfCanFinish.isEmpty()) {
+                return false;
+            }
+        }
+
+        //Jeśli każdy jest wystartowany nawet ten który skończył gre
+        if (getPawns().stream().allMatch(Pawn::isStarted)){
+            //czy możesz sie ruszyć
+            Optional<Pawn> optionalPawnIfCanFinish = getPawns().stream()
+                    .filter(p -> {
+                        List<Point2D> path = p.getPawnColor().path;
+                        int currentIndex = LudoPlayerApp.ludoGame.findIndexOfCellInListByPawn(p);
+                        int toEnd = (path.size() - 1) - currentIndex;
+                        return diceResult <= toEnd;
+                    })
+                    .findAny();
+            if (optionalPawnIfCanFinish.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

@@ -1,5 +1,10 @@
 package io.github.ludogame;
 
+import com.almasb.fxgl.animation.Interpolators;
+import com.almasb.fxgl.app.CursorInfo;
+import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.SpawnData;
 import io.github.ludogame.config.Config;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
@@ -8,6 +13,7 @@ import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.music.GameMusic;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.fxml.FXMLLoader;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -20,12 +26,12 @@ public class LudoPlayerApp extends GameApplication {
     public static final LudoGame ludoGame = new LudoGame();
     public static final LudoPlayer player = new LudoPlayer(UUID.randomUUID());
     private GameMusic music;
-
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(Config.MAP_WIDTH);
         settings.setHeight(Config.MAP_HEIGHT);
         settings.setTitle("Bajkowe Ludo");
+        settings.setDefaultCursor(new CursorInfo("ui/cursor.png", 1, 1));
     }
 
     @Override
@@ -36,7 +42,12 @@ public class LudoPlayerApp extends GameApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-      
+
+        FXGL.run(() -> {
+            Entity balloon = FXGL.spawn("Balloon");
+            FXGL.getGameWorld().addEntity(balloon);
+        }, Duration.seconds(10));
+
         music = new GameMusic("start_menu.wav");
     }
 
@@ -52,6 +63,8 @@ public class LudoPlayerApp extends GameApplication {
         FXMLLoader fxmlLoaderGame = new FXMLLoader(getClass().getClassLoader().getResource("game/ludo-game.fxml"));
 
         sceneController = new SceneController(fxmlLoaderStartMenu, fxmlLoaderRulesMenu, fxmlLoaderConnectionMenu, fxmlLoaderLobby, fxmlLoaderGame);
+
+        FXGL.getGameWorld().addEntityFactory(new LudoFactory());
     }
 
     @Override

@@ -67,17 +67,13 @@ public class SceneController {
     }
 
     public void changeSceneAfter(Parent nextScene, double millis) {
-        //TODO Nie wyświetla się po czasie
-//        FXGL.runOnce(() -> {
-////            FXGL.getGameScene().clearUINodes();
-//////            FXGL.getGameScene().addUINode(nextScene);
-////            FXGL.getGameScene().clearGameViews();
-////            FXGL.getGameScene().addGameView(new GameView(nextScene, -100));
-//        }, Duration.millis(millis));
-        FXGL.getGameScene().clearUINodes();
-//            FXGL.getGameScene().addUINode(nextScene);
-        FXGL.getGameScene().clearGameViews();
-        FXGL.getGameScene().addGameView(new GameView(nextScene, -100));
+        //TODO Chyba dziala XD
+        FXGL.runOnce(() -> {
+            FXGL.getGameScene().clearUINodes();
+            FXGL.getGameScene().clearGameViews();
+            FXGL.getGameScene().addUINode(nextScene);
+            FXGL.getGameScene().addGameView(new GameView(nextScene, -100));
+        }, Duration.millis(millis));
     }
 
     public void changeScene(Parent nextScene) {
