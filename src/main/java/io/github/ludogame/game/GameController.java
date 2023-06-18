@@ -1,5 +1,6 @@
 package io.github.ludogame.game;
 
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -8,6 +9,7 @@ import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
+import com.almasb.fxgl.physics.CircleShapeData;
 import com.almasb.fxgl.ui.UI;
 import io.github.ludogame.EntityType;
 import io.github.ludogame.LudoFactory;
@@ -25,14 +27,21 @@ import io.github.ludogame.player.PlayerColor;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +88,7 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     @FXML
     public ImageView redPlayerImageViewFrame;
     public ImageView winImage;
-    public Label winLabel;
+    public Text winLabel;
 
     private LudoFactory ludoFactory;
     private AStarGrid grid;
@@ -91,14 +100,8 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         changeControlTexture(startButton, UIConfig.THROW_BUTTON_DEFAULT);
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
-        this.winImage.setImage(new Image(UIConfig.WIN_IMAGE));
-        this.winImage.setVisible(false);
-        this.winLabel = new Label();
-        this.winLabel.setFont(FXGL.getAssetLoader().loadFont("04B_30__.TTF").newFont(25));
-        this.winLabel.setTextFill(Color.WHITE);
-        this.winLabel.setTranslateX(400);
-        this.winLabel.setTranslateY(300);
-        this.winLabel.setVisible(false);
+
+        winScene();
 
         setGridFromText();
         setBoard();
@@ -124,6 +127,25 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
             setFrameToPlayerOnTurn();
             addPlayerNicknameToPlayerLabel();
         }, Duration.millis(500));
+    }
+
+    private void winScene() {
+        this.winImage = new ImageView(new Image(UIConfig.WIN_IMAGE));
+        this.winImage.setTranslateX(155);
+        this.winImage.setTranslateY(80);
+        this.winImage.setMouseTransparent(true);
+        this.winImage.setVisible(false);
+
+        this.winLabel = new Text();
+        this.winLabel.setLayoutX(480);
+        this.winLabel.setLayoutY(398);
+        this.winLabel.setFont(FXGL.getAssetLoader().loadFont("04B_30__.TTF").newFont(45));
+        this.winLabel.setFill(Color.BLACK);
+        this.winLabel.setVisible(false);
+        this.winLabel.setMouseTransparent(true);
+
+        FXGL.getGameScene().addUINode(this.winImage);
+        FXGL.getGameScene().addUINode(this.winLabel);
     }
 
     private void setFrameToPlayerOnTurn(){
@@ -286,8 +308,11 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         diceView.setImage(diceImage);
     }
 
-    public void onExitButtonClick() {
-        System.out.println("Exit");
+    public void onExitButtonClick() throws IOException {
+//        System.out.println("Wyjscie");
+        changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
+        LudoPlayerApp.player.disconnectFromServer();
+        sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
 
     @Override
