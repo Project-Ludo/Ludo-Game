@@ -32,6 +32,7 @@ public class LudoGame implements Serializable {
     private TimerAction countdownTask;
     private int diceResult;
     private AStarGrid aStarGrid;
+    private boolean started;
 
     public LudoGame() {
     }
@@ -119,6 +120,10 @@ public class LudoGame implements Serializable {
                 .count();
     }
 
+    public boolean isStarted() {
+        return started;
+    }
+
     public AtomicInteger getStartCountdown() {
         return startCountdown;
     }
@@ -147,6 +152,7 @@ public class LudoGame implements Serializable {
             if (this.startCountdown.get() <= 0) {
                 setPlayerColorTurn(getTakenColor());
                 countdownTask.expire();
+                this.started = true;
             }
         }, Duration.seconds(1), COUNTDOWN_VALUE);
     }

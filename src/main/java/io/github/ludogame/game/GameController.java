@@ -8,6 +8,7 @@ import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.pathfinding.CellState;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
+import com.almasb.fxgl.ui.UI;
 import io.github.ludogame.EntityType;
 import io.github.ludogame.LudoFactory;
 import io.github.ludogame.LudoPlayerApp;
@@ -29,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -76,6 +78,8 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
     public ImageView yellowPlayerImageViewFrame;
     @FXML
     public ImageView redPlayerImageViewFrame;
+    public ImageView winImage;
+    public Label winLabel;
 
     private LudoFactory ludoFactory;
     private AStarGrid grid;
@@ -87,6 +91,14 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         changeControlTexture(startButton, UIConfig.THROW_BUTTON_DEFAULT);
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
+        this.winImage.setImage(new Image(UIConfig.WIN_IMAGE));
+        this.winImage.setVisible(false);
+        this.winLabel = new Label();
+        this.winLabel.setFont(FXGL.getAssetLoader().loadFont("04B_30__.TTF").newFont(25));
+        this.winLabel.setTextFill(Color.WHITE);
+        this.winLabel.setTranslateX(400);
+        this.winLabel.setTranslateY(300);
+        this.winLabel.setVisible(false);
 
         setGridFromText();
         setBoard();
@@ -252,7 +264,9 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
             setSpecificDiceImage(result);
 
             FXGL.runOnce(() -> {
-                if (!LudoPlayerApp.player.hasPossibleMove(LudoPlayerApp.ludoGame.getDiceResult()) && LudoPlayerApp.ludoGame.getPlayerColorTurn().equals(LudoPlayerApp.player.getColor())) {
+                if (!LudoPlayerApp.player.hasPossibleMove(LudoPlayerApp.ludoGame.getDiceResult()) &&
+                        LudoPlayerApp.ludoGame.getPlayerColorTurn().equals(LudoPlayerApp.player.getColor()) &&
+                        LudoPlayerApp.player.isDiceRolled()) {
                                         new ErrorNotification("Brak możliwości ruchu");
                                         //Serwer że następna tura
                                         Bundle bundle = new Bundle("ChangeTurn");

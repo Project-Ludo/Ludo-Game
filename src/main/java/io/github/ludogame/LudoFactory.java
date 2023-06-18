@@ -171,6 +171,7 @@ public class LudoFactory implements EntityFactory {
                     ).findFirst();
 
                     if (currentPawn.isEmpty()) {
+                        //TODO JAK PIONEK ZOSTANIE ZBITY I CHCEMY GO ZNOWU WYJAC Z BAZY TO TUTAJ SIE WYPIERDALA CZYLI JAKBY TEN OPTIONAL WYZEJ GO NIE ZNAJDUJE
                         System.out.println("pawn not exist Pawn in player.getPawns() ->");
                         LudoPlayerApp.player.getPawns().forEach(
                                 p -> System.out.println(p.getCell().getX() + " " + p.getCell().getY())
