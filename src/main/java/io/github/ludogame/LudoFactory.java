@@ -156,7 +156,7 @@ public class LudoFactory implements EntityFactory {
                             LudoPlayerApp.player.getDataBundle().broadcast(bundle);
                         }
 
-                        new ErrorNotification("No action");
+                        new ErrorNotification("Musisz ruszyc sie innym pionkiem");
                     } else {
                         player.setDiceRolled(false);
 

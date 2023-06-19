@@ -94,6 +94,8 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }else{
+                new ErrorNotification("Podany serwer nie istnieje!");
             }
         }, Duration.millis(500));
     }
@@ -165,7 +167,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
 
     private ValidationError validateText(TextField textField, int maxLength, int minLength, Pattern pattern) {
         if (textField.getText().length() > maxLength) {
-            new ErrorNotification("Too log nick");
+            new ErrorNotification("Nick za dlugi!");
             return ValidationError.TOO_LONG;
         }
 
