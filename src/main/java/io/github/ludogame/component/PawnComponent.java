@@ -30,7 +30,7 @@ public class PawnComponent extends Component {
      */
     public void move(int diceResult, Pawn pawn) {
         if (pawn.isFinished()) {
-            new ErrorNotification("Ten pionek juz skonczyl gre -.-");
+            new ErrorNotification("Ten pionek juz skonczyl gre");
             return;
         }
 
@@ -40,7 +40,7 @@ public class PawnComponent extends Component {
                 return;
             }
 
-            new ErrorNotification("Musi byc 6");
+            new ErrorNotification("Musisz wylosowac 6 aby wyjsc");
             return;
         }
 
@@ -50,7 +50,7 @@ public class PawnComponent extends Component {
         int toEnd = (path.size() - 1) - currentIndex;
 
         if (toEnd <= 6 && toEnd < diceResult) {
-            new ErrorNotification("Tym nie mozesz");
+            new ErrorNotification("Tym nie mozesz sie ruszyc");
             return;
         }
 
