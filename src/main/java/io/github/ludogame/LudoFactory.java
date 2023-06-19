@@ -206,7 +206,7 @@ public class LudoFactory implements EntityFactory {
                             LudoPlayerApp.player.getDataBundle().broadcast(bundle);
                         }
 
-                        new ErrorNotification("No action");
+                        new ErrorNotification("Musisz ruszyc sie innym pionkiem");
                     } else {
 
                         //TODO Sprawdzenie pinka czy może sie poruszyć

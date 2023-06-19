@@ -261,12 +261,12 @@ public class GameController extends DefaultMenuButtonAction implements Initializ
         changeControlTexture(startButton, UIConfig.THROW_BUTTON_CLICK);
 
         if(!LudoPlayerApp.ludoGame.getPlayerColorTurn().equals(LudoPlayerApp.player.getColor())){
-            new ErrorNotification("Not your turn!");
+            new ErrorNotification("Nie twoja tura!");
             return;
         }
 
         if(LudoPlayerApp.player.isDiceRolled()){
-            new ErrorNotification("Dice is rolled");
+            new ErrorNotification("Kostka juz wylosowana.");
             return;
         }
 
