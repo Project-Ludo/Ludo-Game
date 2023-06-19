@@ -1,5 +1,6 @@
 package io.github.ludogame.menu;
 
+import com.almasb.fxgl.dsl.FXGL;
 import io.github.ludogame.config.UIConfig;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,11 +28,13 @@ public class RulesMenuController extends DefaultMenuButtonAction implements Init
 
     @Override
     public void onStartButtonHover() {
+        FXGL.play("click-select.wav");
         changeControlTexture(startButton, UIConfig.START_BUTTON_HOVER);
     }
 
     @Override
     public void onStartButtonExit() {
+        FXGL.play("click-select.wav");
         changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
     }
 }

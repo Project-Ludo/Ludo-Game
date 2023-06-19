@@ -55,6 +55,7 @@ public abstract class DefaultMenuButtonAction {
     }
 
     public void onMusicButtonClick() {
+        FXGL.play("click-select.wav");
         changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_DEFAULT);
         switchMusicSlider();
     }

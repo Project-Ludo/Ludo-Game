@@ -156,11 +156,13 @@ public class LobbyController extends DefaultMenuButtonAction implements Initiali
     }
 
     public void onStartButtonClick() {
+        FXGL.play("click-select.wav");
         LudoPlayerApp.player.setReady(!LudoPlayerApp.player.isReady());
         changeControlTexture(startButton, UIConfig.READY_BUTTON_CLICK);
     }
 
     public void onExitButtonClick() throws IOException {
+        FXGL.play("click-select.wav");
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         LudoPlayerApp.player.disconnectFromServer();
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);

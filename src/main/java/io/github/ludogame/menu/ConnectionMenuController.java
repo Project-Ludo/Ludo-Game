@@ -68,6 +68,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
     }
 
     public void onStartButtonClick() {
+        FXGL.play("click-select.wav");
         changeControlTextureFor(startButton, UIConfig.CONNECT_BUTTON_CLICK, 150, UIConfig.CONNECT_BUTTON_DEFAULT);
 
         if (validateText(nicknameTextField, PLAYER_NAME_MAX_LENGTH, PLAYER_NAME_MIN_LENGTH, PLAYER_NAME_PATTERN) != ValidationError.NO_ERROR) {
@@ -99,6 +100,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
     }
 
     public void onExitButtonClick() throws IOException {
+        FXGL.play("click-select.wav");
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }

@@ -13,12 +13,14 @@ import io.github.ludogame.game.LudoGame;
 import io.github.ludogame.music.GameMusic;
 import io.github.ludogame.player.LudoPlayer;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.UUID;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.onBtnUp;
 
 public class LudoPlayerApp extends GameApplication {
 
@@ -49,6 +51,14 @@ public class LudoPlayerApp extends GameApplication {
         }, Duration.seconds(10));
 
         music = new GameMusic("start_menu.wav");
+    }
+
+    @Override
+    protected void initInput() {
+        onBtnUp(MouseButton.PRIMARY, () -> {
+            FXGL.play("click-select.wav");
+            return null;
+        });
     }
 
     public GameMusic getMusic() {
