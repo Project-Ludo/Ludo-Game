@@ -54,7 +54,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
+        changeControlTexture(startButton, UIConfig.CONNECT_BUTTON_DEFAULT);
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_DEFAULT);
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
         changeControlTexture(playerNameText, UIConfig.PLAYER_NAME_TEXT);
@@ -68,7 +68,8 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
     }
 
     public void onStartButtonClick() {
-        changeControlTextureFor(startButton, UIConfig.START_BUTTON_CLICK, 150, UIConfig.START_BUTTON_DEFAULT);
+        FXGL.play("click-select.wav");
+        changeControlTextureFor(startButton, UIConfig.CONNECT_BUTTON_CLICK, 150, UIConfig.CONNECT_BUTTON_DEFAULT);
 
         if (validateText(nicknameTextField, PLAYER_NAME_MAX_LENGTH, PLAYER_NAME_MIN_LENGTH, PLAYER_NAME_PATTERN) != ValidationError.NO_ERROR) {
             new Shake(nicknameTextField).setSpeed(1.2).play();
@@ -101,6 +102,7 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
     }
 
     public void onExitButtonClick() throws IOException {
+        FXGL.play("click-select.wav");
         changeControlTexture(exitButton, UIConfig.EXIT_BUTTON_CLICK);
         sceneController.changeSceneAfter(sceneController.getMainMenuScene(), 150);
     }
@@ -184,6 +186,16 @@ public class ConnectionMenuController extends DefaultMenuButtonAction implements
         }
 
         return ValidationError.NO_ERROR;
+    }
+
+    @Override
+    public void onStartButtonHover() {
+        changeControlTexture(startButton, UIConfig.CONNECT_BUTTON_HOVER);
+    }
+
+    @Override
+    public void onStartButtonExit() {
+        changeControlTexture(startButton, UIConfig.CONNECT_BUTTON_DEFAULT);
     }
 
     private enum ValidationError {

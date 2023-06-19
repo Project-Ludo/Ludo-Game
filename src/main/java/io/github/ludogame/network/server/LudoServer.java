@@ -68,22 +68,45 @@ public class LudoServer {
             return;
         }
 
-        LudoPlayer ludoPlayer = PlayerService.convertToPlayer(message.get("player"));
+        LudoPlayerDTO ludoPlayerDTO = message.get("player");
+        LudoPlayer ludoPlayer = PlayerService.convertToPlayer(ludoPlayerDTO);
         connectionHandler.updateLastRequestTime(ludoPlayer.getUuid());
         LudoServerApp.ludoGame.updatePlayer(ludoPlayer);
+
+        if ((long) message.get("finPawns") == 1) {
+            Bundle bundle = new Bundle("Win");
+            bundle.put("player", ludoPlayer.getNickname());
+            serverBundle.broadcast(bundle);
+        } else if (LudoServerApp.ludoGame.getPlayers().size() == 1 && LudoServerApp.ludoGame.isStarted()) {
+            Bundle bundle = new Bundle("Win");
+            bundle.put("player", LudoServerApp.ludoGame.getPlayers().get(0).getNickname());
+            serverBundle.broadcast(bundle);
+            System.out.println("XD");
+        }
     }
 
     public void diceHandler(Bundle message) {
         if (!message.getName().equals("DiceRoll")) {
             return;
         }
-
-        int result = new Random().nextInt(1, 7);
-        LudoServerApp.ludoGame.setDiceResult(result);
         Bundle bundle = new Bundle("DiceRoll");
-        bundle.put("result", result);
+
+        int result = new Random().nextInt(1, 10);
+        if (result >= 6) {
+            LudoServerApp.ludoGame.setDiceResult(6);
+            bundle.put("result", 6);
+
+        } else {
+            LudoServerApp.ludoGame.setDiceResult(result);
+            bundle.put("result", result);
+
+        }
         serverBundle.broadcast(bundle);
     }
+
+    //TODO jesli min 2 graczy to odlicza ale musi byc = ilosci graczy
+    //jesli wyjda to przestaje odliczac
+    //jak zmniejszy sie ilosc ready graczy to przestaje odliczac
 
     public void moveHandler(Bundle message) {
         if (!message.getName().equals("PawnMove")) {
@@ -93,11 +116,13 @@ public class LudoServer {
         PawnMoveData pawnMoveData = message.get("data");
         Bundle bundle = new Bundle("PawnMove");
         bundle.put("data", pawnMoveData);
-        serverBundle.broadcast(bundle);
+        FXGL.runOnce(() -> serverBundle.broadcast(bundle), Duration.millis(100));
+//        serverBundle.broadcast(bundle);
 
-        if(pawnMoveData.getDiceResult() != 6) {
+        if (pawnMoveData.getDiceResult() != 6) {
             LudoServerApp.ludoGame.nextPlayerColorTurn();
         }
+        System.out.println("Pawn Move Data: " + pawnMoveData.getDiceResult());
     }
 
     public void turnHandler(Bundle message) {

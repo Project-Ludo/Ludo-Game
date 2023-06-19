@@ -27,6 +27,7 @@ public abstract class DefaultMenuButtonAction {
     public Button startButton;
 
     protected SceneController sceneController;
+
     private Slider musicSlider;
     private boolean isSlider = false;
 
@@ -42,29 +43,25 @@ public abstract class DefaultMenuButtonAction {
         FXGL.runOnce(() -> changeControlTexture(control, finalImagePath), Duration.millis(duration));
     }
 
-    public void onStartButtonHover() {
-        changeControlTexture(startButton, UIConfig.START_BUTTON_HOVER);
-    }
+    protected abstract void onStartButtonHover();
 
-    public void onStartButtonExit() {
-        changeControlTexture(startButton, UIConfig.START_BUTTON_DEFAULT);
-    }
+    protected abstract void onStartButtonExit();
 
     public void onMusicButtonHover() {
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_HOVER);
     }
-
     public void onMusicButtonExit() {
         changeControlTexture(musicButton, UIConfig.MUSIC_BUTTON_DEFAULT);
     }
 
-    public void onRulesButtonHover() {
-        changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_HOVER);
+    public void onMusicButtonClick() {
+        FXGL.play("click-select.wav");
+        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_DEFAULT);
+        switchMusicSlider();
     }
 
-    public void onMusicButtonClick() {
-        changeControlTextureFor(musicButton, UIConfig.MUSIC_BUTTON_CLICK, 150, UIConfig.MUSIC_BUTTON_HOVER);
-        switchMusicSlider();
+    public void onRulesButtonHover() {
+        changeControlTexture(rulesButton, UIConfig.RULES_BUTTON_HOVER);
     }
 
     public void onRulesButtonExit() {

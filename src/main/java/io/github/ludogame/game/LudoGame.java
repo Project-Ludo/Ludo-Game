@@ -22,14 +22,17 @@ import java.util.stream.Collectors;
 
 public class LudoGame implements Serializable {
 
+    private final int COUNTDOWN_VALUE = 10;
+
     private CopyOnWriteArrayList<LudoPlayer> players = new CopyOnWriteArrayList<>();
-    private AtomicInteger startCountdown = new AtomicInteger(60);
+    private AtomicInteger startCountdown = new AtomicInteger(COUNTDOWN_VALUE);
     private Server<Bundle> server;
     private boolean countdownStarted;
     private PlayerColor playerColorTurn;
     private TimerAction countdownTask;
     private int diceResult;
     private AStarGrid aStarGrid;
+    private boolean started;
 
     public LudoGame() {
     }
@@ -49,16 +52,16 @@ public class LudoGame implements Serializable {
 
         return -1;
     }
+    public int findIndexOfCellInListByCoordination(Pawn pawn, int x, int y) {
+        int i;
+        for (i = 0; i < pawn.getPawnColor().path.size(); i++) {
+            if (pawn.getPawnColor().path.get(i).getY() == y && pawn.getPawnColor().path.get(i).getX() == x) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-//    public int findIndexOfCellInListByCell(AStarCell cell) {
-//        int i;
-//        for (i = 0; i < Config.DEFAULT_PATH.size(); i++) {
-//            if (Config.DEFAULT_PATH.get(i).getY() == cell.getY() && Config.DEFAULT_PATH.get(i).getX() == cell.getX()) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
 
     public AStarGrid getListOfGrid() {
         return aStarGrid;
@@ -117,6 +120,10 @@ public class LudoGame implements Serializable {
                 .count();
     }
 
+    public boolean isStarted() {
+        return started;
+    }
+
     public AtomicInteger getStartCountdown() {
         return startCountdown;
     }
@@ -138,15 +145,16 @@ public class LudoGame implements Serializable {
         this.countdownTask = FXGL.run(() -> {
             this.startCountdown.decrementAndGet();
 
-            if (getReadyPlayersAmount() >= 2 && this.startCountdown.get() > 5) {
+            if (getReadyPlayersAmount() >= 3 && this.startCountdown.get() > 5) {
                 this.startCountdown.set(5);
             }
 
-            if (this.startCountdown.get() < 0) {
+            if (this.startCountdown.get() <= 0) {
                 setPlayerColorTurn(getTakenColor());
                 countdownTask.expire();
+                this.started = true;
             }
-        }, Duration.seconds(1), 60);
+        }, Duration.seconds(1), COUNTDOWN_VALUE);
     }
 
     public PlayerColor getAvailableColor() {
@@ -186,12 +194,15 @@ public class LudoGame implements Serializable {
             for (LudoPlayer player : this.players) {
                 if (player.getColor() == playerColor) {
                     setPlayerColorTurn(playerColor);
+                    System.out.println("Player Color: " + playerColor);
                     return;
                 }
             }
         }
     }
 
+    //TODO pomija ture jak nie może wejśc na koniec a ma pionki jeszcze w grze
+    //  Pomija ture gdy mam 6 i nasz pionek jest na starcie
 
     public Server<Bundle> getServer() {
         return server;

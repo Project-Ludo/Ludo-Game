@@ -37,11 +37,12 @@ public class ClientConnector implements IClient {
         Client<Bundle> client = FXGL.getNetService().newUDPClient(ip, port);
         client.connectAsync();
         client.setOnConnected(connection -> connection.addMessageHandlerFX((conn, message) -> {
-            handleConnection(client, message, player);
+            handleConnection(client,message, player);
             handleLobby(message);
             handleDice(message);
             handlePawnMove(message);
             handleTurn(message);
+            handleWin(message);
         }));
 
         FXGL.runOnce(() -> {
@@ -54,7 +55,7 @@ public class ClientConnector implements IClient {
         return client;
     }
 
-    private void handleConnection(Client<Bundle> client, Bundle message, LudoPlayer player) {
+    private void handleConnection(Client<Bundle> client,Bundle message, LudoPlayer player) {
         if (!message.getName().equals("ConnectionResponse")) {
             return;
         }
@@ -71,6 +72,7 @@ public class ClientConnector implements IClient {
             player.setReady(responsePlayer.isReady());
             player.setConnected(response.getPlayer().isConnected());
             System.out.println("Success, your color: " + player.getColor());
+
             connectionHandlerTask(client, player);
         } else {
             new ErrorNotification(response.getMessage());
@@ -102,7 +104,7 @@ public class ClientConnector implements IClient {
 
         LudoPlayer ludoPlayer = first.get();
         Optional<Pawn> first1 = ludoPlayer.getPawns().stream().filter(pawn -> pawn.getId() == data.getId()).findFirst();
-        if (first1.isEmpty()) {
+        if(first1.isEmpty()){
             System.out.println("No pawn");
             return;
         }
@@ -126,6 +128,7 @@ public class ClientConnector implements IClient {
             LudoPlayerDTO playerDTO = PlayerService.convertToDTO(player);
             Bundle bundle = new Bundle("ConnectionFlag");
             bundle.put("player", playerDTO);
+            bundle.put("finPawns", player.getFinishedPawns());
             client.broadcast(bundle);
         }, Duration.millis(500));
 
@@ -148,5 +151,22 @@ public class ClientConnector implements IClient {
 
         FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
                 .diceView.setImage(new Image("assets/textures/dice/dice_throw_fast.gif"));
+    }
+
+    private void handleWin(Bundle message){
+        if(!message.getName().equals("Win")){
+            return;
+        }
+
+        String player = message.get("player");
+
+        //TODO fix label
+        FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
+                .winImage.setVisible(true);
+        FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
+                .winLabel.setVisible(true);
+        FXGL.<LudoPlayerApp>getAppCast().getSceneController().getGameSceneController()
+                .winLabel.setText(player);
+
     }
 }

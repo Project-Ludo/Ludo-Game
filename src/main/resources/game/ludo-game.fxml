@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.ludogame.game.GameController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.ludogame.game.GameController">
     <children>
-        <Button fx:id="startButton" layoutX="440.0" layoutY="600.0" mnemonicParsing="false" onAction="#onStartButtonClick" onMouseEntered="#onStartButtonHover" onMouseExited="#onStartButtonExit" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent">
+        <Button fx:id="startButton" layoutX="447.0" layoutY="600.0" mnemonicParsing="false" onAction="#onStartButtonClick" onMouseEntered="#onStartButtonHover" onMouseExited="#onStartButtonExit" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font></Button>
@@ -19,10 +21,53 @@
             <Image url="@../assets/textures/board/board.png" />
          </image>
         </ImageView>
-      <ImageView fx:id="diceView" fitHeight="50.0" fitWidth="50.0" layoutX="675.0" layoutY="613.0" pickOnBounds="true" preserveRatio="true" >
+      <ImageView fx:id="diceView" fitHeight="50.0" fitWidth="50.0" layoutX="675.0" layoutY="613.0" pickOnBounds="true" preserveRatio="true">
           <image>
-              <Image url="@../assets/textures/dice/dice_throw.gif" preserveRatio="true" />
+              <Image preserveRatio="true" url="@../assets/textures/dice/dice_throw.gif" />
           </image>
       </ImageView>
+      <ImageView fx:id="bluePlayerImageView" fitHeight="100.0" fitWidth="100.0" layoutX="180.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../assets/textures/player/3 Dude_Monster/Dude_Monster.png" />
+          </image>
+      </ImageView>
+      <ImageView fx:id="greenPlayerImageView" fitHeight="100.0" fitWidth="100.0" layoutX="180.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/textures/player/4 Green_Monster/Green_Monster.png" />
+         </image></ImageView>
+      <ImageView fx:id="yellowPlayerImageView" fitHeight="100.0" fitWidth="100.0" layoutX="850.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/textures/player/2 Owlet_Monster/Owlet_Monster.png" />
+         </image></ImageView>
+      <ImageView fx:id="redPlayerImageView" fitHeight="100.0" fitWidth="100.0" layoutX="850.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/textures/player/1 Pink_Monster/Pink_Monster.png" />
+         </image>
+      </ImageView>
+
+        <ImageView fx:id="bluePlayerImageViewFrame" fitHeight="125.0" fitWidth="125.0" layoutX="168.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../assets/textures/board/frame.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="greenPlayerImageViewFrame" fitHeight="125.0" fitWidth="125.0" layoutX="168.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../assets/textures/board/frame.png" />
+            </image></ImageView>
+        <ImageView fx:id="yellowPlayerImageViewFrame" fitHeight="125.0" fitWidth="125.0" layoutX="838.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../assets/textures/board/frame.png" />
+            </image></ImageView>
+        <ImageView fx:id="redPlayerImageViewFrame" fitHeight="125.0" fitWidth="125.0" layoutX="838.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../assets/textures/board/frame.png" />
+            </image>
+        </ImageView>
+
+      <Label fx:id="bluePlayerLabel" layoutX="216.0" layoutY="30.0" />
+      <Label fx:id="greenPlayerLabel" layoutX="216.0" layoutY="500.0" />
+      <Label fx:id="yellowPlayerLabel" layoutX="886.0" layoutY="30.0" />
+      <Label fx:id="redPlayerLabel" layoutX="886.0" layoutY="500.0" />
+      <ImageView fx:id="winImage" fitHeight="700.0" fitWidth="1100.0" layoutX="96.0" layoutY="20.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
